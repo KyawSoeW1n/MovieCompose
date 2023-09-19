@@ -1,9 +1,7 @@
 package com.kurio.tetsuya.movie.compose.ui.features.viewmodel
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.kurio.tetsuya.movie.compose.data.remote.model.movie.MovieItemVO
 import com.kurio.tetsuya.movie.compose.data.remote.model.movie.PopularMovieListVO
 import com.kurio.tetsuya.movie.compose.domain.cache.upcoming.GetCacheUpcomingListUseCaseImpl
 import com.kurio.tetsuya.movie.compose.domain.cache.upcoming.UpdateCacheUpcomingMovieUseCaseImpl
@@ -13,7 +11,6 @@ import com.kurio.tetsuya.movie.compose.presentation.ViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

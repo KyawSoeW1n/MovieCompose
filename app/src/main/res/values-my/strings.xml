@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dark">အမှောင်</string>
+    <string name="light">အလင်း</string>
+    <string name="system">စစ်စတန်</string>
+</resources>

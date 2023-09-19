@@ -10,7 +10,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.kurio.tetsuya.movie.compose.data.remote.model.movie.RelatedMovieVO
 import com.kurio.tetsuya.movie.compose.presentation.ViewState
-import com.kurio.tetsuya.movie.compose.ui.common.FullLoadingView
 import com.kurio.tetsuya.movie.compose.ui.common.PartialLoadingView
 import com.kurio.tetsuya.movie.compose.ui.common.PrimaryTextView
 import com.kurio.tetsuya.movie.compose.ui.features.destinations.MovieDetailScreenDestination

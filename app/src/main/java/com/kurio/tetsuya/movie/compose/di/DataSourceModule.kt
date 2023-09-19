@@ -11,8 +11,8 @@ import dagger.hilt.android.scopes.ViewModelScoped
 
 @Module
 @InstallIn(ViewModelComponent::class)
-abstract class DataSourceModule {
+interface DataSourceModule {
     @Binds
     @ViewModelScoped
-    abstract fun bindMovieDataSourceImpl(movieDataSourceImpl: MovieDataSourceImpl): MovieDataSource
+    fun bindMovieDataSourceImpl(movieDataSourceImpl: MovieDataSourceImpl): MovieDataSource
 }

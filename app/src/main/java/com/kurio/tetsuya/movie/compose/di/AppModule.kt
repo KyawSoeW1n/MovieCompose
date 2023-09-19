@@ -10,8 +10,8 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class AppModule {
+interface  AppModule {
     @Binds
     @Singleton
-    abstract fun bindAppPreferences(impl: AppPreferencesDataStoreDataStoreImpl): AppPreferencesDataStore
+    fun bindAppPreferences(impl: AppPreferencesDataStoreDataStoreImpl): AppPreferencesDataStore
 }

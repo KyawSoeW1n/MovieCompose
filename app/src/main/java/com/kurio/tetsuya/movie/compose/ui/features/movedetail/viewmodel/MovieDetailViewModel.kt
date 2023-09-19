@@ -9,7 +9,6 @@ import com.kurio.tetsuya.movie.compose.presentation.BaseViewModel
 import com.kurio.tetsuya.movie.compose.presentation.ViewState
 import com.kurio.tetsuya.movie.compose.util.CoroutinesDispatchers
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

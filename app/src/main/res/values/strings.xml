@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">MovieCompose</string>
+    <string name="app_name" translatable="false">MovieCompose</string>
+    <string name="dark">Dark</string>
+    <string name="light">Light</string>
+    <string name="system">System</string>
+
 </resources>
