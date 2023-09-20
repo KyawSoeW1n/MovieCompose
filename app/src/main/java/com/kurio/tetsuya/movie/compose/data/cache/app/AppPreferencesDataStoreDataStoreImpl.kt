@@ -6,6 +6,7 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.stringPreferencesKey
+import com.kurio.tetsuya.movie.compose.core.locale.LanguageType
 import com.kurio.tetsuya.movie.compose.core.theme.AppThemeType
 import com.kurio.tetsuya.movie.compose.domain.model.AppConfiguration
 import com.kurio.tetsuya.movie.compose.extensions.showLog
@@ -29,10 +30,12 @@ class AppPreferencesDataStoreDataStoreImpl @Inject constructor(
         .map { preferences ->
             val useDynamicColors = preferences[PreferencesKeys.useDynamicColors] ?: true
             val themeStyle = preferences[PreferencesKeys.themeStyle].toThemeStyleType()
+            val locale = preferences[PreferencesKeys.locale].toLocale()
 
             AppConfiguration(
                 useDynamicColors = useDynamicColors,
-                themeStyle = themeStyle
+                themeStyle = themeStyle,
+                languageType = locale
             )
         }
 
@@ -53,6 +56,14 @@ class AppPreferencesDataStoreDataStoreImpl @Inject constructor(
         }
     }
 
+    override suspend fun changeLocale(languageType: LanguageType) {
+        tryIt {
+            dataStorePreferences.edit { preferences ->
+                preferences[PreferencesKeys.locale] = languageType.name
+            }
+        }
+    }
+
     private suspend fun tryIt(action: suspend () -> Unit) {
         try {
             action()
@@ -69,8 +80,15 @@ class AppPreferencesDataStoreDataStoreImpl @Inject constructor(
         else -> AppThemeType.SYSTEM
     }
 
+    private fun String?.toLocale(): LanguageType = when (this) {
+        LanguageType.en.name -> LanguageType.en
+        LanguageType.my.name -> LanguageType.my
+        else -> LanguageType.en
+    }
+
     private object PreferencesKeys {
         val useDynamicColors = booleanPreferencesKey(name = "use_dynamic_colors")
         val themeStyle = stringPreferencesKey(name = "theme_style")
+        val locale = stringPreferencesKey(name = "locale")
     }
 }

@@ -1,10 +1,11 @@
 package com.kurio.tetsuya.movie.compose.ui.features.setting
 
-import com.kurio.tetsuya.movie.compose.core.locale.LanguageType
 import androidx.lifecycle.viewModelScope
+import com.kurio.tetsuya.movie.compose.core.locale.LanguageType
 import com.kurio.tetsuya.movie.compose.core.theme.AppThemeType
-import com.kurio.tetsuya.movie.compose.domain.cache.theme.ChangeThemeStyleUseCaseRepo
-import com.kurio.tetsuya.movie.compose.domain.cache.theme.ThemeUseCaseImpl
+import com.kurio.tetsuya.movie.compose.domain.app_data.GetAppDataUseCaseImpl
+import com.kurio.tetsuya.movie.compose.domain.cache.locale.ChangeLocaleUseCase
+import com.kurio.tetsuya.movie.compose.domain.cache.theme.ChangeThemeStyleUseCase
 import com.kurio.tetsuya.movie.compose.presentation.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,11 +15,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SettingViewModel @Inject constructor(
-    private val changeThemeStyleUseCaseRepo: ChangeThemeStyleUseCaseRepo,
-    private val themeUseCaseRepo: ThemeUseCaseImpl
+    private val changeThemeStyleUseCase: ChangeThemeStyleUseCase,
+    private val changeLocaleUseCase: ChangeLocaleUseCase,
+    private val getAppDataUseCaseImpl: GetAppDataUseCaseImpl
 ) : BaseViewModel() {
     val themeMode = MutableStateFlow(value = AppThemeType.LIGHT)
-    val languageTypettt = MutableStateFlow(value = LanguageType.ENGLISH)
+    val languageType = MutableStateFlow(value = LanguageType.en)
 
     init {
         watchAppConfigurationStream()
@@ -26,22 +28,23 @@ class SettingViewModel @Inject constructor(
 
     private fun watchAppConfigurationStream() {
         viewModelScope.launch {
-            themeUseCaseRepo().collectLatest { appConfiguration ->
+            getAppDataUseCaseImpl().collectLatest { appConfiguration ->
                 themeMode.value = appConfiguration.themeStyle
+                languageType.value = appConfiguration.languageType
             }
         }
     }
 
     fun changeThemeStyle(appThemeType: AppThemeType) {
         viewModelScope.launch {
-            changeThemeStyleUseCaseRepo(appThemeType = appThemeType)
+            changeThemeStyleUseCase(appThemeType = appThemeType)
         }
     }
 
-    fun changeLanguageType(languageType: LanguageType) {
+    fun changeLocale(languageType: LanguageType) {
         viewModelScope.launch {
-            languageTypettt.value = languageType
-//            changeThemeStyleUseCaseRepo(appThemeType = languageType)
+            changeLocaleUseCase(languageType = languageType)
+            this@SettingViewModel.languageType.value = languageType
         }
     }
 }

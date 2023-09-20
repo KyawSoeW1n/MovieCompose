@@ -1,9 +1,5 @@
 package com.kurio.tetsuya.movie.compose.ui.features.setting
 
-import android.app.LocaleManager
-import android.content.Context
-import android.os.Build
-import android.os.LocaleList
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,14 +14,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.kurio.tetsuya.movie.compose.MainActivity
 import com.kurio.tetsuya.movie.compose.R
 import com.kurio.tetsuya.movie.compose.core.locale.LanguageType
+import com.kurio.tetsuya.movie.compose.core.locale.LocaleHelper
 import com.kurio.tetsuya.movie.compose.core.theme.AppThemeType
 import com.kurio.tetsuya.movie.compose.ui.common.CommonAppBar
 import com.kurio.tetsuya.movie.compose.ui.common.PrimaryTextView
 import com.ramcosta.composedestinations.annotation.Destination
-import java.util.Locale
 
 @Composable
 @Destination
@@ -33,7 +28,7 @@ fun SettingScreen(
     settingViewModel: SettingViewModel = hiltViewModel()
 ) {
     val appTheme = settingViewModel.themeMode.collectAsStateWithLifecycle()
-    val languageType = settingViewModel.languageTypettt.collectAsStateWithLifecycle()
+    val languageType = settingViewModel.languageType.collectAsStateWithLifecycle()
     val context = LocalContext.current
     Column(
         modifier = Modifier
@@ -81,22 +76,24 @@ fun SettingScreen(
             )
             ThemeRadioButton(
                 label = "English",
-                selected = languageType.value == LanguageType.ENGLISH,
+                selected = languageType.value == LanguageType.en,
                 onClick = {
-                    changeLocale(context = context, "en", onClick = {
-                        settingViewModel.changeLanguageType(languageType = LanguageType.ENGLISH)
-                    })
+                    LocaleHelper.changeLocale(context = context,
+                        LanguageType.en.name,
+                        onClick = {
+                            settingViewModel.changeLocale(languageType = LanguageType.en)
+                        })
                 }
             )
 
             ThemeRadioButton(
                 label = "Burmese",
-                selected = languageType.value == LanguageType.MYANMAR,
+                selected = languageType.value == LanguageType.my,
                 onClick = {
-                    changeLocale(context = context,
-                        "my",
+                    LocaleHelper.changeLocale(context = context,
+                        LanguageType.my.name,
                         onClick = {
-                            settingViewModel.changeLanguageType(languageType = LanguageType.MYANMAR)
+                            settingViewModel.changeLocale(languageType = LanguageType.my)
                         })
                 }
             )
@@ -104,17 +101,6 @@ fun SettingScreen(
     }
 }
 
-private fun changeLocale(context: Context, locale: String, onClick: () -> Unit) {
-    val appLocale = LocaleList(Locale(locale))
-
-
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-        val localeManager = (context as? MainActivity)!!.getSystemService(LocaleManager::class.java)
-        localeManager.applicationLocales = appLocale
-//        (context as? MainActivity)!!.recreate()
-    }
-    onClick()
-}
 
 @Preview(name = "SettingPreview")
 @Composable
