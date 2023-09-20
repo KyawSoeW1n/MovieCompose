@@ -1,8 +1,11 @@
 package com.kurio.tetsuya.movie.compose
 
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -18,15 +21,17 @@ import com.kurio.tetsuya.movie.compose.core.theme.LightColorScheme
 import com.ramcosta.composedestinations.annotation.RootNavGraph
 import dagger.hilt.android.AndroidEntryPoint
 
+
 @AndroidEntryPoint
 @RootNavGraph(start = true)
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContent {
             val mainViewModel: MainViewModel = hiltViewModel()
             val themeMode by mainViewModel.themeMode.collectAsStateWithLifecycle()
-            PaymentScannerTheme(themeMode) {
+            MovieAppTheme(themeMode) {
                 val navController = rememberNavController()
                 AppNavigation(navController = navController)
             }
@@ -35,7 +40,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun PaymentScannerTheme(
+fun MovieAppTheme(
     themeType: AppThemeType,
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+

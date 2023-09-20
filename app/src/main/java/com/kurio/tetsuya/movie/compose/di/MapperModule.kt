@@ -10,7 +10,7 @@ import dagger.hilt.android.scopes.ViewModelScoped
 
 @Module
 @InstallIn(ViewModelComponent::class)
-class MapperModule {
+object MapperModule {
     @Provides
     @ViewModelScoped
     fun provideUpcomingMapper() = UpcomingMapper()

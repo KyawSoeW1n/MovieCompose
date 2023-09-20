@@ -30,7 +30,7 @@ fun UpcomingScreen(
 ) {
 
     val movieList =
-        upcomingViewModel.getCacheUpcomingList().collectAsState(initial = mutableListOf())
+        upcomingViewModel.getCacheUpcomingList().collectAsStateWithLifecycle(initialValue = mutableListOf())
 
     val isRefresh = upcomingViewModel.isRefreshing.collectAsStateWithLifecycle()
     val pullRefreshState =

@@ -2,7 +2,7 @@ package com.kurio.tetsuya.movie.compose
 
 import androidx.lifecycle.viewModelScope
 import com.kurio.tetsuya.movie.compose.core.theme.AppThemeType
-import com.kurio.tetsuya.movie.compose.domain.cache.theme.ThemeUseCaseImpl
+import com.kurio.tetsuya.movie.compose.domain.app_data.GetAppDataUseCaseImpl
 import com.kurio.tetsuya.movie.compose.presentation.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val themeUseCaseImpl: ThemeUseCaseImpl
+    private val themeUseCaseImpl: GetAppDataUseCaseImpl
 ) : BaseViewModel() {
     val themeMode = MutableStateFlow(value = AppThemeType.LIGHT)
     init {

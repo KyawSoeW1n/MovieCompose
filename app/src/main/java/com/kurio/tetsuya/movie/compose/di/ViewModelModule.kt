@@ -4,14 +4,16 @@ import com.kurio.tetsuya.movie.compose.data.remote.impl.movie_detail.MovieDetail
 import com.kurio.tetsuya.movie.compose.data.remote.impl.movie_detail.MovieDetailRepoImpl
 import com.kurio.tetsuya.movie.compose.data.remote.impl.related_movie.RelatedMovieRepo
 import com.kurio.tetsuya.movie.compose.data.remote.impl.related_movie.RelatedMovieRepoImpl
-import com.kurio.tetsuya.movie.compose.domain.cache.theme.ChangeThemeStyleUseCaseRepo
-import com.kurio.tetsuya.movie.compose.domain.cache.theme.ChangeThemeStyleUseCaseRepoImpl
-import com.kurio.tetsuya.movie.compose.domain.cache.theme.ThemeUseCase
-import com.kurio.tetsuya.movie.compose.domain.cache.theme.ThemeUseCaseImpl
-import com.kurio.tetsuya.movie.compose.domain.cache.upcoming.GetCacheUpcomingListUseCaseImpl
+import com.kurio.tetsuya.movie.compose.domain.app_data.GetAppDataUseCase
+import com.kurio.tetsuya.movie.compose.domain.app_data.GetAppDataUseCaseImpl
+import com.kurio.tetsuya.movie.compose.domain.cache.locale.ChangeLocaleUseCase
+import com.kurio.tetsuya.movie.compose.domain.cache.locale.ChangeLocaleUseCaseImpl
+import com.kurio.tetsuya.movie.compose.domain.cache.theme.ChangeThemeStyleUseCase
+import com.kurio.tetsuya.movie.compose.domain.cache.theme.ChangeThemeStyleUseCaseImpl
 import com.kurio.tetsuya.movie.compose.domain.cache.upcoming.GetCacheUpcomingListUseCase
-import com.kurio.tetsuya.movie.compose.domain.cache.upcoming.InsertUpcomingListUseCaseImpl
+import com.kurio.tetsuya.movie.compose.domain.cache.upcoming.GetCacheUpcomingListUseCaseImpl
 import com.kurio.tetsuya.movie.compose.domain.cache.upcoming.InsertUpcomingListUseCase
+import com.kurio.tetsuya.movie.compose.domain.cache.upcoming.InsertUpcomingListUseCaseImpl
 import com.kurio.tetsuya.movie.compose.domain.cache.upcoming.UpdateCacheUpcomingMovieUseCase
 import com.kurio.tetsuya.movie.compose.domain.cache.upcoming.UpdateCacheUpcomingMovieUseCaseImpl
 import com.kurio.tetsuya.movie.compose.domain.remote.fetch_popular.PopularListUseCase
@@ -59,9 +61,13 @@ abstract class ViewModelModule {
 
     @Binds
     @ViewModelScoped
-    abstract fun bindThemeUseCase(themeUseCaseImpl: ThemeUseCaseImpl): ThemeUseCase
+    abstract fun bindThemeUseCase(themeUseCaseImpl: GetAppDataUseCaseImpl): GetAppDataUseCase
 
     @Binds
     @ViewModelScoped
-    abstract fun bindChangeThemeStyleUseCase(changeThemeStyleUseCaseImpl: ChangeThemeStyleUseCaseRepoImpl): ChangeThemeStyleUseCaseRepo
+    abstract fun bindChangeThemeStyleUseCase(changeThemeStyleUseCaseImpl: ChangeThemeStyleUseCaseImpl): ChangeThemeStyleUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindChangeLocaleUseCase(changeLocaleUseCaseImpl: ChangeLocaleUseCaseImpl): ChangeLocaleUseCase
 }

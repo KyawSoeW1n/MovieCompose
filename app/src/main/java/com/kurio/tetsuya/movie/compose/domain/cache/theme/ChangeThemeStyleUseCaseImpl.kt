@@ -6,9 +6,9 @@ import javax.inject.Inject
 
 
 
-class ChangeThemeStyleUseCaseRepoImpl @Inject constructor(
+class ChangeThemeStyleUseCaseImpl @Inject constructor(
     private val appPreferencesDataStore: AppPreferencesDataStore
-) : ChangeThemeStyleUseCaseRepo {
+) : ChangeThemeStyleUseCase {
     override suspend fun invoke(appThemeType: AppThemeType) =
         appPreferencesDataStore.changeThemeStyle(appThemeType = appThemeType)
 }

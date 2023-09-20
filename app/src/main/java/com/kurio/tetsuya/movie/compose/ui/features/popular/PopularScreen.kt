@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.kurio.tetsuya.movie.compose.ui.features.MovieItem
 import com.kurio.tetsuya.movie.compose.ui.features.destinations.MovieDetailScreenDestination
 import com.kurio.tetsuya.movie.compose.ui.features.popular.viewmodel.PopularViewModel
@@ -20,7 +21,7 @@ fun PopularScreen(
     navigator: DestinationsNavigator
 ) {
     val movieList =
-        popularViewModel.getCachePopularList().collectAsState(initial = mutableListOf())
+        popularViewModel.getCachePopularList().collectAsStateWithLifecycle(initialValue = mutableListOf())
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         state = rememberLazyGridState(),

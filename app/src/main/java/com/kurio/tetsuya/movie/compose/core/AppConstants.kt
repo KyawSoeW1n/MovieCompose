@@ -5,7 +5,7 @@ import com.kurio.tetsuya.movie.compose.BuildConfig
 object AppConstants {
     const val sampleImage =
         "https://images.unsplash.com/photo-1608229191360-7064b0afa639?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=800&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTY5MzI5NzYyMg&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1900"
-    const val token = ""
+    const val token = BuildConfig.API_KEY
 
 
     const val sampleText =
