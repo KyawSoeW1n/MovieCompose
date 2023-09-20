@@ -1,7 +1,7 @@
 package com.kurio.tetsuya.movie.compose.ui.features.setting
 
-import androidx.lifecycle.viewModelScope
 import com.kurio.tetsuya.movie.compose.core.locale.LanguageType
+import androidx.lifecycle.viewModelScope
 import com.kurio.tetsuya.movie.compose.core.theme.AppThemeType
 import com.kurio.tetsuya.movie.compose.domain.cache.theme.ChangeThemeStyleUseCaseRepo
 import com.kurio.tetsuya.movie.compose.domain.cache.theme.ThemeUseCaseImpl

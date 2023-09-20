@@ -26,6 +26,10 @@ android {
         ksp {
             arg("room.schemaLocation", "$projectDir/schemas")
         }
+        resourceConfigurations += arrayOf(
+            "en",
+            "my"
+        )
     }
 
     applicationVariants.all {
@@ -179,5 +183,8 @@ dependencies {
     testImplementation(libs.mockk)
     testImplementation(libs.mockk.agentJvm)
     androidTestImplementation(libs.mockk.android)
+
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.appcompat.resource)
 
 }

@@ -1,7 +1,12 @@
 package com.kurio.tetsuya.movie.compose.ui.features.setting
 
-import android.app.Activity
+import android.app.LocaleManager
+import android.content.Context
+import android.os.Build
+import android.os.LocaleList
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -13,13 +18,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.kurio.tetsuya.movie.compose.MainActivity
 import com.kurio.tetsuya.movie.compose.R
 import com.kurio.tetsuya.movie.compose.core.locale.LanguageType
-import com.kurio.tetsuya.movie.compose.core.locale.LocaleHelper
 import com.kurio.tetsuya.movie.compose.core.theme.AppThemeType
 import com.kurio.tetsuya.movie.compose.ui.common.CommonAppBar
 import com.kurio.tetsuya.movie.compose.ui.common.PrimaryTextView
 import com.ramcosta.composedestinations.annotation.Destination
+import java.util.Locale
 
 @Composable
 @Destination
@@ -29,12 +35,19 @@ fun SettingScreen(
     val appTheme = settingViewModel.themeMode.collectAsStateWithLifecycle()
     val languageType = settingViewModel.languageTypettt.collectAsStateWithLifecycle()
     val context = LocalContext.current
-    Column {
+    Column(
+        modifier = Modifier
+            .background(color = MaterialTheme.colorScheme.onBackground)
+            .fillMaxSize()
+    ) {
         CommonAppBar(title = "Setting")
         Column {
             PrimaryTextView(
                 text = "Theme",
-                modifier = Modifier.padding(start = 16.dp),
+                modifier = Modifier.padding(
+                    start = 16.dp,
+                    top = 8.dp
+                ),
                 fontWeight = FontWeight.Medium,
                 textStyle = MaterialTheme.typography.titleMedium
             )
@@ -70,9 +83,9 @@ fun SettingScreen(
                 label = "English",
                 selected = languageType.value == LanguageType.ENGLISH,
                 onClick = {
-                    settingViewModel.changeLanguageType(languageType = LanguageType.ENGLISH)
-                    LocaleHelper.setLocale(context, "en")
-                    (context as? Activity)!!.recreate()
+                    changeLocale(context = context, "en", onClick = {
+                        settingViewModel.changeLanguageType(languageType = LanguageType.ENGLISH)
+                    })
                 }
             )
 
@@ -80,13 +93,27 @@ fun SettingScreen(
                 label = "Burmese",
                 selected = languageType.value == LanguageType.MYANMAR,
                 onClick = {
-                    settingViewModel.changeLanguageType(languageType = LanguageType.MYANMAR)
-                    LocaleHelper.setLocale(context, "my")
-                    (context as? Activity)!!.recreate()
+                    changeLocale(context = context,
+                        "my",
+                        onClick = {
+                            settingViewModel.changeLanguageType(languageType = LanguageType.MYANMAR)
+                        })
                 }
             )
         }
     }
+}
+
+private fun changeLocale(context: Context, locale: String, onClick: () -> Unit) {
+    val appLocale = LocaleList(Locale(locale))
+
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        val localeManager = (context as? MainActivity)!!.getSystemService(LocaleManager::class.java)
+        localeManager.applicationLocales = appLocale
+//        (context as? MainActivity)!!.recreate()
+    }
+    onClick()
 }
 
 @Preview(name = "SettingPreview")

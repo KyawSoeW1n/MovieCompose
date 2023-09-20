@@ -16,7 +16,7 @@ fun PrimaryTextView(
     text: String,
     modifier: Modifier = Modifier,
     textStyle: TextStyle = MaterialTheme.typography.labelMedium,
-    textColor: Color = Color.Unspecified,
+    textColor: Color = MaterialTheme.colorScheme.surfaceTint,
     textAlign: TextAlign = TextAlign.Start,
     maxLines: Int = Int.MAX_VALUE,
     overflow: TextOverflow = TextOverflow.Ellipsis,
