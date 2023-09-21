@@ -1,8 +1,6 @@
 package com.kurio.tetsuya.movie.compose
 
 import android.app.Application
-import android.content.Context
-import com.kurio.tetsuya.movie.compose.extensions.showLog
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 

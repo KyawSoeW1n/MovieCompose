@@ -169,7 +169,7 @@ dependencies {
     androidTestImplementation(libs.accessibility.test.framework)
     androidTestImplementation(libs.kotlinx.coroutines.test)
 
-    debugImplementation(libs.timber)
+    implementation(libs.timber)
 
     testImplementation(libs.jUnitJupiter)
     testImplementation(libs.jUnitJupiterEngine)

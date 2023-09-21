@@ -1,18 +1,14 @@
 package com.kurio.tetsuya.movie.compose.upcoming
 
-import com.kurio.tetsuya.movie.compose.data.cache.MovieDatabase
-import com.kurio.tetsuya.movie.compose.data.cache.dao.UpcomingDao
 import com.kurio.tetsuya.movie.compose.data.remote.model.movie.MovieItemVO
 import com.kurio.tetsuya.movie.compose.domain.cache.upcoming.GetCacheUpcomingListUseCaseImpl
 import com.kurio.tetsuya.movie.compose.domain.cache.upcoming.UpdateCacheUpcomingMovieUseCaseImpl
 import com.kurio.tetsuya.movie.compose.domain.remote.fetch_upcoming.UpcomingListUseCaseImpl
 import com.kurio.tetsuya.movie.compose.ui.features.viewmodel.UpcomingViewModel
 import io.mockk.clearAllMocks
-import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.mockk
-import io.mockk.spyk
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.runTest
