@@ -23,7 +23,7 @@ import com.kurio.tetsuya.movie.compose.ui.common.PrimaryTextView
 import com.kurio.tetsuya.movie.compose.ui.common.ToolbarState
 
 @Composable
-fun PlantInformation(
+fun MovieInformation(
     movieDetailVO: MovieDetailVO,
     onNamePosition: (Float) -> Unit,
     toolbarState: ToolbarState,
@@ -71,7 +71,7 @@ fun PlantInformation(
 
         }
         PrimaryTextView(
-            text = "${movieDetailVO.overview}${movieDetailVO.overview}",
+            text = "${movieDetailVO.overview}",
             modifier = Modifier
                 .padding(
                     start = Dimens.PaddingSmall,

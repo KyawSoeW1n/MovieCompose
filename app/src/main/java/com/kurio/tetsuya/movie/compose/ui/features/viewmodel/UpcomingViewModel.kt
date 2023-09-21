@@ -31,10 +31,6 @@ class UpcomingViewModel @Inject constructor(
     val isRefreshing: StateFlow<Boolean>
         get() = _isRefreshing.asStateFlow()
 
-    private val upcomingListLiveData: MutableLiveData<ViewState<PopularMovieListVO>> by lazy {
-        MutableLiveData()
-    }
-
     fun getCacheUpcomingList() = getCacheUpcomingListUseCaseImpl.getUpcomingList().flowOn(Dispatchers.IO)
 
     init {
@@ -50,7 +46,6 @@ class UpcomingViewModel @Inject constructor(
     private fun fetchUpcomingList() {
         viewModelScope.launch(Dispatchers.IO) {
             upcomingListUseCaseImpl.getUpcomingList().collectLatest {
-                upcomingListLiveData.postValue(it)
                 _isRefreshing.emit(false)
             }
         }
