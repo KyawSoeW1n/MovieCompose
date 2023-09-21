@@ -20,6 +20,9 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
+      - name: Gradle Build Action
+        uses: gradle/gradle-build-action@v2.8.0
+
       - name: Set up Gradle
         uses: gradle/gradle-build-action@v2
 
@@ -40,9 +43,3 @@ jobs:
 
       - name: Generate app APK.
         run: ./gradlew assembleRelease --stacktrace
-
-      - name: Sign app bundle
-        run: |
-          jarsigner -keystore app/*.jks \
-          -storepass ${{ secrets.KEY_STORE_PASSWORD }} -keypass ${{ secrets.KEY_PASSWORD }} \
-          app/build/outputs/bundle/release/app-release.aab ${{ secrets.ALIAS }}  
