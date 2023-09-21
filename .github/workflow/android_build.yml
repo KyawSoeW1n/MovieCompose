@@ -1,4 +1,4 @@
-name: Payment Scanner Build
+name: Android CI
 
 on:
   push:
@@ -40,3 +40,9 @@ jobs:
 
       - name: Generate app APK.
         run: ./gradlew assembleRelease --stacktrace
+
+      - name: Sign app bundle
+        run: |
+          jarsigner -keystore app/*.jks \
+          -storepass ${{ secrets.KEY_STORE_PASSWORD }} -keypass ${{ secrets.KEY_PASSWORD }} \
+          app/build/outputs/bundle/release/app-release.aab ${{ secrets.ALIAS }}  
