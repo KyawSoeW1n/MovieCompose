@@ -5,9 +5,11 @@ import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.updateTransition
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
@@ -111,6 +113,7 @@ fun MovieDetailState(
                 modifier = Modifier
                     .fillMaxSize()
                     .nestedScroll(nestedScrollConnection)
+                    .background(color = MaterialTheme.colorScheme.onBackground)
             ) {
                 MovieDetailsContent(
                     movieDetailVO = (movieDetailState.value as ViewState.Success<MovieDetailVO>).successData,
@@ -137,7 +140,6 @@ fun MovieDetailState(
                     contentAlpha = { contentAlpha.value },
                     onBackClick = {
                         navigator.navigateUp()
-//                        navigator.navigate(SettingScreenDestination)
                     }
                 )
             }

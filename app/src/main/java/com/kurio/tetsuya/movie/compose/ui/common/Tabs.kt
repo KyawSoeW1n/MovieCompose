@@ -2,6 +2,7 @@ package com.kurio.tetsuya.movie.compose.ui.common
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.pager.PagerState
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.TabRowDefaults
@@ -24,12 +25,12 @@ fun Tabs(pagerState: PagerState) {
     val scope = rememberCoroutineScope()
     TabRow(
         selectedTabIndex = pagerState.currentPage,
-        containerColor = Color.White,
+        containerColor = MaterialTheme.colorScheme.onBackground,
         indicator = { tabPositions ->
             TabRowDefaults.Indicator(
                 Modifier.tabIndicatorOffset(tabPositions[pagerState.currentPage]),
                 height = 2.dp,
-                color = Purple80
+                color = MaterialTheme.colorScheme.primary,
             )
         }
     ) {

@@ -1,15 +1,16 @@
 package com.kurio.tetsuya.movie.compose.ui.features.popular.viewmodel
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.kurio.tetsuya.movie.compose.data.remote.impl.popular.PopularListRepoImpl
-import com.kurio.tetsuya.movie.compose.data.remote.model.movie.PopularMovieListVO
 import com.kurio.tetsuya.movie.compose.domain.cache.popular.GetCachePopularListUseCaseImpl
 import com.kurio.tetsuya.movie.compose.domain.cache.popular.UpdateCachePopularMovieRepoImpl
 import com.kurio.tetsuya.movie.compose.presentation.BaseViewModel
-import com.kurio.tetsuya.movie.compose.presentation.ViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
@@ -22,14 +23,16 @@ class PopularViewModel @Inject constructor(
     private val getCachePopularListUseCaseImpl: GetCachePopularListUseCaseImpl,
     private val updateCachePopularMovieRepoImpl: UpdateCachePopularMovieRepoImpl,
 ) : BaseViewModel() {
-    private val popularListLiveData: MutableLiveData<ViewState<PopularMovieListVO>> by lazy {
-        MutableLiveData()
-    }
 
-    fun getCachePopularList() = getCachePopularListUseCaseImpl.getCachePopularList().flowOn(Dispatchers.IO)
+    private val _isRefreshing = MutableStateFlow(false)
+    val isRefreshing: StateFlow<Boolean>
+        get() = _isRefreshing.asStateFlow()
+
+    fun getCachePopularList() =
+        getCachePopularListUseCaseImpl.getCachePopularList().flowOn(Dispatchers.IO)
 
     init {
-        fetchCarList()
+        fetchPopularList()
     }
 
 
@@ -39,11 +42,19 @@ class PopularViewModel @Inject constructor(
         }
     }
 
-    private fun fetchCarList() {
+    private fun fetchPopularList() {
         viewModelScope.launch(Dispatchers.IO) {
             popularListUseCaseImpl.getPopularList().collectLatest {
-                popularListLiveData.postValue(it)
+                _isRefreshing.emit(false)
             }
+        }
+    }
+
+    fun refresh() {
+        viewModelScope.launch(Dispatchers.IO) {
+            _isRefreshing.emit(true)
+            delay(1500)
+            fetchPopularList()
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.kurio.tetsuya.movie.compose.ui.features.movedetail.ui
 
 import androidx.compose.foundation.ScrollState
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -31,7 +32,11 @@ fun MovieDetailsContent(
     contentAlpha: () -> Float,
     navigator: DestinationsNavigator
 ) {
-    Column(Modifier.verticalScroll(scrollState)) {
+    Column(
+        Modifier
+            .verticalScroll(scrollState)
+            .background(color = MaterialTheme.colorScheme.onBackground)
+    ) {
         ConstraintLayout {
             val (image, name, info, relatedMovie) = createRefs()
             AppImageView(
@@ -52,7 +57,7 @@ fun MovieDetailsContent(
                         start.linkTo(image.start)
                         bottom.linkTo(image.bottom)
                     })
-            PlantInformation(
+            MovieInformation(
                 movieDetailVO = movieDetailVO,
                 onNamePosition = { onNamePosition(it) },
                 toolbarState = toolbarState,

@@ -106,7 +106,7 @@ private fun MovieHeaderActions(
                 maxHeight = Dimens.ToolbarIconSize
             )
             .background(
-                color = MaterialTheme.colorScheme.surface,
+                color = MaterialTheme.colorScheme.onBackground,
                 shape = CircleShape
             )
 
@@ -121,6 +121,7 @@ private fun MovieHeaderActions(
         ) {
             Icon(
                 Icons.AutoMirrored.Filled.ArrowBack,
+                tint = MaterialTheme.colorScheme.surfaceTint,
                 contentDescription = null,
             )
         }
