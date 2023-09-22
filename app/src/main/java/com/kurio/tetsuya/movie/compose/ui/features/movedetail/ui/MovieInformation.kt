@@ -57,7 +57,7 @@ fun MovieInformation(
             Box(
                 modifier = Modifier
                     .background(
-                        Color.LightGray,
+                        color = Color.Gray,
                         shape = RoundedCornerShape(16.dp)
                     )
             ) {
@@ -66,6 +66,7 @@ fun MovieInformation(
                     textAlign = TextAlign.Center,
                     modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
                     textStyle = MaterialTheme.typography.labelSmall,
+                    textColor = Color.White
                 )
             }
 

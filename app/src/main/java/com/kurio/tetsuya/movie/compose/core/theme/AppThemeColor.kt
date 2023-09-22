@@ -18,7 +18,6 @@ val DarkColorScheme = darkColorScheme(
     tertiary = Pink40,
     onBackground = GreyLight,
     surfaceTint = Color.White,
-
 )
 
 val LightColorScheme = lightColorScheme(
