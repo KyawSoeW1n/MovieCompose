@@ -119,10 +119,30 @@ class MovieDetailViewModelTest {
 
         coVerify {
             movieDetailUseCaseImpl.getMovieDetail(movieId = 1)
-            relatedMovieUseCaseImpl.getRelatedMovieList(movieId = 1)
         }
 
         movieDetailViewModel.movieDetailStateFlow.test {
+            assertEquals(movieDetailVO, awaitItem())
+            cancelAndIgnoreRemainingEvents()
+        }
+
+    }
+
+    @Test
+    fun get_related_movie_by_id_error() = runTest {
+        val movieDetailVO = ViewState.Error("Error")
+        coEvery { relatedMovieUseCaseImpl.getRelatedMovieList(movieId = 1) } returns flow {
+            emit(movieDetailVO)
+        }
+
+        assertEquals(ViewState.Loading, movieDetailViewModel.movieDetailStateFlow.value)
+        movieDetailViewModel.changeMovieId(movieId = 1)
+
+        coVerify {
+            relatedMovieUseCaseImpl.getRelatedMovieList(movieId = 1)
+        }
+
+        movieDetailViewModel.relatedMovieStateFlow.test {
             assertEquals(movieDetailVO, awaitItem())
             cancelAndIgnoreRemainingEvents()
         }
