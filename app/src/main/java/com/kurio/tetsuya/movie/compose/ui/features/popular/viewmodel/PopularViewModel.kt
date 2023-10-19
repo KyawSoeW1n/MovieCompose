@@ -1,10 +1,11 @@
 package com.kurio.tetsuya.movie.compose.ui.features.popular.viewmodel
 
 import androidx.lifecycle.viewModelScope
-import com.kurio.tetsuya.movie.compose.data.remote.impl.popular.PopularListRepoImpl
 import com.kurio.tetsuya.movie.compose.domain.cache.popular.GetCachePopularListUseCaseImpl
 import com.kurio.tetsuya.movie.compose.domain.cache.popular.UpdateCachePopularMovieRepoImpl
+import com.kurio.tetsuya.movie.compose.domain.remote.fetch_popular.PopularListUseCaseImpl
 import com.kurio.tetsuya.movie.compose.presentation.BaseViewModel
+import com.kurio.tetsuya.movie.compose.util.CoroutinesDispatchers
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -19,9 +20,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PopularViewModel @Inject constructor(
-    private val popularListUseCaseImpl: PopularListRepoImpl,
+    private val popularListUseCaseImpl: PopularListUseCaseImpl,
     private val getCachePopularListUseCaseImpl: GetCachePopularListUseCaseImpl,
     private val updateCachePopularMovieRepoImpl: UpdateCachePopularMovieRepoImpl,
+    private val coroutinesDispatchers: CoroutinesDispatchers,
 ) : BaseViewModel() {
 
     private val _isRefreshing = MutableStateFlow(false)
@@ -37,13 +39,13 @@ class PopularViewModel @Inject constructor(
 
 
     fun changeFavouriteStatus(id: Int, flag: Boolean) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(coroutinesDispatchers.io) {
             updateCachePopularMovieRepoImpl.updateCachePopularMovie(id = id, flag = flag)
         }
     }
 
     private fun fetchPopularList() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(coroutinesDispatchers.io) {
             popularListUseCaseImpl.getPopularList().collectLatest {
                 _isRefreshing.emit(false)
             }

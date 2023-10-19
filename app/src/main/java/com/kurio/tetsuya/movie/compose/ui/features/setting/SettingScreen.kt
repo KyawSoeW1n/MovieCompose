@@ -35,7 +35,7 @@ fun SettingScreen(
             .background(color = MaterialTheme.colorScheme.onBackground)
             .fillMaxSize()
     ) {
-        CommonAppBar(title = "Setting")
+        CommonAppBar(title = "Setting",)
         Column {
             PrimaryTextView(
                 text = "Theme",

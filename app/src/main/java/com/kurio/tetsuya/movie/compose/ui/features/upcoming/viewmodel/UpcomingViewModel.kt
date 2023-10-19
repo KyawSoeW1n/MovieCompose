@@ -1,13 +1,11 @@
-package com.kurio.tetsuya.movie.compose.ui.features.viewmodel
+package com.kurio.tetsuya.movie.compose.ui.features.upcoming.viewmodel
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.kurio.tetsuya.movie.compose.data.remote.model.movie.PopularMovieListVO
 import com.kurio.tetsuya.movie.compose.domain.cache.upcoming.GetCacheUpcomingListUseCaseImpl
 import com.kurio.tetsuya.movie.compose.domain.cache.upcoming.UpdateCacheUpcomingMovieUseCaseImpl
 import com.kurio.tetsuya.movie.compose.domain.remote.fetch_upcoming.UpcomingListUseCaseImpl
 import com.kurio.tetsuya.movie.compose.presentation.BaseViewModel
-import com.kurio.tetsuya.movie.compose.presentation.ViewState
+import com.kurio.tetsuya.movie.compose.util.CoroutinesDispatchers
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -25,26 +23,28 @@ class UpcomingViewModel @Inject constructor(
     private val upcomingListUseCaseImpl: UpcomingListUseCaseImpl,
     private val getCacheUpcomingListUseCaseImpl: GetCacheUpcomingListUseCaseImpl,
     private val updateCacheUpcomingMovieRepoImpl: UpdateCacheUpcomingMovieUseCaseImpl,
+    private val coroutinesDispatchers: CoroutinesDispatchers
 ) : BaseViewModel() {
 
     private val _isRefreshing = MutableStateFlow(false)
     val isRefreshing: StateFlow<Boolean>
         get() = _isRefreshing.asStateFlow()
 
-    fun getCacheUpcomingList() = getCacheUpcomingListUseCaseImpl.getUpcomingList().flowOn(Dispatchers.IO)
+    fun getCacheUpcomingList() =
+        getCacheUpcomingListUseCaseImpl.getUpcomingList().flowOn(Dispatchers.IO)
 
     init {
         fetchUpcomingList()
     }
 
     fun changeFavouriteStatus(id: Int, flag: Boolean) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(coroutinesDispatchers.io) {
             updateCacheUpcomingMovieRepoImpl.updateCacheUpcomingMovie(id = id, flag = flag)
         }
     }
 
     private fun fetchUpcomingList() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(coroutinesDispatchers.io) {
             upcomingListUseCaseImpl.getUpcomingList().collectLatest {
                 _isRefreshing.emit(false)
             }
@@ -52,7 +52,7 @@ class UpcomingViewModel @Inject constructor(
     }
 
     fun refresh() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(coroutinesDispatchers.io) {
             _isRefreshing.emit(true)
             delay(1500)
             fetchUpcomingList()

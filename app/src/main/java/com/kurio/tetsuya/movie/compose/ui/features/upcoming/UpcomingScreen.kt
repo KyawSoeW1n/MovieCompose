@@ -20,7 +20,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.kurio.tetsuya.movie.compose.ui.common.CommonPullToRefreshIndicator
 import com.kurio.tetsuya.movie.compose.ui.features.MovieItem
 import com.kurio.tetsuya.movie.compose.ui.features.destinations.MovieDetailScreenDestination
-import com.kurio.tetsuya.movie.compose.ui.features.viewmodel.UpcomingViewModel
+import com.kurio.tetsuya.movie.compose.ui.features.upcoming.viewmodel.UpcomingViewModel
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @OptIn(ExperimentalMaterialApi::class)
