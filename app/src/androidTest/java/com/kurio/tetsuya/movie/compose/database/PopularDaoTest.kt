@@ -7,7 +7,10 @@ import com.kurio.tetsuya.movie.compose.data.cache.entity.PopularCacheMovie
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.test.runTest
-import org.junit.*
+import org.junit.After
+import org.junit.Before
+import org.junit.Rule
+import org.junit.Test
 import javax.inject.Inject
 
 @HiltAndroidTest

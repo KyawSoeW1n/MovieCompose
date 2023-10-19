@@ -4,7 +4,7 @@ import com.kurio.tetsuya.movie.compose.data.remote.model.movie.MovieItemVO
 import com.kurio.tetsuya.movie.compose.domain.cache.upcoming.GetCacheUpcomingListUseCaseImpl
 import com.kurio.tetsuya.movie.compose.domain.cache.upcoming.UpdateCacheUpcomingMovieUseCaseImpl
 import com.kurio.tetsuya.movie.compose.domain.remote.fetch_upcoming.UpcomingListUseCaseImpl
-import com.kurio.tetsuya.movie.compose.ui.features.viewmodel.UpcomingViewModel
+import com.kurio.tetsuya.movie.compose.ui.features.upcoming.viewmodel.UpcomingViewModel
 import io.mockk.clearAllMocks
 import io.mockk.coVerify
 import io.mockk.every

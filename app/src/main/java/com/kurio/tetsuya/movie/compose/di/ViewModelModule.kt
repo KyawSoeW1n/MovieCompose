@@ -2,8 +2,12 @@ package com.kurio.tetsuya.movie.compose.di
 
 import com.kurio.tetsuya.movie.compose.data.remote.impl.movie_detail.MovieDetailRepo
 import com.kurio.tetsuya.movie.compose.data.remote.impl.movie_detail.MovieDetailRepoImpl
+import com.kurio.tetsuya.movie.compose.data.remote.impl.popular.PopularListRepo
+import com.kurio.tetsuya.movie.compose.data.remote.impl.popular.PopularListRepoImpl
 import com.kurio.tetsuya.movie.compose.data.remote.impl.related_movie.RelatedMovieRepo
 import com.kurio.tetsuya.movie.compose.data.remote.impl.related_movie.RelatedMovieRepoImpl
+import com.kurio.tetsuya.movie.compose.data.remote.impl.upcoming.UpcomingListRepo
+import com.kurio.tetsuya.movie.compose.data.remote.impl.upcoming.UpcomingListRepoImpl
 import com.kurio.tetsuya.movie.compose.domain.app_data.GetAppDataUseCase
 import com.kurio.tetsuya.movie.compose.domain.app_data.GetAppDataUseCaseImpl
 import com.kurio.tetsuya.movie.compose.domain.cache.locale.ChangeLocaleUseCase
@@ -36,23 +40,31 @@ abstract class ViewModelModule {
 
     @Binds
     @ViewModelScoped
-    abstract fun bindFetchUpcomingImpl(fetchCarImpl: UpcomingListUseCaseImpl): UpcomingListUseCase
+    abstract fun bindFetchUpcomingImpl(upcomingListUseCaseImpl: UpcomingListUseCaseImpl): UpcomingListUseCase
 
     @Binds
     @ViewModelScoped
-    abstract fun bindInsertCarListImpl(insertCarListImpl: InsertUpcomingListUseCaseImpl): InsertUpcomingListUseCase
+    abstract fun bindInsertCarListImpl(insertUpcomingListUseCaseImpl: InsertUpcomingListUseCaseImpl): InsertUpcomingListUseCase
 
     @Binds
     @ViewModelScoped
-    abstract fun bindGetCarListImpl(insertCarListImpl: GetCacheUpcomingListUseCaseImpl): GetCacheUpcomingListUseCase
+    abstract fun bindGetCarListImpl(getCacheUpcomingListUseCaseImpl: GetCacheUpcomingListUseCaseImpl): GetCacheUpcomingListUseCase
 
     @Binds
     @ViewModelScoped
-    abstract fun bindUpdateCachePopularMovieRepoImpl(insertCarListImpl: UpdateCacheUpcomingMovieUseCaseImpl): UpdateCacheUpcomingMovieUseCase
+    abstract fun bindUpdateCachePopularMovieRepoImpl(updateCacheUpcomingMovieUseCaseImpl: UpdateCacheUpcomingMovieUseCaseImpl): UpdateCacheUpcomingMovieUseCase
 
     @Binds
     @ViewModelScoped
     abstract fun bindMovieDetailRepoImpl(movieDetailRepoImpl: MovieDetailRepoImpl): MovieDetailRepo
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindPopularListRepoImpl(popularListRepoImpl: PopularListRepoImpl): PopularListRepo
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindUpcomingListRepoImpl(upcomingListRepo: UpcomingListRepoImpl): UpcomingListRepo
 
     @Binds
     @ViewModelScoped

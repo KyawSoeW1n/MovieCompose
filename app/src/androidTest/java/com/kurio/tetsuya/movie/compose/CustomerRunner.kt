@@ -5,7 +5,7 @@ import android.content.Context
 import androidx.test.runner.AndroidJUnitRunner
 import dagger.hilt.android.testing.HiltTestApplication
 
-class CustomRunner: AndroidJUnitRunner() {
+class CustomRunner : AndroidJUnitRunner() {
 
     override fun newApplication(
         cl: ClassLoader?,
