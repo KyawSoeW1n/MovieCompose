@@ -202,3 +202,4 @@ android-library = { id = "com.android.library", version.ref = "android-plugin" }
 dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 kotlin-ksp = { id = "com.google.devtools.ksp", version = "1.8.21-1.0.11" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+com-android-test = { id = "com.android.test", version.ref = "android-plugin" }

@@ -45,6 +45,12 @@ android {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
         }
+        create("benchmark") {
+            initWith(buildTypes.getByName("release"))
+            signingConfig = signingConfigs.getByName("debug")
+            matchingFallbacks += listOf("release")
+            isDebuggable = false
+        }
     }
 
     productFlavors {
@@ -170,6 +176,8 @@ dependencies {
     androidTestImplementation(libs.kotlinx.coroutines.test)
 
     implementation(libs.timber)
+
+    implementation("androidx.profileinstaller:profileinstaller:1.3.0-alpha02")
 
     testImplementation(libs.jUnitJupiter)
     testImplementation(libs.jUnitJupiterEngine)

@@ -14,6 +14,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -32,7 +33,7 @@ fun UpcomingScreen(
 
     val movieList =
         upcomingViewModel.getCacheUpcomingList()
-            .collectAsStateWithLifecycle(initialValue = mutableListOf())
+            .collectAsStateWithLifecycle(initialValue = listOf())
 
     val isRefresh = upcomingViewModel.isRefreshing.collectAsStateWithLifecycle()
     val pullRefreshState =
@@ -45,7 +46,8 @@ fun UpcomingScreen(
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
             state = rememberLazyGridState(),
-            contentPadding = PaddingValues(10.dp)
+            contentPadding = PaddingValues(10.dp),
+            modifier = Modifier.testTag(tag = "upcoming_list")
         ) {
             items(
                 items = movieList.value.toList(),

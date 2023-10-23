@@ -23,6 +23,7 @@ plugins {
     alias(libs.plugins.kotlin.android) apply false
     alias(libs.plugins.kotlin.ksp) apply false
     alias(libs.plugins.dagger.hilt) apply false
+    alias(libs.plugins.com.android.test) apply false
 }
 
 val credentialDp = loadCredentialData()

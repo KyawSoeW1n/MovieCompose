@@ -31,7 +31,7 @@ fun PopularScreen(
 ) {
     val movieList =
         popularViewModel.getCachePopularList()
-            .collectAsStateWithLifecycle(initialValue = mutableListOf())
+            .collectAsStateWithLifecycle(initialValue = listOf())
     val isRefresh = popularViewModel.isRefreshing.collectAsStateWithLifecycle()
 
     val pullRefreshState =
