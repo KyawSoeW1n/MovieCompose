@@ -53,9 +53,8 @@ class UpcomingViewModelTest {
                 overview = "Overview",
             )
         )
-        //when
         every { getCacheUpcomingListUseCaseImpl.getUpcomingList() } returns flow {
-            movieList
+            emit(movieList)
         }
 
         upcomingViewModel.getCacheUpcomingList().collectLatest {

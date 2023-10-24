@@ -32,11 +32,11 @@ fun UpcomingScreen(
 
     val movieList =
         upcomingViewModel.getCacheUpcomingList()
-            .collectAsStateWithLifecycle(initialValue = mutableListOf())
+            .collectAsStateWithLifecycle(initialValue = listOf()).value
 
-    val isRefresh = upcomingViewModel.isRefreshing.collectAsStateWithLifecycle()
+    val isRefresh = upcomingViewModel.isRefreshing.collectAsStateWithLifecycle().value
     val pullRefreshState =
-        rememberPullRefreshState(isRefresh.value, { upcomingViewModel.refresh() })
+        rememberPullRefreshState(isRefresh, { upcomingViewModel.refresh() })
     Box(
         modifier = Modifier
             .pullRefresh(pullRefreshState)
@@ -48,7 +48,7 @@ fun UpcomingScreen(
             contentPadding = PaddingValues(10.dp)
         ) {
             items(
-                items = movieList.value.toList(),
+                items = movieList.toList(),
                 key = { item -> item.id },
             ) { item ->
                 MovieItem(
@@ -69,7 +69,7 @@ fun UpcomingScreen(
             }
         }
         CommonPullToRefreshIndicator(
-            isRefreshing = isRefresh.value,
+            isRefreshing = isRefresh,
             pullRefreshState = pullRefreshState,
             modifier = Modifier.align(Alignment.TopCenter)
         )

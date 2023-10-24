@@ -31,11 +31,11 @@ fun PopularScreen(
 ) {
     val movieList =
         popularViewModel.getCachePopularList()
-            .collectAsStateWithLifecycle(initialValue = mutableListOf())
-    val isRefresh = popularViewModel.isRefreshing.collectAsStateWithLifecycle()
+            .collectAsStateWithLifecycle(initialValue = listOf()).value
+    val isRefresh = popularViewModel.isRefreshing.collectAsStateWithLifecycle().value
 
     val pullRefreshState =
-        rememberPullRefreshState(isRefresh.value, { popularViewModel.refresh() })
+        rememberPullRefreshState(isRefresh, { popularViewModel.refresh() })
 
     Box(
         modifier = Modifier
@@ -48,7 +48,7 @@ fun PopularScreen(
             contentPadding = PaddingValues(10.dp)
         ) {
             items(
-                items = movieList.value.toList(),
+                items = movieList.toList(),
                 key = { item -> item.id },
             ) { item ->
                 MovieItem(
@@ -69,7 +69,7 @@ fun PopularScreen(
             }
         }
         CommonPullToRefreshIndicator(
-            isRefreshing = isRefresh.value,
+            isRefreshing = isRefresh,
             pullRefreshState = pullRefreshState,
             modifier = Modifier.align(Alignment.TopCenter)
         )
