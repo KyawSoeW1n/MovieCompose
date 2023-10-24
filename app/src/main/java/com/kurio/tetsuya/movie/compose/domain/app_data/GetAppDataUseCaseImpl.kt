@@ -9,6 +9,6 @@ import javax.inject.Inject
 class GetAppDataUseCaseImpl @Inject constructor(
     private val appPreferencesDataStore: AppPreferencesDataStore
 ) : GetAppDataUseCase {
-    override suspend fun invoke(): Flow<AppConfiguration> =
+    override suspend fun getThemeMode(): Flow<AppConfiguration> =
         appPreferencesDataStore.appConfigurationStream
 }

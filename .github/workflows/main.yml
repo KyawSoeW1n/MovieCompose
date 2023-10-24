@@ -22,10 +22,19 @@ jobs:
 
       - name: Gradle Build Action
         uses: gradle/gradle-build-action@v2.9.0
-
+  test:
+    name: Run Unit Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Setup JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
       - name: Run Tests
-        run: ./gradlew test
-
+        run: bash ./gradlew test --stacktrace
+      
       - name: Build Project
         run: ./gradlew assemble
 
@@ -34,9 +43,21 @@ jobs:
 
       - name: Make gradlew executable
         run: chmod +x ./gradlew
-
-      - name: Generate app bundle.
-        run: ./gradlew app:bundleRelease --stacktrace
-
-      - name: Generate app APK.
-        run: ./gradlew assembleRelease --stacktrace
+  apk:
+    name: Generate APK
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Setup JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+      - name: Build APK
+        run: bash ./gradlew assembleRelease --stacktrace
+      - name: Upload APK
+        uses: actions/upload-artifact@v1
+        with:
+          name: apk
+          path: app/build/outputs/apk/release/app-debug.apk
