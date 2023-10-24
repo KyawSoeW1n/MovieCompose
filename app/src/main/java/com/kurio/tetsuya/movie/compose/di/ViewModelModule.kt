@@ -12,6 +12,8 @@ import com.kurio.tetsuya.movie.compose.domain.app_data.GetAppDataUseCase
 import com.kurio.tetsuya.movie.compose.domain.app_data.GetAppDataUseCaseImpl
 import com.kurio.tetsuya.movie.compose.domain.cache.locale.ChangeLocaleUseCase
 import com.kurio.tetsuya.movie.compose.domain.cache.locale.ChangeLocaleUseCaseImpl
+import com.kurio.tetsuya.movie.compose.domain.cache.theme.ChangeDynamicColorUseCase
+import com.kurio.tetsuya.movie.compose.domain.cache.theme.ChangeDynamicColorUseCaseImpl
 import com.kurio.tetsuya.movie.compose.domain.cache.theme.ChangeThemeStyleUseCase
 import com.kurio.tetsuya.movie.compose.domain.cache.theme.ChangeThemeStyleUseCaseImpl
 import com.kurio.tetsuya.movie.compose.domain.cache.upcoming.GetCacheUpcomingListUseCase
@@ -78,6 +80,11 @@ abstract class ViewModelModule {
     @Binds
     @ViewModelScoped
     abstract fun bindChangeThemeStyleUseCase(changeThemeStyleUseCaseImpl: ChangeThemeStyleUseCaseImpl): ChangeThemeStyleUseCase
+
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindChangeDynamicColorUseCaseImpl(changeDynamicColorUseCaseImpl: ChangeDynamicColorUseCaseImpl): ChangeDynamicColorUseCase
 
     @Binds
     @ViewModelScoped

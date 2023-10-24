@@ -28,22 +28,32 @@ class AppPreferencesDataStoreDataStoreImpl @Inject constructor(
             emit(value = emptyPreferences())
         }
         .map { preferences ->
-            val useDynamicColors = preferences[PreferencesKeys.useDynamicColors] ?: true
+            val useDynamicColors = preferences[PreferencesKeys.useDynamicColors] ?: false
             val themeStyle = preferences[PreferencesKeys.themeStyle].toThemeStyleType()
             val locale = preferences[PreferencesKeys.locale].toLocale()
+            val dynamicColorCode = preferences[PreferencesKeys.dynamicColorCode]
 
             AppConfiguration(
                 useDynamicColors = useDynamicColors,
                 themeStyle = themeStyle,
-                languageType = locale
+                languageType = locale,
+                dynamicColorCode = dynamicColorCode ?: ""
             )
         }
 
     override suspend fun toggleDynamicColors() {
         tryIt {
             dataStorePreferences.edit { preferences ->
-                val current = preferences[PreferencesKeys.useDynamicColors] ?: true
+                val current = preferences[PreferencesKeys.useDynamicColors] ?: false
                 preferences[PreferencesKeys.useDynamicColors] = !current
+            }
+        }
+    }
+
+    override suspend fun setDynamicColorsCode(dynamicColorName: String) {
+        tryIt {
+            dataStorePreferences.edit { preferences ->
+                preferences[PreferencesKeys.dynamicColorCode] = dynamicColorName
             }
         }
     }
@@ -77,6 +87,8 @@ class AppPreferencesDataStoreDataStoreImpl @Inject constructor(
     private fun String?.toThemeStyleType(): AppThemeType = when (this) {
         AppThemeType.LIGHT.name -> AppThemeType.LIGHT
         AppThemeType.DARK.name -> AppThemeType.DARK
+        AppThemeType.SYSTEM.name -> AppThemeType.SYSTEM
+        AppThemeType.DYNAMIC.name -> AppThemeType.DYNAMIC
         else -> AppThemeType.SYSTEM
     }
 
@@ -87,8 +99,9 @@ class AppPreferencesDataStoreDataStoreImpl @Inject constructor(
     }
 
     private object PreferencesKeys {
-        val useDynamicColors = booleanPreferencesKey(name = "use_dynamic_colors")
         val themeStyle = stringPreferencesKey(name = "theme_style")
         val locale = stringPreferencesKey(name = "locale")
+        val dynamicColorCode = stringPreferencesKey(name = "dynamic_color_code")
+        val useDynamicColors = booleanPreferencesKey(name = "use_dynamic_colors")
     }
 }

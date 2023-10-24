@@ -5,5 +5,5 @@ import kotlinx.coroutines.flow.Flow
 
 
 interface GetAppDataUseCase {
-    suspend operator fun invoke(): Flow<AppConfiguration>
+    suspend fun getThemeMode(): Flow<AppConfiguration>
 }

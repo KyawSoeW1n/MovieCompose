@@ -17,6 +17,8 @@ class MainViewModel @Inject constructor(
     private val dispatchers: CoroutinesDispatchers,
 ) : BaseViewModel() {
     val themeMode = MutableStateFlow(value = AppThemeType.LIGHT)
+    val isDynamicColor = MutableStateFlow(value = false)
+    val dynamicColorName = MutableStateFlow(value = "")
 
     init {
         watchAppConfigurationStream()
@@ -24,7 +26,9 @@ class MainViewModel @Inject constructor(
 
     private fun watchAppConfigurationStream() {
         viewModelScope.launch(dispatchers.io) {
-            themeUseCaseImpl().collectLatest {
+            themeUseCaseImpl.getThemeMode().collectLatest {
+                dynamicColorName.value = it.dynamicColorCode
+                isDynamicColor.value = it.useDynamicColors
                 themeMode.value = it.themeStyle
             }
         }
