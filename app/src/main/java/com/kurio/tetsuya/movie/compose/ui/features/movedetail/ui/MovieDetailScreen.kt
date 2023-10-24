@@ -68,7 +68,7 @@ fun MovieDetailState(
 ) {
     val scrollState = rememberScrollState()
     val toolbarHeightPx = with(LocalDensity.current) {
-        Dimens.PlantDetailAppBarHeight.roundToPx().toFloat()
+        Dimens.MovieDetailAppBarHeight.roundToPx().toFloat()
     }
     val toolbarOffsetHeightPx = remember { mutableFloatStateOf(0f) }
     val nestedScrollConnection = remember {
@@ -128,7 +128,7 @@ fun MovieDetailState(
                     },
                     imageHeight = with(LocalDensity.current) {
                         val candidateHeight =
-                            Dimens.PlantDetailAppBarHeight + toolbarOffsetHeightPx.floatValue.toDp()
+                            Dimens.MovieDetailAppBarHeight + toolbarOffsetHeightPx.floatValue.toDp()
                         maxOf(candidateHeight, 1.dp)
                     },
                     contentAlpha = { contentAlpha.value },
@@ -144,11 +144,6 @@ fun MovieDetailState(
                 )
             }
         }
-
-        is ViewState.Error -> {
-            ErrorTextView()
-        }
-
         else -> {
             ErrorTextView()
         }

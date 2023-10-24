@@ -17,8 +17,8 @@ object Dimens {
     val PaddingLarge: Dp
         @Composable get() = dimensionResource(R.dimen.margin_large)
 
-    val PlantDetailAppBarHeight: Dp
-        @Composable get() = dimensionResource(R.dimen.plant_detail_app_bar_height)
+    val MovieDetailAppBarHeight: Dp
+        @Composable get() = dimensionResource(R.dimen.movie_detail_app_bar_height)
 
     val ToolbarIconPadding = 12.dp
 

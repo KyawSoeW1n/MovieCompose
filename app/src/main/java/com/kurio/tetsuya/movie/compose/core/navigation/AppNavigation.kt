@@ -1,6 +1,5 @@
 package com.kurio.tetsuya.movie.compose.core.navigation
 
-import android.annotation.SuppressLint
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -11,7 +10,7 @@ import com.ramcosta.composedestinations.DestinationsNavHost
 import com.ramcosta.composedestinations.animations.defaults.RootNavGraphDefaultAnimations
 import com.ramcosta.composedestinations.rememberNavHostEngine
 
-@SuppressLint("RememberReturnType")
+
 @Composable
 fun AppNavigation(
     navController: NavHostController,

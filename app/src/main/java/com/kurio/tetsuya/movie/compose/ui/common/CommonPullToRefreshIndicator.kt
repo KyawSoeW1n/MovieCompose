@@ -3,9 +3,9 @@ package com.kurio.tetsuya.movie.compose.ui.common
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.pullrefresh.PullRefreshIndicator
 import androidx.compose.material.pullrefresh.PullRefreshState
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.kurio.tetsuya.movie.compose.ui.theme.Purple80
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -18,6 +18,6 @@ fun CommonPullToRefreshIndicator(
         refreshing = isRefreshing,
         state = pullRefreshState,
         modifier = modifier,
-        contentColor = Purple80
+        contentColor = MaterialTheme.colorScheme.primary
     )
 }

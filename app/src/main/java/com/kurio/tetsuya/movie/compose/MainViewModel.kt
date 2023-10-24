@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.kurio.tetsuya.movie.compose.core.theme.AppThemeType
 import com.kurio.tetsuya.movie.compose.domain.app_data.GetAppDataUseCaseImpl
 import com.kurio.tetsuya.movie.compose.presentation.BaseViewModel
+import com.kurio.tetsuya.movie.compose.util.CoroutinesDispatchers
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collectLatest
@@ -12,15 +13,17 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val themeUseCaseImpl: GetAppDataUseCaseImpl
+    private val themeUseCaseImpl: GetAppDataUseCaseImpl,
+    private val dispatchers: CoroutinesDispatchers,
 ) : BaseViewModel() {
     val themeMode = MutableStateFlow(value = AppThemeType.LIGHT)
+
     init {
         watchAppConfigurationStream()
     }
 
     private fun watchAppConfigurationStream() {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatchers.io) {
             themeUseCaseImpl().collectLatest {
                 themeMode.value = it.themeStyle
             }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="plant_detail_app_bar_height">350dp</dimen>
+    <dimen name="movie_detail_app_bar_height">350dp</dimen>
 
     <dimen name="margin_large">24dp</dimen>
     <dimen name="margin_normal">16dp</dimen>

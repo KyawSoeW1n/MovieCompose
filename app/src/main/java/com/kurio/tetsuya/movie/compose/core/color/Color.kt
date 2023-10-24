@@ -1,4 +1,4 @@
-package com.kurio.tetsuya.movie.compose.ui.theme
+package com.kurio.tetsuya.movie.compose.core.color
 
 import androidx.compose.ui.graphics.Color
 
