@@ -89,6 +89,10 @@ class MovieDetailViewModelTest {
             )
         )
 
+        coEvery { relatedMovieUseCaseImpl.getRelatedMovieList(movieId = 1) } returns flow {
+            emit(relatedMovieVO)
+        }
+
         assertEquals(ViewState.Loading, movieDetailViewModel.relatedMovieStateFlow.value)
         movieDetailViewModel.changeMovieId(movieId = 1)
 
