@@ -1,5 +1,6 @@
 package com.kurio.tetsuya.movie.compose.ui.features.setting
 
+import android.os.Build
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -52,38 +53,39 @@ fun SettingScreen(
             .fillMaxSize()
     ) {
         CommonAppBar(title = "Setting")
-        Row {
-            PrimaryTextView(
-                text = "Dynamic Theme",
-                modifier = Modifier
-                    .padding(
-                        start = 16.dp,
-                        top = 8.dp
-                    )
-                    .weight(1f),
-                fontWeight = FontWeight.Medium,
-                textStyle = MaterialTheme.typography.titleMedium
-            )
-            Switch(
-                modifier = Modifier.padding(end = 8.dp),
-                checked = isDynamicColor.value,
-                onCheckedChange = {
-                    if (it) {
-                        settingViewModel.changeThemeStyle(appThemeType = AppThemeType.DYNAMIC)
-                    } else {
-                        settingViewModel.changeThemeStyle(appThemeType = AppThemeType.SYSTEM)
-                    }
-
-                    settingViewModel.toggleDynamicColor()
-                },
-                colors = SwitchDefaults.colors(
-                    checkedThumbColor = Color.White,
-                    uncheckedThumbColor = Color.Gray
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
+            Row {
+                PrimaryTextView(
+                    text = "Dynamic Theme",
+                    modifier = Modifier
+                        .padding(
+                            start = 16.dp,
+                            top = 8.dp
+                        )
+                        .weight(1f),
+                    fontWeight = FontWeight.Medium,
+                    textStyle = MaterialTheme.typography.titleMedium
                 )
-            )
+                Switch(
+                    modifier = Modifier.padding(end = 8.dp),
+                    checked = isDynamicColor.value,
+                    onCheckedChange = {
+                        if (it) {
+                            settingViewModel.changeThemeStyle(appThemeType = AppThemeType.DYNAMIC)
+                        } else {
+                            settingViewModel.changeThemeStyle(appThemeType = AppThemeType.SYSTEM)
+                        }
 
-        }
+                        settingViewModel.toggleDynamicColor()
+                    },
+                    colors = SwitchDefaults.colors(
+                        checkedThumbColor = Color.White,
+                        uncheckedThumbColor = Color.Gray
+
+                    )
+                )
+
+            }
         if (isDynamicColor.value) {
             LazyVerticalGrid(
                 modifier = Modifier.padding(horizontal = 8.dp),

@@ -18,4 +18,8 @@ interface UpcomingDao {
 
     @Query("SELECT * FROM ${DatabaseConstants.upcomingTableName}")
     fun getUpcomingList(): Flow<List<UpcomingCacheMovie>>
+
+    @Query("SELECT * FROM ${DatabaseConstants.upcomingTableName} WHERE title LIKE '%' || :keyword || '%'")
+    fun getUpcomingListByKeyword(keyword: String): Flow<List<UpcomingCacheMovie>>
 }
+
