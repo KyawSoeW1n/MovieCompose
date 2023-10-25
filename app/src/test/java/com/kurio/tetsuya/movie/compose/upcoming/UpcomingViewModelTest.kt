@@ -5,6 +5,7 @@ import com.kurio.tetsuya.movie.compose.data.remote.model.movie.MovieItemVO
 import com.kurio.tetsuya.movie.compose.domain.cache.upcoming.GetCacheUpcomingListUseCaseImpl
 import com.kurio.tetsuya.movie.compose.domain.cache.upcoming.UpdateCacheUpcomingMovieUseCaseImpl
 import com.kurio.tetsuya.movie.compose.domain.remote.fetch_upcoming.UpcomingListUseCaseImpl
+import com.kurio.tetsuya.movie.compose.ui.features.upcoming.viewmodel.UpcomingEvent
 import com.kurio.tetsuya.movie.compose.ui.features.upcoming.viewmodel.UpcomingViewModel
 import com.kurio.tetsuya.movie.compose.util.CoroutinesDispatchers
 import io.mockk.clearAllMocks
@@ -26,6 +27,7 @@ class UpcomingViewModelTest {
     private lateinit var getCacheUpcomingListUseCaseImpl: GetCacheUpcomingListUseCaseImpl
     private lateinit var updateCacheUpcomingMovieUseCaseImpl: UpdateCacheUpcomingMovieUseCaseImpl
     private lateinit var coroutinesDispatchers: CoroutinesDispatchers
+
     @OptIn(ExperimentalCoroutinesApi::class)
     @BeforeEach
     fun setUp() {
@@ -43,6 +45,9 @@ class UpcomingViewModelTest {
 
     @Test
     fun getUpcoming_movieList_from_database() = runTest {
+        upcomingViewModel.changeUpcomingScreenEvent(UpcomingEvent.ResetEvent)
+
+        assertEquals(upcomingViewModel.upcomingEventState.value, UpcomingEvent.ResetEvent)
         //given
         val movieList = listOf(
             MovieItemVO(
@@ -53,11 +58,34 @@ class UpcomingViewModelTest {
                 overview = "Overview",
             )
         )
-        every { getCacheUpcomingListUseCaseImpl.getUpcomingList() } returns flow {
+        every { getCacheUpcomingListUseCaseImpl.getUpcomingList("") } returns flow {
             emit(movieList)
         }
 
         upcomingViewModel.getCacheUpcomingList().collectLatest {
+            assertEquals(movieList, it)
+        }
+    }
+
+    @Test
+    fun getUpcoming_movieList_from_database_by_keyword() = runTest {
+        upcomingViewModel.changeUpcomingScreenEvent(UpcomingEvent.SearchEvent("title"))
+        assertEquals(upcomingViewModel.upcomingEventState.value, UpcomingEvent.SearchEvent("title"))
+        //given
+        val movieList = listOf(
+            MovieItemVO(
+                id = 1,
+                title = "Testing Title",
+                image = "sample image",
+                isFavourite = false,
+                overview = "Overview",
+            )
+        )
+        every { getCacheUpcomingListUseCaseImpl.getUpcomingList("title") } returns flow {
+            emit(movieList)
+        }
+
+        upcomingViewModel.getCacheUpcomingListByKeyword().collectLatest {
             assertEquals(movieList, it)
         }
     }
