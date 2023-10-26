@@ -35,7 +35,7 @@ import com.kurio.tetsuya.movie.compose.core.locale.LocaleHelper
 import com.kurio.tetsuya.movie.compose.core.theme.AppThemeType
 import com.kurio.tetsuya.movie.compose.ui.common.CommonAppBar
 import com.kurio.tetsuya.movie.compose.ui.common.PrimaryTextView
-import com.kurio.tetsuya.movie.compose.ui.common.Spacer
+import com.kurio.tetsuya.movie.compose.ui.common.SpacerX
 import com.ramcosta.composedestinations.annotation.Destination
 
 @Composable
@@ -147,7 +147,7 @@ fun SettingScreen(
                 )
             }
         }
-        Spacer()
+        SpacerX()
         PrimaryTextView(
             text = "Language",
             modifier = Modifier.padding(start = 16.dp),

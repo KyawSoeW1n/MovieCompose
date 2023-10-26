@@ -1,17 +1,11 @@
 package com.kurio.tetsuya.movie.compose.di
 
-import com.kurio.tetsuya.movie.compose.data.remote.impl.movie_detail.MovieDetailRepo
-import com.kurio.tetsuya.movie.compose.data.remote.impl.movie_detail.MovieDetailRepoImpl
-import com.kurio.tetsuya.movie.compose.data.remote.impl.popular.PopularListRepo
-import com.kurio.tetsuya.movie.compose.data.remote.impl.popular.PopularListRepoImpl
-import com.kurio.tetsuya.movie.compose.data.remote.impl.related_movie.RelatedMovieRepo
-import com.kurio.tetsuya.movie.compose.data.remote.impl.related_movie.RelatedMovieRepoImpl
-import com.kurio.tetsuya.movie.compose.data.remote.impl.upcoming.UpcomingListRepo
-import com.kurio.tetsuya.movie.compose.data.remote.impl.upcoming.UpcomingListRepoImpl
 import com.kurio.tetsuya.movie.compose.domain.app_data.GetAppDataUseCase
 import com.kurio.tetsuya.movie.compose.domain.app_data.GetAppDataUseCaseImpl
 import com.kurio.tetsuya.movie.compose.domain.cache.locale.ChangeLocaleUseCase
 import com.kurio.tetsuya.movie.compose.domain.cache.locale.ChangeLocaleUseCaseImpl
+import com.kurio.tetsuya.movie.compose.domain.cache.popular.GetCachePopularListUseCase
+import com.kurio.tetsuya.movie.compose.domain.cache.popular.GetCachePopularListUseCaseImpl
 import com.kurio.tetsuya.movie.compose.domain.cache.theme.ChangeDynamicColorUseCase
 import com.kurio.tetsuya.movie.compose.domain.cache.theme.ChangeDynamicColorUseCaseImpl
 import com.kurio.tetsuya.movie.compose.domain.cache.theme.ChangeThemeStyleUseCase
@@ -20,12 +14,14 @@ import com.kurio.tetsuya.movie.compose.domain.cache.upcoming.GetCacheUpcomingLis
 import com.kurio.tetsuya.movie.compose.domain.cache.upcoming.GetCacheUpcomingListUseCaseImpl
 import com.kurio.tetsuya.movie.compose.domain.cache.upcoming.InsertUpcomingListUseCase
 import com.kurio.tetsuya.movie.compose.domain.cache.upcoming.InsertUpcomingListUseCaseImpl
-import com.kurio.tetsuya.movie.compose.domain.cache.upcoming.UpdateCacheUpcomingMovieUseCase
-import com.kurio.tetsuya.movie.compose.domain.cache.upcoming.UpdateCacheUpcomingMovieUseCaseImpl
 import com.kurio.tetsuya.movie.compose.domain.remote.fetch_popular.PopularListUseCase
 import com.kurio.tetsuya.movie.compose.domain.remote.fetch_popular.PopularListUseCaseImpl
 import com.kurio.tetsuya.movie.compose.domain.remote.fetch_upcoming.UpcomingListUseCase
 import com.kurio.tetsuya.movie.compose.domain.remote.fetch_upcoming.UpcomingListUseCaseImpl
+import com.kurio.tetsuya.movie.compose.domain.remote.moviedetail.MovieDetailUseCase
+import com.kurio.tetsuya.movie.compose.domain.remote.moviedetail.MovieDetailUseCaseImpl
+import com.kurio.tetsuya.movie.compose.domain.remote.related_movie.RelatedMovieUseCase
+import com.kurio.tetsuya.movie.compose.domain.remote.related_movie.RelatedMovieUseCaseImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -35,7 +31,7 @@ import dagger.hilt.android.scopes.ViewModelScoped
 
 @Module
 @InstallIn(ViewModelComponent::class)
-abstract class ViewModelModule {
+abstract class DomainModule {
     @Binds
     @ViewModelScoped
     abstract fun bindFetchPopularImpl(popularListRepoImpl: PopularListUseCaseImpl): PopularListUseCase
@@ -54,24 +50,7 @@ abstract class ViewModelModule {
 
     @Binds
     @ViewModelScoped
-    abstract fun bindUpdateCachePopularMovieRepoImpl(updateCacheUpcomingMovieUseCaseImpl: UpdateCacheUpcomingMovieUseCaseImpl): UpdateCacheUpcomingMovieUseCase
-
-    @Binds
-    @ViewModelScoped
-    abstract fun bindMovieDetailRepoImpl(movieDetailRepoImpl: MovieDetailRepoImpl): MovieDetailRepo
-
-    @Binds
-    @ViewModelScoped
-    abstract fun bindPopularListRepoImpl(popularListRepoImpl: PopularListRepoImpl): PopularListRepo
-
-    @Binds
-    @ViewModelScoped
-    abstract fun bindUpcomingListRepoImpl(upcomingListRepo: UpcomingListRepoImpl): UpcomingListRepo
-
-    @Binds
-    @ViewModelScoped
-    abstract fun bindRelatedMovieRepoImpl(relatedMovieRepoImpl: RelatedMovieRepoImpl): RelatedMovieRepo
-
+    abstract fun bindMovieDetailUseCaseImpl(popularListRepoImpl: MovieDetailUseCaseImpl): MovieDetailUseCase
 
     @Binds
     @ViewModelScoped
@@ -81,12 +60,19 @@ abstract class ViewModelModule {
     @ViewModelScoped
     abstract fun bindChangeThemeStyleUseCase(changeThemeStyleUseCaseImpl: ChangeThemeStyleUseCaseImpl): ChangeThemeStyleUseCase
 
-
     @Binds
     @ViewModelScoped
     abstract fun bindChangeDynamicColorUseCaseImpl(changeDynamicColorUseCaseImpl: ChangeDynamicColorUseCaseImpl): ChangeDynamicColorUseCase
 
     @Binds
     @ViewModelScoped
+    abstract fun bindGetCachePopularListUseCaseImpl(getCachePopularListUseCaseImpl: GetCachePopularListUseCaseImpl): GetCachePopularListUseCase
+
+    @Binds
+    @ViewModelScoped
     abstract fun bindChangeLocaleUseCase(changeLocaleUseCaseImpl: ChangeLocaleUseCaseImpl): ChangeLocaleUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindRelatedMovieUseCaseImpl(relatedMovieUseCaseImpl: RelatedMovieUseCaseImpl): RelatedMovieUseCase
 }

@@ -32,7 +32,6 @@ fun MovieItem(
 ) {
     val gradientColors = listOf(Color.Transparent, Color.Black)
     Box(modifier = Modifier
-        .padding(8.dp)
         .clickable {
             clickItem(item)
         }) {

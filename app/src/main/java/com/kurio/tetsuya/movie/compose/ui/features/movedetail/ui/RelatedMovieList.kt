@@ -46,6 +46,7 @@ fun RelatedMovieList(
                     )
                 }
             }
+
         }
 
         is ViewState.Error -> {

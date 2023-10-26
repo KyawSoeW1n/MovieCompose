@@ -1,4 +1,4 @@
-package com.kurio.tetsuya.movie.compose.domain.cache.popular
+package com.kurio.tetsuya.movie.compose.data.cache.impl.popular
 
 import com.kurio.tetsuya.movie.compose.data.cache.dao.PopularDao
 import javax.inject.Inject

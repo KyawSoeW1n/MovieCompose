@@ -6,17 +6,17 @@ import com.kurio.tetsuya.movie.compose.data.cache.DatabaseConstants
 import com.kurio.tetsuya.movie.compose.data.cache.MovieDatabase
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import dagger.hilt.testing.TestInstallIn
 import javax.inject.Singleton
 
 @Module
-@TestInstallIn(components = [SingletonComponent::class], replaces = [DatabaseModule::class])
-class TestDatabaseModule {
+@InstallIn(SingletonComponent::class)
+object DatabaseModule {
     @Singleton
     @Provides
-    fun provideAppDatabase(
+    fun provideYourDatabase(
         @ApplicationContext app: Context
     ) = Room.databaseBuilder(
         app,
@@ -26,9 +26,10 @@ class TestDatabaseModule {
 
     @Singleton
     @Provides
-    fun provideUpcomingDao(db: MovieDatabase) = db.upcomingDao()
+    fun providePopularDao(db: MovieDatabase) = db.popularDao()
 
     @Singleton
     @Provides
-    fun providePopularDao(db: MovieDatabase) = db.popularDao()
+    fun provideUpcomingDao(db: MovieDatabase) = db.upcomingDao()
 }
+

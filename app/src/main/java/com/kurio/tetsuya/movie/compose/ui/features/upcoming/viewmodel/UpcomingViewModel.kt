@@ -1,9 +1,9 @@
 package com.kurio.tetsuya.movie.compose.ui.features.upcoming.viewmodel
 
 import androidx.lifecycle.viewModelScope
-import com.kurio.tetsuya.movie.compose.domain.cache.upcoming.GetCacheUpcomingListUseCaseImpl
-import com.kurio.tetsuya.movie.compose.domain.cache.upcoming.UpdateCacheUpcomingMovieUseCaseImpl
-import com.kurio.tetsuya.movie.compose.domain.remote.fetch_upcoming.UpcomingListUseCaseImpl
+import com.kurio.tetsuya.movie.compose.domain.cache.upcoming.GetCacheUpcomingListUseCase
+import com.kurio.tetsuya.movie.compose.data.cache.impl.upcoming.UpdateCacheUpcomingMovieRepo
+import com.kurio.tetsuya.movie.compose.domain.remote.fetch_upcoming.UpcomingListUseCase
 import com.kurio.tetsuya.movie.compose.presentation.BaseViewModel
 import com.kurio.tetsuya.movie.compose.util.CoroutinesDispatchers
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,9 +21,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class UpcomingViewModel @Inject constructor(
-    private val upcomingListUseCaseImpl: UpcomingListUseCaseImpl,
-    private val getCacheUpcomingListUseCaseImpl: GetCacheUpcomingListUseCaseImpl,
-    private val updateCacheUpcomingMovieRepoImpl: UpdateCacheUpcomingMovieUseCaseImpl,
+    private val upcomingListUseCase: UpcomingListUseCase,
+    private val getCacheUpcomingListUseCase: GetCacheUpcomingListUseCase,
+    private val updateCacheUpcomingMovieRepo: UpdateCacheUpcomingMovieRepo,
     private val coroutinesDispatchers: CoroutinesDispatchers
 ) : BaseViewModel() {
 
@@ -47,11 +47,11 @@ class UpcomingViewModel @Inject constructor(
     }
 
     fun getCacheUpcomingList() =
-        getCacheUpcomingListUseCaseImpl.getUpcomingList("").flowOn(Dispatchers.IO)
+        getCacheUpcomingListUseCase.getUpcomingList("").flowOn(Dispatchers.IO)
             .distinctUntilChanged()
 
     fun getCacheUpcomingListByKeyword() =
-        getCacheUpcomingListUseCaseImpl.getUpcomingList(keyword.value).flowOn(Dispatchers.IO)
+        getCacheUpcomingListUseCase.getUpcomingList(keyword.value).flowOn(Dispatchers.IO)
             .distinctUntilChanged()
 
     init {
@@ -60,13 +60,13 @@ class UpcomingViewModel @Inject constructor(
 
     fun changeFavouriteStatus(id: Int, flag: Boolean) {
         viewModelScope.launch(coroutinesDispatchers.io) {
-            updateCacheUpcomingMovieRepoImpl.updateCacheUpcomingMovie(id = id, flag = flag)
+            updateCacheUpcomingMovieRepo.updateCacheUpcomingMovie(id = id, flag = flag)
         }
     }
 
     private fun fetchUpcomingList() {
         viewModelScope.launch(coroutinesDispatchers.io) {
-            upcomingListUseCaseImpl.getUpcomingList().collectLatest {
+            upcomingListUseCase.getUpcomingList().collectLatest {
                 _isRefreshing.emit(false)
             }
         }
