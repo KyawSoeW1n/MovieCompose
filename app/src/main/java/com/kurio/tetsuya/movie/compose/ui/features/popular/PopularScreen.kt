@@ -1,8 +1,9 @@
 package com.kurio.tetsuya.movie.compose.ui.features.popular
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -43,9 +44,11 @@ fun PopularScreen(
             .background(color = MaterialTheme.colorScheme.onBackground)
     ) {
         LazyVerticalGrid(
+            modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 8.dp),
             columns = GridCells.Fixed(2),
             state = rememberLazyGridState(),
-            contentPadding = PaddingValues(10.dp)
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             items(
                 items = movieList.toList(),

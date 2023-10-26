@@ -1,9 +1,9 @@
 package com.kurio.tetsuya.movie.compose.ui.features.upcoming
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -16,10 +16,8 @@ import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
@@ -28,6 +26,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.kurio.tetsuya.movie.compose.ui.common.CommonPullToRefreshIndicator
 import com.kurio.tetsuya.movie.compose.ui.common.PrimaryOutlineTextField
+import com.kurio.tetsuya.movie.compose.ui.common.SpacerX
 import com.kurio.tetsuya.movie.compose.ui.features.MovieItem
 import com.kurio.tetsuya.movie.compose.ui.features.destinations.MovieDetailScreenDestination
 import com.kurio.tetsuya.movie.compose.ui.features.upcoming.viewmodel.UpcomingEvent
@@ -83,11 +82,13 @@ fun UpcomingScreen(
                     }
                 },
             )
-
+            SpacerX()
             LazyVerticalGrid(
+                modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 8.dp),
                 columns = GridCells.Fixed(2),
                 state = rememberLazyGridState(),
-                contentPadding = PaddingValues(10.dp)
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 items(
                     items = if (upcomingScreenEvent == UpcomingEvent.ResetEvent) movieList.toList() else filterMovieList,

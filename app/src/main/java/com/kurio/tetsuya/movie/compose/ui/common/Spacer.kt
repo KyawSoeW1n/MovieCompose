@@ -9,7 +9,7 @@ import androidx.compose.ui.res.dimensionResource
 import com.kurio.tetsuya.movie.compose.R
 
 @Composable
-fun Spacer(spacing: Int = R.dimen.spacing_large) {
+fun SpacerX(spacing: Int = R.dimen.spacing_normal) {
     Spacer(modifier = Modifier.height(dimensionResource(id = spacing)))
 }
 

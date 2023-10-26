@@ -1,34 +1,24 @@
 package com.kurio.tetsuya.movie.compose.di
 
-import android.content.Context
-import androidx.room.Room
-import com.kurio.tetsuya.movie.compose.data.cache.DatabaseConstants
-import com.kurio.tetsuya.movie.compose.data.cache.MovieDatabase
+import com.kurio.tetsuya.movie.compose.data.cache.impl.popular.UpdateCachePopularMovieRepo
+import com.kurio.tetsuya.movie.compose.data.cache.impl.popular.UpdateCachePopularMovieRepoImpl
+import com.kurio.tetsuya.movie.compose.data.cache.impl.upcoming.UpdateCacheUpcomingMovieRepo
+import com.kurio.tetsuya.movie.compose.data.cache.impl.upcoming.UpdateCacheUpcomingMovieRepoImpl
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.android.scopes.ViewModelScoped
 
 @Module
-@InstallIn(SingletonComponent::class)
-object CacheModule {
-    @Singleton
-    @Provides
-    fun provideYourDatabase(
-        @ApplicationContext app: Context
-    ) = Room.databaseBuilder(
-        app,
-        MovieDatabase::class.java,
-        DatabaseConstants.DB_NAME
-    ).build()
+@InstallIn(ViewModelComponent::class)
+abstract class CacheModule {
 
-    @Singleton
-    @Provides
-    fun providePopularDao(db: MovieDatabase) = db.popularDao()
+    @Binds
+    @ViewModelScoped
+    abstract fun bindUpdateCachePopularMovieRepoImpl(updateCachePopularMovieRepoImpl: UpdateCachePopularMovieRepoImpl): UpdateCachePopularMovieRepo
 
-    @Singleton
-    @Provides
-    fun provideUpcomingDao(db: MovieDatabase) = db.upcomingDao()
+    @Binds
+    @ViewModelScoped
+    abstract fun bindUpdateCacheUpcomingMovieUseCaseImpl(updateCacheUpcomingMovieUseCaseImpl: UpdateCacheUpcomingMovieRepoImpl): UpdateCacheUpcomingMovieRepo
 }

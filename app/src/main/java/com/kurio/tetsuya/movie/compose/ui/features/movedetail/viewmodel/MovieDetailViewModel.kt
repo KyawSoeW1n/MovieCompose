@@ -3,7 +3,9 @@ package com.kurio.tetsuya.movie.compose.ui.features.movedetail.viewmodel
 import androidx.lifecycle.viewModelScope
 import com.kurio.tetsuya.movie.compose.data.remote.model.movie.MovieDetailVO
 import com.kurio.tetsuya.movie.compose.data.remote.model.movie.RelatedMovieVO
+import com.kurio.tetsuya.movie.compose.domain.remote.moviedetail.MovieDetailUseCase
 import com.kurio.tetsuya.movie.compose.domain.remote.moviedetail.MovieDetailUseCaseImpl
+import com.kurio.tetsuya.movie.compose.domain.remote.related_movie.RelatedMovieUseCase
 import com.kurio.tetsuya.movie.compose.domain.remote.related_movie.RelatedMovieUseCaseImpl
 import com.kurio.tetsuya.movie.compose.presentation.BaseViewModel
 import com.kurio.tetsuya.movie.compose.presentation.ViewState
@@ -18,8 +20,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MovieDetailViewModel @Inject constructor(
-    private val movieDetailUseCaseImpl: MovieDetailUseCaseImpl,
-    private val relatedMovieUseCaseImpl: RelatedMovieUseCaseImpl,
+    private val movieDetailUseCase: MovieDetailUseCase,
+    private val relatedMovieUseCase: RelatedMovieUseCase,
     private val coroutinesDispatchers: CoroutinesDispatchers,
 ) : BaseViewModel() {
     private val _relatedMovieStateFlow =
@@ -41,7 +43,7 @@ class MovieDetailViewModel @Inject constructor(
 
     private fun fetchMovieDetail(movieId: Int) {
         viewModelScope.launch(coroutinesDispatchers.io) {
-            movieDetailUseCaseImpl.getMovieDetail(movieId = movieId).collectLatest {
+            movieDetailUseCase.getMovieDetail(movieId = movieId).collectLatest {
                 _movieDetailStateFlow.value = it
             }
         }
@@ -49,7 +51,7 @@ class MovieDetailViewModel @Inject constructor(
 
     private fun fetchRelatedMovie(movieId: Int) {
         viewModelScope.launch(coroutinesDispatchers.io) {
-            relatedMovieUseCaseImpl.getRelatedMovieList(movieId = movieId).collectLatest {
+            relatedMovieUseCase.getRelatedMovieList(movieId = movieId).collectLatest {
                 _relatedMovieStateFlow.value = it
             }
         }
