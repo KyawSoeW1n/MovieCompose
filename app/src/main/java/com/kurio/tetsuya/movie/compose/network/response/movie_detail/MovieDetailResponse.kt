@@ -5,33 +5,33 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class MovieDetailResponse(
-    val adult: Boolean,
+    val adult: Boolean? = null,
     @Json(name = "backdrop_path")
-    val backdropPath: String?,
-    val budget: Int,
-    val genres: List<Genre>,
-    val homepage: String,
-    val id: Int,
-    val overview: String,
-    val popularity: Double,
+    val backdropPath: String? = null,
+    val budget: Int? = null,
+    val genres: List<Genre>? = null,
+    val homepage: String? = null,
+    val id: Int? = null,
+    val overview: String? = null,
+    val popularity: Double? = null,
     @Json(name = "production_companies")
-    val productionCompanies: List<ProductionCompany>,
+    val productionCompanies: List<ProductionCompany>? = null,
     @Json(name = "production_countries")
-    val productionCountries: List<ProductionCountry>,
+    val productionCountries: List<ProductionCountry>? = null,
     @Json(name = "release_date")
-    val releaseDate: String,
-    val revenue: Int,
-    val runtime: Int,
+    val releaseDate: String? = null,
+    val revenue: Int? = null,
+    val runtime: Int? = null,
     @Json(name = "spoken_languages")
-    val spokenLanguages: List<SpokenLanguage>,
-    val status: String,
-    val tagline: String,
-    val title: String,
-    val video: Boolean,
+    val spokenLanguages: List<SpokenLanguage>? = null,
+    val status: String? = null,
+    val tagline: String? = null,
+    val title: String? = null,
+    val video: Boolean? = null,
     @Json(name = "vote_average")
-    val voteAverage: Double,
+    val voteAverage: Double? = null,
     @Json(name = "vote_count")
-    val voteCount: Int
+    val voteCount: Int? = null
 )
 
 @JsonClass(generateAdapter = true)
