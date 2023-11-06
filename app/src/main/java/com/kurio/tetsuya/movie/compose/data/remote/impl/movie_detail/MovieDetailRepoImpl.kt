@@ -30,9 +30,9 @@ class MovieDetailRepoImpl @Inject constructor(
                             emit(
                                 ViewState.Success(
                                     MovieDetailVO(
-                                        name = data.title,
-                                        overview = data.overview,
-                                        genres = data.genres.joinToString { it.name },
+                                        name = data.title ?: "",
+                                        overview = data.overview ?: "",
+                                        genres = data.genres?.joinToString { it.name } ?: "",
                                         rating = decimalFormat.format(data.voteAverage)
                                     )
                                 )

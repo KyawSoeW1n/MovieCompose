@@ -21,7 +21,7 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
-@OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 @RootNavGraph(start = true)
 @Destination
@@ -33,13 +33,9 @@ fun MainScreen(navigator: DestinationsNavigator) {
         2
     }
 
-    // on below line we are creating a column for our widgets.
     Column(
-        // for column we are specifying modifier on below line.
         modifier = Modifier.background(Color.White)
     ) {
-        // on the below line we are specifying the top app bar
-        // and specifying background color for it.
         CommonAppBar(title = "Movie") {
             IconButton(onClick = {
                 navigator.navigate(SettingScreenDestination)
@@ -51,10 +47,7 @@ fun MainScreen(navigator: DestinationsNavigator) {
                 )
             }
         }
-        // on below line we are calling tabs
         Tabs(pagerState = pagerState)
-        // on below line we are calling tabs content
-        // for displaying our page for each tab layout
         TabsContent(pagerState = pagerState, navigator)
     }
 }
