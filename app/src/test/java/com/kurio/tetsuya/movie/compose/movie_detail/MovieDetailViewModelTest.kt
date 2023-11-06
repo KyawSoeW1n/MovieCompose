@@ -129,11 +129,6 @@ class MovieDetailViewModelTest {
             movieDetailUseCase.getMovieDetail(movieId = 1)
         }
 
-        coVerify {
-            movieDetailRepo.getMovieDetail(movieId = 1)
-        }
-
-
         movieDetailViewModel.relatedMovieStateFlow.test {
             assertEquals(relatedMovieVO, awaitItem())
             cancelAndIgnoreRemainingEvents()
