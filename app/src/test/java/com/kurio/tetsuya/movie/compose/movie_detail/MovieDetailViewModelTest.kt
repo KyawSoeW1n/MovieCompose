@@ -4,7 +4,6 @@ import app.cash.turbine.test
 import com.kurio.tetsuya.movie.compose.TestDispatcherProvider
 import com.kurio.tetsuya.movie.compose.core.UseCaseState
 import com.kurio.tetsuya.movie.compose.data.remote.impl.movie_detail.MovieDetailRepo
-import com.kurio.tetsuya.movie.compose.data.remote.impl.movie_detail.MovieDetailRepoImpl
 import com.kurio.tetsuya.movie.compose.data.remote.model.movie.MovieDetailVO
 import com.kurio.tetsuya.movie.compose.data.remote.model.movie.RelatedMovieVO
 import com.kurio.tetsuya.movie.compose.domain.remote.moviedetail.MovieDetailUseCase
@@ -18,7 +17,6 @@ import io.mockk.clearAllMocks
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
-import io.mockk.verify
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.runTest
