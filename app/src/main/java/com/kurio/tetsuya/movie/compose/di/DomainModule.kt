@@ -6,12 +6,16 @@ import com.kurio.tetsuya.movie.compose.domain.cache.locale.ChangeLocaleUseCase
 import com.kurio.tetsuya.movie.compose.domain.cache.locale.ChangeLocaleUseCaseImpl
 import com.kurio.tetsuya.movie.compose.domain.cache.popular.GetCachePopularListUseCase
 import com.kurio.tetsuya.movie.compose.domain.cache.popular.GetCachePopularListUseCaseImpl
+import com.kurio.tetsuya.movie.compose.domain.cache.popular.GetCachePopularMovieDetailUseCase
+import com.kurio.tetsuya.movie.compose.domain.cache.popular.GetCachePopularMovieDetailUseCaseImpl
 import com.kurio.tetsuya.movie.compose.domain.cache.theme.ChangeDynamicColorUseCase
 import com.kurio.tetsuya.movie.compose.domain.cache.theme.ChangeDynamicColorUseCaseImpl
 import com.kurio.tetsuya.movie.compose.domain.cache.theme.ChangeThemeStyleUseCase
 import com.kurio.tetsuya.movie.compose.domain.cache.theme.ChangeThemeStyleUseCaseImpl
 import com.kurio.tetsuya.movie.compose.domain.cache.upcoming.GetCacheUpcomingListUseCase
 import com.kurio.tetsuya.movie.compose.domain.cache.upcoming.GetCacheUpcomingListUseCaseImpl
+import com.kurio.tetsuya.movie.compose.domain.cache.upcoming.GetCacheUpcomingMovieDetailUseCase
+import com.kurio.tetsuya.movie.compose.domain.cache.upcoming.GetCacheUpcomingMovieDetailUseCaseImpl
 import com.kurio.tetsuya.movie.compose.domain.cache.upcoming.InsertUpcomingListUseCase
 import com.kurio.tetsuya.movie.compose.domain.cache.upcoming.InsertUpcomingListUseCaseImpl
 import com.kurio.tetsuya.movie.compose.domain.remote.fetch_popular.PopularListUseCase
@@ -67,6 +71,14 @@ abstract class DomainModule {
     @Binds
     @ViewModelScoped
     abstract fun bindGetCachePopularListUseCaseImpl(getCachePopularListUseCaseImpl: GetCachePopularListUseCaseImpl): GetCachePopularListUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindGetCachePopularMovieDetailUseCase(getCachePopularMovieDetailUseCaseImpl: GetCachePopularMovieDetailUseCaseImpl): GetCachePopularMovieDetailUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindGetCacheUpcomingMovieDetailUseCaseImpl(getCacheUpcomingMovieDetailUseCaseImpl: GetCacheUpcomingMovieDetailUseCaseImpl): GetCacheUpcomingMovieDetailUseCase
 
     @Binds
     @ViewModelScoped

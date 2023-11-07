@@ -30,6 +30,7 @@ class MovieDetailRepoImpl @Inject constructor(
                             emit(
                                 ViewState.Success(
                                     MovieDetailVO(
+                                        id = data.id ?: -1,
                                         name = data.title ?: "",
                                         overview = data.overview ?: "",
                                         genres = data.genres?.joinToString { it.name } ?: "",

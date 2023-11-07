@@ -43,6 +43,7 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 fun MovieDetailScreen(
     navigator: DestinationsNavigator,
     movieId: Int,
+    isUpcoming: Boolean,
     moviePoster: String,
     movieTitle: String,
     movieDetailViewModel: MovieDetailViewModel = hiltViewModel(),
@@ -54,7 +55,8 @@ fun MovieDetailScreen(
         navigator = navigator,
         moviePoster = moviePoster,
         movieTitle = movieTitle,
-        movieDetail
+        isUpcoming = isUpcoming,
+        movieDetail,
     )
 
 }
@@ -64,6 +66,7 @@ fun MovieDetailState(
     navigator: DestinationsNavigator,
     moviePoster: String,
     movieTitle: String,
+    isUpcoming: Boolean,
     movieDetailState: State<ViewState<MovieDetailVO>>,
 ) {
     val scrollState = rememberScrollState()
@@ -132,7 +135,8 @@ fun MovieDetailState(
                         maxOf(candidateHeight, 1.dp)
                     },
                     contentAlpha = { contentAlpha.value },
-                    navigator = navigator
+                    navigator = navigator,
+                    isUpcoming = isUpcoming
                 )
                 MovieToolbar(
                     toolbarState, movieTitle,
@@ -144,6 +148,7 @@ fun MovieDetailState(
                 )
             }
         }
+
         else -> {
             ErrorTextView()
         }

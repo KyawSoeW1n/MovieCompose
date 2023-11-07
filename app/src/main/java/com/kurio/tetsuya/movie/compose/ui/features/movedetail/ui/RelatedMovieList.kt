@@ -23,7 +23,6 @@ fun RelatedMovieList(
     navigator: DestinationsNavigator
 ) {
     val relatedMovie = movieDetailViewModel.relatedMovieStateFlow.collectAsStateWithLifecycle()
-
     when (relatedMovie.value) {
         is ViewState.Loading -> {
             PartialLoadingView()
@@ -39,7 +38,8 @@ fun RelatedMovieList(
                                 MovieDetailScreenDestination(
                                     movieId = item.id,
                                     moviePoster = item.image,
-                                    movieTitle = item.image
+                                    movieTitle = item.image,
+                                    isUpcoming = false,
                                 )
                             )
                         }
@@ -57,6 +57,4 @@ fun RelatedMovieList(
             PrimaryTextView(text = "Error")
         }
     }
-
-
 }

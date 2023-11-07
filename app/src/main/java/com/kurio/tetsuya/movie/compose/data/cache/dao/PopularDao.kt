@@ -18,4 +18,7 @@ interface PopularDao {
 
     @Query("SELECT * FROM ${DatabaseConstants.popularTableName}")
     fun getPopularList(): Flow<List<PopularCacheMovie>>
+
+    @Query("SELECT isFavourite FROM ${DatabaseConstants.popularTableName} WHERE id = :id")
+    fun getFavouriteStatus(id: Int): Flow<Boolean>
 }

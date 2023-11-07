@@ -65,6 +65,7 @@ fun PopularScreen(
                                 movieId = it.id,
                                 moviePoster = it.image,
                                 movieTitle = it.title,
+                                isUpcoming = false,
                             )
                         )
                     }
