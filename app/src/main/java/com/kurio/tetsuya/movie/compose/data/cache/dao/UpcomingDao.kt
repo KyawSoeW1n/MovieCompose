@@ -21,5 +21,8 @@ interface UpcomingDao {
 
     @Query("SELECT * FROM ${DatabaseConstants.upcomingTableName} WHERE title LIKE '%' || :keyword || '%'")
     fun getUpcomingListByKeyword(keyword: String): Flow<List<UpcomingCacheMovie>>
+
+    @Query("SELECT isFavourite FROM ${DatabaseConstants.upcomingTableName} WHERE id = :id")
+    fun getFavouriteStatus(id: Int): Flow<Boolean>
 }
 

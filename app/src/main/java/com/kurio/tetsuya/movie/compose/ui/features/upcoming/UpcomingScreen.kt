@@ -105,6 +105,7 @@ fun UpcomingScreen(
                                     movieId = it.id,
                                     moviePoster = it.image,
                                     movieTitle = it.title,
+                                    isUpcoming = true,
                                 )
                             )
                         }
