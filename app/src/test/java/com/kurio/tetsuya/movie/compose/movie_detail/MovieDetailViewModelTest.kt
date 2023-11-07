@@ -3,9 +3,13 @@ package com.kurio.tetsuya.movie.compose.movie_detail
 import app.cash.turbine.test
 import com.kurio.tetsuya.movie.compose.TestDispatcherProvider
 import com.kurio.tetsuya.movie.compose.core.UseCaseState
+import com.kurio.tetsuya.movie.compose.data.cache.impl.popular.UpdateCachePopularMovieRepo
+import com.kurio.tetsuya.movie.compose.data.cache.impl.upcoming.UpdateCacheUpcomingMovieRepo
 import com.kurio.tetsuya.movie.compose.data.remote.impl.movie_detail.MovieDetailRepo
 import com.kurio.tetsuya.movie.compose.data.remote.model.movie.MovieDetailVO
 import com.kurio.tetsuya.movie.compose.data.remote.model.movie.RelatedMovieVO
+import com.kurio.tetsuya.movie.compose.domain.cache.popular.GetCachePopularMovieDetailUseCase
+import com.kurio.tetsuya.movie.compose.domain.cache.upcoming.GetCacheUpcomingMovieDetailUseCase
 import com.kurio.tetsuya.movie.compose.domain.remote.moviedetail.MovieDetailUseCase
 import com.kurio.tetsuya.movie.compose.domain.remote.related_movie.RelatedMovieUseCase
 import com.kurio.tetsuya.movie.compose.network.response.movie_detail.Genre
@@ -32,6 +36,10 @@ class MovieDetailViewModelTest {
     private lateinit var movieDetailUseCase: MovieDetailUseCase
     private lateinit var movieDetailRepo: MovieDetailRepo
     private lateinit var relatedMovieUseCase: RelatedMovieUseCase
+    private lateinit var updateCacheUpcomingMovieRepo: UpdateCacheUpcomingMovieRepo
+    private lateinit var updateCachePopularMovieRepo: UpdateCachePopularMovieRepo
+    private lateinit var getCachePopularMovieDetailUseCase: GetCachePopularMovieDetailUseCase
+    private lateinit var getCacheUpcomingMovieDetailUseCase: GetCacheUpcomingMovieDetailUseCase
     private lateinit var coroutinesDispatchers: CoroutinesDispatchers
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -42,10 +50,18 @@ class MovieDetailViewModelTest {
         movieDetailViewModel = mockk(relaxed = true)
         movieDetailUseCase = mockk(relaxed = true)
         relatedMovieUseCase = mockk(relaxed = true)
+        updateCacheUpcomingMovieRepo = mockk(relaxed = true)
+        updateCachePopularMovieRepo = mockk(relaxed = true)
+        getCachePopularMovieDetailUseCase = mockk(relaxed = true)
+        getCacheUpcomingMovieDetailUseCase = mockk(relaxed = true)
         movieDetailViewModel = MovieDetailViewModel(
             relatedMovieUseCase = relatedMovieUseCase,
             movieDetailUseCase = movieDetailUseCase,
-            coroutinesDispatchers = coroutinesDispatchers
+            getCachePopularMovieDetailUseCase = getCachePopularMovieDetailUseCase,
+            getCacheUpcomingMovieDetailUseCase = getCacheUpcomingMovieDetailUseCase,
+            updateCachePopularMovieRepo = updateCachePopularMovieRepo,
+            updateCacheUpcomingMovieRepo = updateCacheUpcomingMovieRepo,
+            coroutinesDispatchers = coroutinesDispatchers,
         )
     }
 
@@ -70,6 +86,7 @@ class MovieDetailViewModelTest {
             ViewState.Success(
                 response.successData.let { data ->
                     MovieDetailVO(
+                        id = data.id ?: -1,
                         name = data.title ?: "",
                         overview = data.overview ?: "",
                         genres = data.genres?.joinToString { it.name } ?: "",
