@@ -23,6 +23,7 @@ import com.kurio.tetsuya.movie.compose.ui.features.MovieItem
 import com.kurio.tetsuya.movie.compose.ui.features.destinations.MovieDetailScreenDestination
 import com.kurio.tetsuya.movie.compose.ui.features.popular.viewmodel.PopularViewModel
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import kotlinx.collections.immutable.persistentListOf
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -32,7 +33,7 @@ fun PopularScreen(
 ) {
     val movieList =
         popularViewModel.getCachePopularList()
-            .collectAsStateWithLifecycle(initialValue = listOf()).value
+            .collectAsStateWithLifecycle(initialValue = persistentListOf()).value
     val isRefresh = popularViewModel.isRefreshing.collectAsStateWithLifecycle().value
 
     val pullRefreshState =
@@ -51,7 +52,7 @@ fun PopularScreen(
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             items(
-                items = movieList.toList(),
+                items = movieList,
                 key = { item -> item.id },
             ) { item ->
                 MovieItem(
