@@ -2,7 +2,6 @@ package com.kurio.tetsuya.movie.compose.domain.cache.upcoming
 
 import com.kurio.tetsuya.movie.compose.data.cache.dao.UpcomingDao
 import com.kurio.tetsuya.movie.compose.data.remote.model.movie.MovieItemVO
-import com.kurio.tetsuya.movie.compose.extensions.showLog
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.Flow

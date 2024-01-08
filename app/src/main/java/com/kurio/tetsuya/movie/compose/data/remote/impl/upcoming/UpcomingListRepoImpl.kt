@@ -6,7 +6,6 @@ import com.kurio.tetsuya.movie.compose.data.remote.datasource.MovieDataSourceImp
 import com.kurio.tetsuya.movie.compose.data.remote.mapper.UpcomingMapper
 import com.kurio.tetsuya.movie.compose.domain.cache.upcoming.InsertUpcomingListUseCaseImpl
 import com.kurio.tetsuya.movie.compose.extensions.isOnline
-import com.kurio.tetsuya.movie.compose.extensions.showLog
 import com.kurio.tetsuya.movie.compose.network.safeApiCall
 import com.kurio.tetsuya.movie.compose.presentation.ViewState
 import dagger.hilt.android.qualifiers.ApplicationContext

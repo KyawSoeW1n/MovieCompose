@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.ksp)
     alias(libs.plugins.dagger.hilt)
     alias(libs.plugins.android.junit5)
+    alias(libs.plugins.sonarCloud)
 }
 
 android {
@@ -129,7 +130,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.accompanist.systemuicontroller)
-    implementation(libs.kotlinx.immutable.list)
+
     debugImplementation(libs.androidx.compose.ui.tooling)
 
     //Network
