@@ -3,7 +3,7 @@ package com.kurio.tetsuya.movie.compose.ui.features.setting
 import androidx.lifecycle.viewModelScope
 import com.kurio.tetsuya.movie.compose.core.locale.LanguageType
 import com.kurio.tetsuya.movie.compose.core.theme.AppThemeType
-import com.kurio.tetsuya.movie.compose.domain.app_data.GetAppDataUseCase
+import com.kurio.tetsuya.movie.compose.domain.app_data.GetThemeUseCase
 import com.kurio.tetsuya.movie.compose.domain.cache.locale.ChangeLocaleUseCase
 import com.kurio.tetsuya.movie.compose.domain.cache.theme.ChangeDynamicColorUseCase
 import com.kurio.tetsuya.movie.compose.domain.cache.theme.ChangeThemeStyleUseCase
@@ -20,7 +20,7 @@ class SettingViewModel @Inject constructor(
     private val changeThemeStyleUseCase: ChangeThemeStyleUseCase,
     private val changeDynamicColorUseCase: ChangeDynamicColorUseCase,
     private val changeLocaleUseCase: ChangeLocaleUseCase,
-    private val getAppDataUseCase: GetAppDataUseCase,
+    private val getThemeUseCase: GetThemeUseCase,
     private val coroutinesDispatchers: CoroutinesDispatchers,
 ) : BaseViewModel() {
     val themeMode = MutableStateFlow(value = AppThemeType.LIGHT)
@@ -33,7 +33,7 @@ class SettingViewModel @Inject constructor(
 
     private fun watchAppConfigurationStream() {
         viewModelScope.launch(coroutinesDispatchers.io) {
-            getAppDataUseCase.getThemeMode().collectLatest { appConfiguration ->
+            getThemeUseCase.getThemeMode().collectLatest { appConfiguration ->
                 isDynamicColor.value = appConfiguration.useDynamicColors
                 themeMode.value = appConfiguration.themeStyle
                 languageType.value = appConfiguration.languageType
