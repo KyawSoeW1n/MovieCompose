@@ -21,6 +21,7 @@ import io.mockk.clearAllMocks
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.runTest
@@ -72,7 +73,7 @@ class MovieDetailViewModelTest {
             MovieDetailResponse(
                 title = "Movie Detail Test",
                 overview = "Movie Detail Overview",
-                genres = listOf(
+                genres = persistentListOf(
                     Genre(
                         id = 1,
                         name = "Comedy",

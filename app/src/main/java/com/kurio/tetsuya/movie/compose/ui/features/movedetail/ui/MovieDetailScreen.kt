@@ -11,11 +11,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -48,8 +50,13 @@ fun MovieDetailScreen(
     movieTitle: String,
     movieDetailViewModel: MovieDetailViewModel = hiltViewModel(),
 ) {
-    movieDetailViewModel.changeMovieId(movieId = movieId)
+
+    val isFetched = rememberSaveable { true }
     val movieDetail = movieDetailViewModel.movieDetailStateFlow.collectAsStateWithLifecycle()
+
+    LaunchedEffect(key1 = isFetched) {
+        movieDetailViewModel.changeMovieId(movieId = movieId)
+    }
 
     MovieDetailState(
         navigator = navigator,

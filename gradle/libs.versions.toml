@@ -108,6 +108,8 @@ junitJupiter = "5.9.3"
 turbine = "1.0.0"
 appcompact = "1.6.1"
 
+immutableList="0.3.6"
+
 [libraries]
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompact" }
 androidx-appcompat-resource = { module = "androidx.appcompat:appcompat-resources", version.ref = "appcompact" }
@@ -192,6 +194,7 @@ androidx-compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
 turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
 
+immutable = {module = "org.jetbrains.kotlinx:kotlinx-collections-immutable",version.ref = "immutableList"}
 android-gradle-plugin = { module = "com.android.tools.build:gradle", version.ref = "androidGradlePlugin" }
 hilt-android-gradle-plugin = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "hilt" }
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }

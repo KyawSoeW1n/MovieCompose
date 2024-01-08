@@ -155,6 +155,8 @@ dependencies {
     implementation(libs.composeDestination)
     ksp(libs.composeDestinationKsp)
 
+    implementation(libs.immutable)
+
     // Testing dependencies
     debugImplementation(libs.androidx.monitor)
     kspAndroidTest(libs.hilt.android.compiler)
