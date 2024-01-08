@@ -4,6 +4,6 @@ import com.kurio.tetsuya.movie.compose.domain.model.AppConfiguration
 import kotlinx.coroutines.flow.Flow
 
 
-interface GetAppDataUseCase {
+interface GetThemeUseCase {
     suspend fun getThemeMode(): Flow<AppConfiguration>
 }

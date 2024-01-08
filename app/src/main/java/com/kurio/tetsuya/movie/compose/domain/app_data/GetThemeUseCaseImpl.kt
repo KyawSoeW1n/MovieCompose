@@ -6,9 +6,9 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 
-class GetAppDataUseCaseImpl @Inject constructor(
+class GetThemeUseCaseImpl @Inject constructor(
     private val appPreferencesDataStore: AppPreferencesDataStore
-) : GetAppDataUseCase {
+) : GetThemeUseCase {
     override suspend fun getThemeMode(): Flow<AppConfiguration> =
         appPreferencesDataStore.appConfigurationStream
 }

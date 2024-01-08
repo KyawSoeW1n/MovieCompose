@@ -1,7 +1,7 @@
 package com.kurio.tetsuya.movie.compose.di
 
-import com.kurio.tetsuya.movie.compose.domain.app_data.GetAppDataUseCase
-import com.kurio.tetsuya.movie.compose.domain.app_data.GetAppDataUseCaseImpl
+import com.kurio.tetsuya.movie.compose.domain.app_data.GetThemeUseCase
+import com.kurio.tetsuya.movie.compose.domain.app_data.GetThemeUseCaseImpl
 import com.kurio.tetsuya.movie.compose.domain.cache.locale.ChangeLocaleUseCase
 import com.kurio.tetsuya.movie.compose.domain.cache.locale.ChangeLocaleUseCaseImpl
 import com.kurio.tetsuya.movie.compose.domain.cache.popular.GetCachePopularListUseCase
@@ -58,7 +58,7 @@ abstract class DomainModule {
 
     @Binds
     @ViewModelScoped
-    abstract fun bindThemeUseCase(themeUseCaseImpl: GetAppDataUseCaseImpl): GetAppDataUseCase
+    abstract fun bindThemeUseCase(themeUseCaseImpl: GetThemeUseCaseImpl): GetThemeUseCase
 
     @Binds
     @ViewModelScoped
