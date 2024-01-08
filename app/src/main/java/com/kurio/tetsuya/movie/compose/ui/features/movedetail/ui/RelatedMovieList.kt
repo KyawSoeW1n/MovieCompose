@@ -30,7 +30,10 @@ fun RelatedMovieList(
 
         is ViewState.Success -> {
             LazyRow(modifier = modifier.padding(horizontal = 16.dp)) {
-                items((relatedMovie.value as ViewState.Success<List<RelatedMovieVO>>).successData) { item ->
+                items(
+                    (relatedMovie.value as ViewState.Success<List<RelatedMovieVO>>).successData,
+                    key = { item -> item.id }
+                ) { item ->
                     RelateMovie(
                         item = item,
                         clickItem = {

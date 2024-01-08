@@ -1,8 +1,10 @@
 package com.kurio.tetsuya.movie.compose.data.remote.model.movie
 
+import androidx.compose.runtime.Immutable
 import com.kurio.tetsuya.movie.compose.network.response.popular.PopularResponse
 
-class PopularMovieListVO constructor(
+@Immutable
+class PopularMovieListVO(
     val movieList: MutableList<MovieItemVO>
 ) {
     data class Builder(

@@ -13,6 +13,8 @@ import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -30,6 +32,7 @@ fun PopularScreen(
     popularViewModel: PopularViewModel = hiltViewModel(),
     navigator: DestinationsNavigator
 ) {
+    val bool = rememberSaveable { true }
     val movieList =
         popularViewModel.getCachePopularList()
             .collectAsStateWithLifecycle(initialValue = listOf()).value
@@ -38,6 +41,9 @@ fun PopularScreen(
     val pullRefreshState =
         rememberPullRefreshState(isRefresh, { popularViewModel.refresh() })
 
+    LaunchedEffect(key1 = bool){
+        popularViewModel.fetchPopularList();
+    }
     Box(
         modifier = Modifier
             .pullRefresh(pullRefreshState)
