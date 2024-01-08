@@ -1,7 +1,9 @@
 package com.kurio.tetsuya.movie.compose.data.remote.model.movie
 
+import androidx.compose.runtime.Immutable
 import com.kurio.tetsuya.movie.compose.network.response.upcoming.UpcomingResponse
 
+@Immutable
 class UpcomingMovieListVO constructor(
     val movieList: MutableList<MovieItemVO>
 ) {

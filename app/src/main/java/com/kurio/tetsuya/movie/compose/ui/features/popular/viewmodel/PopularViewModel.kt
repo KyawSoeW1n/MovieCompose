@@ -33,18 +33,13 @@ class PopularViewModel @Inject constructor(
     fun getCachePopularList() =
         getCachePopularListUseCase.getCachePopularList().flowOn(Dispatchers.IO)
 
-    init {
-        fetchPopularList()
-    }
-
-
     fun changeFavouriteStatus(id: Int, flag: Boolean) {
         viewModelScope.launch(coroutinesDispatchers.io) {
             updateCachePopularMovieRepo.updateCachePopularMovie(id = id, flag = flag)
         }
     }
 
-    private fun fetchPopularList() {
+    fun fetchPopularList() {
         viewModelScope.launch(coroutinesDispatchers.io) {
             popularListUseCase.getPopularList().collectLatest {
                 _isRefreshing.emit(false)

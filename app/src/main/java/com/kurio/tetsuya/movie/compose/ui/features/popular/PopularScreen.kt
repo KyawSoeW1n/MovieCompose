@@ -13,6 +13,8 @@ import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -23,6 +25,7 @@ import com.kurio.tetsuya.movie.compose.ui.features.MovieItem
 import com.kurio.tetsuya.movie.compose.ui.features.destinations.MovieDetailScreenDestination
 import com.kurio.tetsuya.movie.compose.ui.features.popular.viewmodel.PopularViewModel
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import kotlinx.collections.immutable.persistentListOf
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -30,14 +33,18 @@ fun PopularScreen(
     popularViewModel: PopularViewModel = hiltViewModel(),
     navigator: DestinationsNavigator
 ) {
+    val bool = rememberSaveable { true }
     val movieList =
         popularViewModel.getCachePopularList()
-            .collectAsStateWithLifecycle(initialValue = listOf()).value
+            .collectAsStateWithLifecycle(initialValue = persistentListOf()).value
     val isRefresh = popularViewModel.isRefreshing.collectAsStateWithLifecycle().value
 
     val pullRefreshState =
         rememberPullRefreshState(isRefresh, { popularViewModel.refresh() })
 
+    LaunchedEffect(key1 = bool){
+        popularViewModel.fetchPopularList();
+    }
     Box(
         modifier = Modifier
             .pullRefresh(pullRefreshState)
@@ -51,7 +58,7 @@ fun PopularScreen(
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             items(
-                items = movieList.toList(),
+                items = movieList,
                 key = { item -> item.id },
             ) { item ->
                 MovieItem(

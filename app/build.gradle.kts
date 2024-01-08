@@ -129,6 +129,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.accompanist.systemuicontroller)
+    implementation(libs.kotlinx.immutable.list)
     debugImplementation(libs.androidx.compose.ui.tooling)
 
     //Network
@@ -153,6 +154,8 @@ dependencies {
     //ComposeDestination
     implementation(libs.composeDestination)
     ksp(libs.composeDestinationKsp)
+
+    implementation(libs.immutable)
 
     // Testing dependencies
     debugImplementation(libs.androidx.monitor)

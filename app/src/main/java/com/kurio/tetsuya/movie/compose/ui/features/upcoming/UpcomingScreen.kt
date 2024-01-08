@@ -32,6 +32,7 @@ import com.kurio.tetsuya.movie.compose.ui.features.destinations.MovieDetailScree
 import com.kurio.tetsuya.movie.compose.ui.features.upcoming.viewmodel.UpcomingEvent
 import com.kurio.tetsuya.movie.compose.ui.features.upcoming.viewmodel.UpcomingViewModel
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import kotlinx.collections.immutable.persistentListOf
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -42,11 +43,11 @@ fun UpcomingScreen(
 
     val movieList =
         upcomingViewModel.getCacheUpcomingList()
-            .collectAsStateWithLifecycle(initialValue = listOf()).value
+            .collectAsStateWithLifecycle(initialValue = persistentListOf()).value
 
     val filterMovieList =
         upcomingViewModel.getCacheUpcomingListByKeyword()
-            .collectAsStateWithLifecycle(initialValue = listOf()).value
+            .collectAsStateWithLifecycle(initialValue = persistentListOf()).value
 
     val isRefresh = upcomingViewModel.isRefreshing.collectAsStateWithLifecycle().value
     val upcomingScreenEvent =
@@ -91,7 +92,7 @@ fun UpcomingScreen(
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 items(
-                    items = if (upcomingScreenEvent == UpcomingEvent.ResetEvent) movieList.toList() else filterMovieList,
+                    items = if (upcomingScreenEvent == UpcomingEvent.ResetEvent) movieList else filterMovieList,
                     key = { item -> item.id },
                 ) { item ->
                     MovieItem(
