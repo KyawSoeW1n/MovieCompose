@@ -1,7 +1,6 @@
 package com.kurio.tetsuya.movie.compose.domain.remote.fetch_upcoming
 
 import com.kurio.tetsuya.movie.compose.data.remote.impl.upcoming.UpcomingListRepo
-import com.kurio.tetsuya.movie.compose.data.remote.impl.upcoming.UpcomingListRepoImpl
 import javax.inject.Inject
 
 

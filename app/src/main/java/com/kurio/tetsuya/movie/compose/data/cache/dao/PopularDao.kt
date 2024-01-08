@@ -6,7 +6,6 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.kurio.tetsuya.movie.compose.data.cache.DatabaseConstants
 import com.kurio.tetsuya.movie.compose.data.cache.entity.PopularCacheMovie
-import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.flow.Flow
 
 @Dao

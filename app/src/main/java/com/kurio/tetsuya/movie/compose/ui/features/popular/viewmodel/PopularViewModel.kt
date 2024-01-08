@@ -1,8 +1,8 @@
 package com.kurio.tetsuya.movie.compose.ui.features.popular.viewmodel
 
 import androidx.lifecycle.viewModelScope
-import com.kurio.tetsuya.movie.compose.domain.cache.popular.GetCachePopularListUseCase
 import com.kurio.tetsuya.movie.compose.data.cache.impl.popular.UpdateCachePopularMovieRepo
+import com.kurio.tetsuya.movie.compose.domain.cache.popular.GetCachePopularListUseCase
 import com.kurio.tetsuya.movie.compose.domain.remote.fetch_popular.PopularListUseCase
 import com.kurio.tetsuya.movie.compose.presentation.BaseViewModel
 import com.kurio.tetsuya.movie.compose.util.CoroutinesDispatchers

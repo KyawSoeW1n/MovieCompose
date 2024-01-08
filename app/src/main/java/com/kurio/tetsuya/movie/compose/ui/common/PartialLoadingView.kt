@@ -7,7 +7,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.kurio.tetsuya.movie.compose.core.color.Purple40
 
 @Composable
 fun PartialLoadingView() {

@@ -18,7 +18,6 @@ import com.kurio.tetsuya.movie.compose.core.theme.AppThemeType
 import com.kurio.tetsuya.movie.compose.core.theme.DarkColorScheme
 import com.kurio.tetsuya.movie.compose.core.theme.LightColorScheme
 import com.kurio.tetsuya.movie.compose.domain.model.toLightColor
-import com.kurio.tetsuya.movie.compose.extensions.showLog
 import com.ramcosta.composedestinations.annotation.RootNavGraph
 import dagger.hilt.android.AndroidEntryPoint
 

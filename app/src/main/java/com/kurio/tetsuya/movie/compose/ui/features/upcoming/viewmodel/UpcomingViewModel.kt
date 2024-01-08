@@ -1,8 +1,8 @@
 package com.kurio.tetsuya.movie.compose.ui.features.upcoming.viewmodel
 
 import androidx.lifecycle.viewModelScope
-import com.kurio.tetsuya.movie.compose.domain.cache.upcoming.GetCacheUpcomingListUseCase
 import com.kurio.tetsuya.movie.compose.data.cache.impl.upcoming.UpdateCacheUpcomingMovieRepo
+import com.kurio.tetsuya.movie.compose.domain.cache.upcoming.GetCacheUpcomingListUseCase
 import com.kurio.tetsuya.movie.compose.domain.remote.fetch_upcoming.UpcomingListUseCase
 import com.kurio.tetsuya.movie.compose.presentation.BaseViewModel
 import com.kurio.tetsuya.movie.compose.util.CoroutinesDispatchers
