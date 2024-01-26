@@ -16,6 +16,7 @@ import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
@@ -40,7 +41,6 @@ fun UpcomingScreen(
     upcomingViewModel: UpcomingViewModel = hiltViewModel(),
     navigator: DestinationsNavigator
 ) {
-
     val movieList =
         upcomingViewModel.getCacheUpcomingList()
             .collectAsStateWithLifecycle(initialValue = persistentListOf()).value
