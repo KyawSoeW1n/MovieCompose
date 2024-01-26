@@ -29,13 +29,13 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.kurio.tetsuya.movie.compose.core.Dimens
-import com.kurio.tetsuya.movie.compose.data.remote.model.movie.MovieDetailVO
-import com.kurio.tetsuya.movie.compose.presentation.ViewState
+import com.kurio.tetsuya.movie.compose.presentation.com.example.domain.ViewState
 import com.kurio.tetsuya.movie.compose.ui.common.ErrorTextView
 import com.kurio.tetsuya.movie.compose.ui.common.FullLoadingView
 import com.kurio.tetsuya.movie.compose.ui.common.MovieDetailsScroller
 import com.kurio.tetsuya.movie.compose.ui.common.ToolbarState
 import com.kurio.tetsuya.movie.compose.ui.features.movedetail.viewmodel.MovieDetailViewModel
+import com.kuriotetsuya.domain.model.MovieDetailVO
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 

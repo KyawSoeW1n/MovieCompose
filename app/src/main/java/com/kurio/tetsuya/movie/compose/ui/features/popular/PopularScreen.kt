@@ -24,6 +24,7 @@ import com.kurio.tetsuya.movie.compose.ui.common.CommonPullToRefreshIndicator
 import com.kurio.tetsuya.movie.compose.ui.features.MovieItem
 import com.kurio.tetsuya.movie.compose.ui.features.destinations.MovieDetailScreenDestination
 import com.kurio.tetsuya.movie.compose.ui.features.popular.viewmodel.PopularViewModel
+import com.kuriotetsuya.domain.model.MovieItemVO
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.collections.immutable.persistentListOf
 
@@ -34,9 +35,9 @@ fun PopularScreen(
     navigator: DestinationsNavigator
 ) {
     val bool = rememberSaveable { true }
-    val movieList =
-        popularViewModel.getCachePopularList()
-            .collectAsStateWithLifecycle(initialValue = persistentListOf()).value
+    val movieList = listOf<MovieItemVO>()
+//        popularViewModel.getCachePopularList()
+//            .collectAsStateWithLifecycle(initialValue = persistentListOf()).value
     val isRefresh = popularViewModel.isRefreshing.collectAsStateWithLifecycle().value
 
     val pullRefreshState =

@@ -1,7 +1,7 @@
 package com.kurio.tetsuya.movie.compose.core.color
 
 import androidx.compose.ui.graphics.Color
-import com.kurio.tetsuya.movie.compose.domain.model.ColorItem
+import com.kuriotetsuya.data.model.ColorItem
 
 val Purple80 = Color(0xFFD0BCFF)
 val PurpleGrey80 = Color(0xFFCCC2DC)

@@ -3,20 +3,17 @@ package com.kurio.tetsuya.movie.compose.movie_detail
 import app.cash.turbine.test
 import com.kurio.tetsuya.movie.compose.TestDispatcherProvider
 import com.kurio.tetsuya.movie.compose.core.UseCaseState
-import com.kurio.tetsuya.movie.compose.data.cache.impl.popular.UpdateCachePopularMovieRepo
-import com.kurio.tetsuya.movie.compose.data.cache.impl.upcoming.UpdateCacheUpcomingMovieRepo
-import com.kurio.tetsuya.movie.compose.data.remote.impl.movie_detail.MovieDetailRepo
-import com.kurio.tetsuya.movie.compose.data.remote.model.movie.MovieDetailVO
-import com.kurio.tetsuya.movie.compose.data.remote.model.movie.RelatedMovieVO
-import com.kurio.tetsuya.movie.compose.domain.cache.popular.GetCachePopularMovieDetailUseCase
-import com.kurio.tetsuya.movie.compose.domain.cache.upcoming.GetCacheUpcomingMovieDetailUseCase
-import com.kurio.tetsuya.movie.compose.domain.remote.moviedetail.MovieDetailUseCase
-import com.kurio.tetsuya.movie.compose.domain.remote.related_movie.RelatedMovieUseCase
+import com.kuriotetsuya.domain.popular.GetCachePopularMovieDetailUseCase
+import com.kuriotetsuya.domain.upcoming.GetCacheUpcomingMovieDetailUseCase
+import com.kuriotetsuya.domain.moviedetail.MovieDetailUseCase
+import com.kuriotetsuya.domain.related_movie.RelatedMovieUseCase
 import com.kurio.tetsuya.movie.compose.network.response.movie_detail.Genre
 import com.kurio.tetsuya.movie.compose.network.response.movie_detail.MovieDetailResponse
-import com.kurio.tetsuya.movie.compose.presentation.ViewState
+import com.kurio.tetsuya.movie.compose.presentation.com.example.domain.ViewState
 import com.kurio.tetsuya.movie.compose.ui.features.movedetail.viewmodel.MovieDetailViewModel
 import com.kurio.tetsuya.movie.compose.util.CoroutinesDispatchers
+import com.kuriotetsuya.domain.model.MovieDetailVO
+import com.kuriotetsuya.domain.model.RelatedMovieVO
 import io.mockk.clearAllMocks
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -37,7 +34,7 @@ class MovieDetailViewModelTest {
     private lateinit var movieDetailUseCase: MovieDetailUseCase
     private lateinit var movieDetailRepo: MovieDetailRepo
     private lateinit var relatedMovieUseCase: RelatedMovieUseCase
-    private lateinit var updateCacheUpcomingMovieRepo: UpdateCacheUpcomingMovieRepo
+    private lateinit var updateMovieRepo: UpdateMovieRepo
     private lateinit var updateCachePopularMovieRepo: UpdateCachePopularMovieRepo
     private lateinit var getCachePopularMovieDetailUseCase: GetCachePopularMovieDetailUseCase
     private lateinit var getCacheUpcomingMovieDetailUseCase: GetCacheUpcomingMovieDetailUseCase
@@ -51,7 +48,7 @@ class MovieDetailViewModelTest {
         movieDetailViewModel = mockk(relaxed = true)
         movieDetailUseCase = mockk(relaxed = true)
         relatedMovieUseCase = mockk(relaxed = true)
-        updateCacheUpcomingMovieRepo = mockk(relaxed = true)
+        updateMovieRepo = mockk(relaxed = true)
         updateCachePopularMovieRepo = mockk(relaxed = true)
         getCachePopularMovieDetailUseCase = mockk(relaxed = true)
         getCacheUpcomingMovieDetailUseCase = mockk(relaxed = true)
@@ -61,7 +58,7 @@ class MovieDetailViewModelTest {
             getCachePopularMovieDetailUseCase = getCachePopularMovieDetailUseCase,
             getCacheUpcomingMovieDetailUseCase = getCacheUpcomingMovieDetailUseCase,
             updateCachePopularMovieRepo = updateCachePopularMovieRepo,
-            updateCacheUpcomingMovieRepo = updateCacheUpcomingMovieRepo,
+            updateCacheUpcomingMovieRepo = updateMovieRepo,
             coroutinesDispatchers = coroutinesDispatchers,
         )
     }

@@ -24,11 +24,11 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.kurio.tetsuya.movie.compose.data.remote.model.movie.MovieDetailVO
 import com.kurio.tetsuya.movie.compose.ui.common.AppImageView
 import com.kurio.tetsuya.movie.compose.ui.common.PrimaryTextView
 import com.kurio.tetsuya.movie.compose.ui.common.ToolbarState
 import com.kurio.tetsuya.movie.compose.ui.features.movedetail.viewmodel.MovieDetailViewModel
+import com.kuriotetsuya.domain.model.MovieDetailVO
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Composable
@@ -44,11 +44,11 @@ fun MovieDetailsContent(
     isUpcoming: Boolean,
     movieDetailViewModel: MovieDetailViewModel = hiltViewModel(),
 ) {
-    val isFavourite =
-        movieDetailViewModel.getMovieDetailStatus(movieDetailVO.id, isUpcoming)
-            .collectAsStateWithLifecycle(
-                initialValue = false
-            ).value
+    val isFavourite = false
+//        movieDetailViewModel.getMovieDetailStatus(movieDetailVO.id, isUpcoming)
+//            .collectAsStateWithLifecycle(
+//                initialValue = false
+//            ).value
     Column(
         Modifier
             .verticalScroll(scrollState)

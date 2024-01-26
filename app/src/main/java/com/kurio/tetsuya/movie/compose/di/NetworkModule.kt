@@ -2,7 +2,6 @@ package com.kurio.tetsuya.movie.compose.di
 
 import com.kurio.tetsuya.movie.compose.BuildConfig
 import com.kurio.tetsuya.movie.compose.network.ApiService
-import com.kurio.tetsuya.movie.compose.network.AuthInterceptor
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides

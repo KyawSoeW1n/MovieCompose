@@ -17,10 +17,10 @@ import androidx.compose.ui.layout.positionInWindow
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.kurio.tetsuya.movie.compose.core.Dimens
-import com.kurio.tetsuya.movie.compose.data.remote.model.movie.MovieDetailVO
 import com.kurio.tetsuya.movie.compose.extensions.visible
 import com.kurio.tetsuya.movie.compose.ui.common.PrimaryTextView
 import com.kurio.tetsuya.movie.compose.ui.common.ToolbarState
+import com.kuriotetsuya.domain.model.MovieDetailVO
 
 @Composable
 fun MovieInformation(

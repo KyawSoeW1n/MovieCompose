@@ -14,10 +14,9 @@ import androidx.navigation.compose.rememberNavController
 import com.kurio.tetsuya.movie.compose.core.color.colors
 import com.kurio.tetsuya.movie.compose.core.navigation.AppNavigation
 import com.kurio.tetsuya.movie.compose.core.style.Typography
-import com.kurio.tetsuya.movie.compose.core.theme.AppThemeType
 import com.kurio.tetsuya.movie.compose.core.theme.DarkColorScheme
 import com.kurio.tetsuya.movie.compose.core.theme.LightColorScheme
-import com.kurio.tetsuya.movie.compose.domain.model.toLightColor
+import com.kuriotetsuya.data.model.toLightColor
 import com.ramcosta.composedestinations.annotation.RootNavGraph
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -47,7 +46,7 @@ class MainActivity : AppCompatActivity() {
 
 @Composable
 fun MovieAppTheme(
-    themeType: AppThemeType,
+    themeType: com.kuriotetsuya.data.AppThemeType,
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
     dynamicColor: Boolean = true,
@@ -57,10 +56,10 @@ fun MovieAppTheme(
     val isDynamicColor = dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
 
     val colorScheme = when (themeType) {
-        AppThemeType.LIGHT -> LightColorScheme
-        AppThemeType.DARK -> DarkColorScheme
-        AppThemeType.SYSTEM -> if (darkTheme) DarkColorScheme else LightColorScheme
-        AppThemeType.DYNAMIC -> {
+        com.kuriotetsuya.data.AppThemeType.LIGHT -> LightColorScheme
+        com.kuriotetsuya.data.AppThemeType.DARK -> DarkColorScheme
+        com.kuriotetsuya.data.AppThemeType.SYSTEM -> if (darkTheme) DarkColorScheme else LightColorScheme
+        com.kuriotetsuya.data.AppThemeType.DYNAMIC -> {
             if (isDynamicColor) {
                 if (dynamicColorName.isNotEmpty()) {
                     val color = colors.find { it.name == dynamicColorName }

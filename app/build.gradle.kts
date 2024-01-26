@@ -158,10 +158,14 @@ android {
 
 dependencies {
 
+    implementation(project(":domain"))
+    implementation(project(":data"))
+
     //Hilt
     implementation(libs.hilt.android)
     implementation(libs.hilt.navigation.compose)
     ksp(libs.hilt.android.compiler)
+
 
     debugImplementation(libs.androidx.monitor)
     kspAndroidTest(libs.hilt.android.compiler)
@@ -189,19 +193,11 @@ dependencies {
     implementation(libs.retrofit2.converter.gson)
     implementation(libs.okhttp3.logging.interceptor)
 
-    //Room
-    implementation(libs.androidx.room.ktx)
-    ksp(libs.androidx.room.compiler)
 
     //DataStore
     implementation(libs.datastore.preferences)
     //Coil
     implementation(libs.coil)
-
-    //Moshi
-    implementation(libs.retrofit.moshi)
-    implementation(libs.moshi)
-    ksp(libs.moshiCodeGen)
 
     //ComposeDestination
     implementation(libs.composeDestination)
@@ -241,4 +237,13 @@ dependencies {
 
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.appcompat.resource)
+
+    //Room
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
+
+    //Moshi
+    implementation(libs.retrofit.moshi)
+    implementation(libs.moshi)
+    ksp(libs.moshiCodeGen)
 }

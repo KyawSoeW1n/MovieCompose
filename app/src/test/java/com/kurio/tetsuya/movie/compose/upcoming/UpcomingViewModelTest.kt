@@ -1,13 +1,12 @@
 package com.kurio.tetsuya.movie.compose.upcoming
 
 import com.kurio.tetsuya.movie.compose.TestDispatcherProvider
-import com.kurio.tetsuya.movie.compose.data.cache.impl.upcoming.UpdateCacheUpcomingMovieRepo
-import com.kurio.tetsuya.movie.compose.data.remote.model.movie.MovieItemVO
-import com.kurio.tetsuya.movie.compose.domain.cache.upcoming.GetCacheUpcomingListUseCase
-import com.kurio.tetsuya.movie.compose.domain.remote.fetch_upcoming.UpcomingListUseCase
+import com.kuriotetsuya.domain.upcoming.GetCacheUpcomingListUseCase
+import com.kuriotetsuya.domain.fetch_upcoming.FetchUpcomingMovieUseCase
 import com.kurio.tetsuya.movie.compose.ui.features.upcoming.viewmodel.UpcomingEvent
 import com.kurio.tetsuya.movie.compose.ui.features.upcoming.viewmodel.UpcomingViewModel
 import com.kurio.tetsuya.movie.compose.util.CoroutinesDispatchers
+import com.kuriotetsuya.domain.model.MovieItemVO
 import io.mockk.clearAllMocks
 import io.mockk.coVerify
 import io.mockk.every
@@ -24,22 +23,22 @@ import org.junit.jupiter.api.Test
 
 class UpcomingViewModelTest {
     private lateinit var upcomingViewModel: UpcomingViewModel
-    private lateinit var upcomingListUseCase: UpcomingListUseCase
+    private lateinit var fetchUpcomingMovieUseCase: FetchUpcomingMovieUseCase
     private lateinit var getCacheUpcomingListUseCase: GetCacheUpcomingListUseCase
-    private lateinit var updateCacheUpcomingMovieRepo: UpdateCacheUpcomingMovieRepo
+    private lateinit var updateMovieRepo: UpdateMovieRepo
     private lateinit var coroutinesDispatchers: CoroutinesDispatchers
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @BeforeEach
     fun setUp() {
         coroutinesDispatchers = TestDispatcherProvider()
-        upcomingListUseCase = mockk(relaxed = true)
+        fetchUpcomingMovieUseCase = mockk(relaxed = true)
         getCacheUpcomingListUseCase = mockk(relaxed = true)
-        updateCacheUpcomingMovieRepo = mockk(relaxed = true)
+        updateMovieRepo = mockk(relaxed = true)
         upcomingViewModel = UpcomingViewModel(
-            upcomingListUseCase = upcomingListUseCase,
+            fetchUpcomingMovieUseCase = fetchUpcomingMovieUseCase,
             getCacheUpcomingListUseCase = getCacheUpcomingListUseCase,
-            updateCacheUpcomingMovieRepo = updateCacheUpcomingMovieRepo,
+            updateCacheUpcomingMovieRepo = updateMovieRepo,
             coroutinesDispatchers = coroutinesDispatchers
         )
     }
@@ -96,7 +95,7 @@ class UpcomingViewModelTest {
         upcomingViewModel.changeFavouriteStatus(id = 1, flag = false)
 
         coVerify(exactly = 1) {
-            updateCacheUpcomingMovieRepo.updateCacheUpcomingMovie(id = 1, flag = false)
+            updateMovieRepo.updateCacheUpcomingMovie(id = 1, flag = false)
         }
 
     }
