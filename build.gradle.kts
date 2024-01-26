@@ -7,13 +7,18 @@ buildscript {
     repositories {
         google()
         mavenCentral()
+        gradlePluginPortal()
         maven(url = "https://jitpack.io")
+
     }
 
     dependencies {
         classpath(libs.android.gradle.plugin)
         classpath(libs.kotlin.gradle.plugin)
         classpath(libs.hilt.android.gradle.plugin)
+        classpath(libs.detekt.plugin)
+
+//        classpath("io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.23.4")
     }
 }
 
@@ -23,6 +28,8 @@ plugins {
     alias(libs.plugins.kotlin.android) apply false
     alias(libs.plugins.kotlin.ksp) apply false
     alias(libs.plugins.dagger.hilt) apply false
+    alias(libs.plugins.detekt.plugin) apply false
+//    id("io.gitlab.arturbosch.detekt") version "1.23.4" apply false
 }
 
 val credentialDp = loadCredentialData()
@@ -45,13 +52,13 @@ subprojects {
             if (project.findProperty("composeCompilerReports") == "true") {
                 freeCompilerArgs += listOf(
                     "-P",
-                    "plugin:androidx.compose.compiler.plugins.kotlin:reportsDestination=${project.buildDir.absolutePath}/compose_compiler"
+                    "plugin:androidx.compose.compiler.plugins.kotlin:reportsDestination=${project.layout.buildDirectory}/compose_compiler"
                 )
             }
             if (project.findProperty("composeCompilerMetrics") == "true") {
                 freeCompilerArgs += listOf(
                     "-P",
-                    "plugin:androidx.compose.compiler.plugins.kotlin:metricsDestination=${project.buildDir.absolutePath}/compose_compiler"
+                    "plugin:androidx.compose.compiler.plugins.kotlin:metricsDestination=${project.layout.buildDirectory}/compose_compiler"
                 )
             }
         }
