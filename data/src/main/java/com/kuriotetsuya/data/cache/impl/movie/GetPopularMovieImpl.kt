@@ -19,7 +19,7 @@ class GetPopularMovieImpl @Inject constructor(
                     image = it.image,
                     title = it.title,
                     overview = it.description,
-                    isFavourite = it.isFavourite
+                    isFavourite = it.isFavourite ?: false
                 )
             }
         }

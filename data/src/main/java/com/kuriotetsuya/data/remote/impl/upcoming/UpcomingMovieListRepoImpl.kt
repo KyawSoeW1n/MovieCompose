@@ -1,6 +1,7 @@
 package com.kuriotetsuya.data.remote.impl.upcoming
 
 import com.kurio.tetsuya.movie.compose.core.com.kuriotetsuya.data.cache.datasource.movie.MovieCacheDataSourceImpl
+import com.kurio.tetsuya.movie.compose.core.com.kuriotetsuya.data.cache.entity.MovieTableUpdate
 import com.kurio.tetsuya.movie.compose.core.com.kuriotetsuya.data.cache.entity.PopularMovie
 import com.kurio.tetsuya.movie.compose.core.com.kuriotetsuya.data.cache.entity.UpcomingMovie
 import com.kurio.tetsuya.movie.compose.presentation.com.example.domain.ViewState
@@ -30,12 +31,11 @@ class UpcomingMovieListRepoImpl @Inject constructor(
                             data.results.map {
                                 val mapResponse = upcomingMapper.mapFromResponse(data)
                                 val list = mapResponse.movieList.map {
-                                    MovieTable(
+                                    MovieTableUpdate(
                                         id = it.id,
                                         title = it.title,
                                         image = it.image,
                                         description = it.overview,
-                                        isFavourite = it.isFavourite
                                     )
                                 }
                                 val upcomingMovieList = mapResponse.movieList.map {

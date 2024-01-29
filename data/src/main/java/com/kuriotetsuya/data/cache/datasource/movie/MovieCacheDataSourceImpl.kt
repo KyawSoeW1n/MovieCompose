@@ -1,5 +1,6 @@
 package com.kurio.tetsuya.movie.compose.core.com.kuriotetsuya.data.cache.datasource.movie
 
+import com.kurio.tetsuya.movie.compose.core.com.kuriotetsuya.data.cache.entity.MovieTableUpdate
 import com.kurio.tetsuya.movie.compose.core.com.kuriotetsuya.data.cache.entity.PopularMovie
 import com.kurio.tetsuya.movie.compose.core.com.kuriotetsuya.data.cache.entity.UpcomingMovie
 import com.kuriotetsuya.data.cache.dao.MovieDao
@@ -14,7 +15,7 @@ class MovieCacheDataSourceImpl @Inject constructor(
 
     override fun getPopularMovieList() = movieDao.getPopularMovieList()
 
-    override fun insertMovieList(list: List<MovieTable>) =
+    override fun insertMovieList(list: List<MovieTableUpdate>) =
         movieDao.insertMovieList(list)
 
     override fun insertPopularMovieList(list: List<PopularMovie>) =

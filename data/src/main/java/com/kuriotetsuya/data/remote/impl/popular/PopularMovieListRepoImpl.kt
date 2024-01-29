@@ -1,6 +1,7 @@
 package com.kuriotetsuya.data.remote.impl.popular
 
 import com.kurio.tetsuya.movie.compose.core.com.kuriotetsuya.data.cache.datasource.movie.MovieCacheDataSourceImpl
+import com.kurio.tetsuya.movie.compose.core.com.kuriotetsuya.data.cache.entity.MovieTableUpdate
 import com.kurio.tetsuya.movie.compose.core.com.kuriotetsuya.data.cache.entity.PopularMovie
 import com.kurio.tetsuya.movie.compose.presentation.com.example.domain.ViewState
 import com.kuriotetsuya.data.cache.entity.MovieTable
@@ -29,12 +30,11 @@ class PopularMovieListRepoImpl @Inject constructor(
                             data.results.map {
                                 val mapResponse = popularMapper.mapFromResponse(data)
                                 val list = mapResponse.movieList.map {
-                                    MovieTable(
+                                    MovieTableUpdate(
                                         id = it.id,
                                         title = it.title,
                                         image = it.image,
                                         description = it.overview,
-                                        isFavourite = it.isFavourite
                                     )
                                 }
                                 val popularMovieList = mapResponse.movieList.map {

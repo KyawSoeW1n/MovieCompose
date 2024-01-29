@@ -4,6 +4,8 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Upsert
+import com.kurio.tetsuya.movie.compose.core.com.kuriotetsuya.data.cache.entity.MovieTableUpdate
 import com.kurio.tetsuya.movie.compose.core.com.kuriotetsuya.data.cache.entity.PopularMovie
 import com.kurio.tetsuya.movie.compose.core.com.kuriotetsuya.data.cache.entity.UpcomingMovie
 import com.kuriotetsuya.data.cache.DatabaseConstants
@@ -14,8 +16,8 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface MovieDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertMovieList(cacheTicketList: List<MovieTable>)
+    @Upsert(entity = MovieTable::class)
+    fun insertMovieList(cacheTicketList: List<MovieTableUpdate>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertPopularMovie(cacheTicketList: List<PopularMovie>)

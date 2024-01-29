@@ -7,9 +7,6 @@ import javax.inject.Inject
 class UpdateFavouriteStatusImpl @Inject constructor(
     private val movieCacheDataSourceImpl: MovieCacheDataSourceImpl
 ) : UpdateFavouriteStatusRepo {
-
-
     override fun updateFavouriteStatus(movieId: Int, flag: Boolean) =
         movieCacheDataSourceImpl.updateMovie(movieId, flag)
-
 }

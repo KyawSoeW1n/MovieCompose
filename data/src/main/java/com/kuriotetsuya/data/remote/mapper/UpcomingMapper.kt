@@ -14,7 +14,6 @@ class UpcomingMapper {
                 id = it.id,
                 image = it.posterPath.convertNetworkString(),
                 title = it.title,
-                isFavourite = false,
                 overview = it.overview
             )
         }.toMutableList()

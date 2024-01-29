@@ -1,5 +1,6 @@
 package com.kurio.tetsuya.movie.compose.core.com.kuriotetsuya.data.cache.datasource.movie
 
+import com.kurio.tetsuya.movie.compose.core.com.kuriotetsuya.data.cache.entity.MovieTableUpdate
 import com.kurio.tetsuya.movie.compose.core.com.kuriotetsuya.data.cache.entity.PopularMovie
 import com.kurio.tetsuya.movie.compose.core.com.kuriotetsuya.data.cache.entity.UpcomingMovie
 import com.kuriotetsuya.data.cache.entity.MovieTable
@@ -9,7 +10,7 @@ interface MovieCacheDataSource {
     fun getUpcomingMovieList(): Flow<List<MovieTable>>
     fun getPopularMovieList(): Flow<List<MovieTable>>
 
-    fun insertMovieList(list: List<MovieTable>)
+    fun insertMovieList(list: List<MovieTableUpdate>)
     fun insertPopularMovieList(list: List<PopularMovie>)
     fun insertUpcomingMovieList(list: List<UpcomingMovie>)
     fun updateMovie(movieId: Int, flag: Boolean)
