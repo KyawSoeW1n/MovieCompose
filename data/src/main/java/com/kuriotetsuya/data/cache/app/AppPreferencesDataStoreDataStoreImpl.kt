@@ -1,17 +1,5 @@
-package com.kuriotetsuya.data.cache.app
-
-//import androidx.datastore.core.DataStore
-//import androidx.datastore.preferences.core.booleanPreferencesKey
-//import androidx.datastore.preferences.core.edit
-//import androidx.datastore.preferences.core.emptyPreferences
-//import androidx.datastore.preferences.core.stringPreferencesKey
-//import com.kurio.tetsuya.movie.compose.domain.model.AppConfiguration
-//import com.kuriotetsuya.data.LanguageType
-//import kotlinx.coroutines.flow.Flow
-//import kotlinx.coroutines.flow.catch
-//import kotlinx.coroutines.flow.map
-//import java.util.prefs.Preferences
-//import javax.inject.Inject
+//package com.kuriotetsuya.data.cache.app
+//
 //
 //class AppPreferencesDataStoreDataStoreImpl @Inject constructor(
 //    private val dataStorePreferences: DataStore<Preferences>
@@ -82,24 +70,24 @@ package com.kuriotetsuya.data.cache.app
 //        }
 //    }
 //
-//    private fun String?.toThemeStyleType(): AppThemeType = when (this) {
-//        AppThemeType.LIGHT.name -> AppThemeType.LIGHT
-//        AppThemeType.DARK.name -> AppThemeType.DARK
-//        AppThemeType.SYSTEM.name -> AppThemeType.SYSTEM
-//        AppThemeType.DYNAMIC.name -> AppThemeType.DYNAMIC
-//        else -> AppThemeType.SYSTEM
-//    }
-//
-//    private fun String?.toLocale(): LanguageType = when (this) {
-//        LanguageType.en.name -> LanguageType.en
-//        LanguageType.my.name -> LanguageType.my
-//        else -> LanguageType.en
-//    }
-//
-//    private object PreferencesKeys {
-//        val themeStyle = stringPreferencesKey(name = "theme_style")
-//        val locale = stringPreferencesKey(name = "locale")
-//        val dynamicColorCode = stringPreferencesKey(name = "dynamic_color_code")
-//        val useDynamicColors = booleanPreferencesKey(name = "use_dynamic_colors")
-//    }
+////    private fun String?.toThemeStyleType(): AppThemeType = when (this) {
+////        AppThemeType.LIGHT.name -> AppThemeType.LIGHT
+////        AppThemeType.DARK.name -> AppThemeType.DARK
+////        AppThemeType.SYSTEM.name -> AppThemeType.SYSTEM
+////        AppThemeType.DYNAMIC.name -> AppThemeType.DYNAMIC
+////        else -> AppThemeType.SYSTEM
+////    }
+////
+////    private fun String?.toLocale(): LanguageType = when (this) {
+////        LanguageType.en.name -> LanguageType.en
+////        LanguageType.my.name -> LanguageType.my
+////        else -> LanguageType.en
+////    }
+////
+////    private object PreferencesKeys {
+////        val themeStyle = stringPreferencesKey(name = "theme_style")
+////        val locale = stringPreferencesKey(name = "locale")
+////        val dynamicColorCode = stringPreferencesKey(name = "dynamic_color_code")
+////        val useDynamicColors = booleanPreferencesKey(name = "use_dynamic_colors")
+////    }
 //}

@@ -1,4 +1,4 @@
-package com.kuriotetsuya.data
+package com.kuriotetsuya.domain
 
 enum class AppThemeType {
     LIGHT,

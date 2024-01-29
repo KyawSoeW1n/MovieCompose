@@ -3,10 +3,6 @@ package com.kurio.tetsuya.movie.compose.movie_detail
 import app.cash.turbine.test
 import com.kurio.tetsuya.movie.compose.TestDispatcherProvider
 import com.kurio.tetsuya.movie.compose.core.UseCaseState
-import com.kuriotetsuya.domain.popular.GetCachePopularMovieDetailUseCase
-import com.kuriotetsuya.domain.upcoming.GetCacheUpcomingMovieDetailUseCase
-import com.kuriotetsuya.domain.moviedetail.MovieDetailUseCase
-import com.kuriotetsuya.domain.related_movie.RelatedMovieUseCase
 import com.kurio.tetsuya.movie.compose.network.response.movie_detail.Genre
 import com.kurio.tetsuya.movie.compose.network.response.movie_detail.MovieDetailResponse
 import com.kurio.tetsuya.movie.compose.presentation.com.example.domain.ViewState
@@ -14,6 +10,9 @@ import com.kurio.tetsuya.movie.compose.ui.features.movedetail.viewmodel.MovieDet
 import com.kurio.tetsuya.movie.compose.util.CoroutinesDispatchers
 import com.kuriotetsuya.domain.model.MovieDetailVO
 import com.kuriotetsuya.domain.model.RelatedMovieVO
+import com.kuriotetsuya.domain.moviedetail.MovieDetailUseCase
+import com.kuriotetsuya.domain.related_movie.RelatedMovieUseCase
+import com.kuriotetsuya.domain.upcoming.GetCacheUpcomingMovieDetailUseCase
 import io.mockk.clearAllMocks
 import io.mockk.coEvery
 import io.mockk.coVerify

@@ -2,7 +2,6 @@ package com.kurio.tetsuya.movie.compose.di
 
 import android.content.Context
 import androidx.room.Room
-import com.kuriotetsuya.data.cache.DatabaseConstants
 import com.kurio.tetsuya.movie.compose.data.cache.MovieDatabase
 import dagger.Module
 import dagger.Provides

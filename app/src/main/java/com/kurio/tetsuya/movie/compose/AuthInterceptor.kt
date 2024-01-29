@@ -1,7 +1,5 @@
-package com.kurio.tetsuya.movie.compose.di
+package com.kurio.tetsuya.movie.compose
 
-import com.kurio.tetsuya.movie.compose.BuildConfig
-import com.kurio.tetsuya.movie.compose.core.NetworkConstants
 import okhttp3.Interceptor
 import okhttp3.Response
 import java.io.IOException

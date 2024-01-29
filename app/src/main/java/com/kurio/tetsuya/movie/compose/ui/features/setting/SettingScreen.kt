@@ -30,11 +30,12 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.kurio.tetsuya.movie.compose.R
 import com.kurio.tetsuya.movie.compose.core.color.colors
-import com.kuriotetsuya.data.LanguageType
 import com.kurio.tetsuya.movie.compose.core.locale.LocaleHelper
 import com.kurio.tetsuya.movie.compose.ui.common.CommonAppBar
 import com.kurio.tetsuya.movie.compose.ui.common.PrimaryTextView
 import com.kurio.tetsuya.movie.compose.ui.common.SpacerX
+import com.kuriotetsuya.domain.AppThemeType
+import com.kuriotetsuya.domain.LanguageType
 import com.ramcosta.composedestinations.annotation.Destination
 
 @Composable
@@ -69,13 +70,13 @@ fun SettingScreen(
                     modifier = Modifier.padding(end = 8.dp),
                     checked = isDynamicColor.value,
                     onCheckedChange = {
-//                        if (it) {
-//                            settingViewModel.changeThemeStyle(appThemeType = com.kuriotetsuya.data.AppThemeType.DYNAMIC)
-//                        } else {
-//                            settingViewModel.changeThemeStyle(appThemeType = com.kuriotetsuya.data.AppThemeType.SYSTEM)
-//                        }
-//
-//                        settingViewModel.toggleDynamicColor()
+                        if (it) {
+                            settingViewModel.changeThemeStyle(appThemeType = com.kuriotetsuya.domain.AppThemeType.DYNAMIC)
+                        } else {
+                            settingViewModel.changeThemeStyle(appThemeType = com.kuriotetsuya.domain.AppThemeType.SYSTEM)
+                        }
+
+                        settingViewModel.toggleDynamicColor()
                     },
                     colors = SwitchDefaults.colors(
                         checkedThumbColor = Color.White,
@@ -97,7 +98,7 @@ fun SettingScreen(
                                 .background(item.primary)
                                 .clip(shape = RoundedCornerShape(8.dp))
                                 .clickable {
-//                                    settingViewModel.setDynamicColorCode(item.name)
+                                    settingViewModel.setDynamicColorCode(item.name)
                                 },
                             contentAlignment = Alignment.Center,
                         ) {
@@ -125,23 +126,23 @@ fun SettingScreen(
                 )
                 ThemeRadioButton(
                     label = "☀️\t ${stringResource(id = R.string.light)}",
-                    selected = appTheme.value == com.kuriotetsuya.data.AppThemeType.LIGHT,
+                    selected = appTheme.value == AppThemeType.LIGHT,
                     onClick = {
-//                        settingViewModel.changeThemeStyle(appThemeType = com.kuriotetsuya.data.AppThemeType.LIGHT)
+                        settingViewModel.changeThemeStyle(appThemeType = AppThemeType.LIGHT)
                     }
                 )
                 ThemeRadioButton(
                     label = "🌘\t ${stringResource(id = R.string.dark)}",
-                    selected = appTheme.value == com.kuriotetsuya.data.AppThemeType.DARK,
+                    selected = appTheme.value == AppThemeType.DARK,
                     onClick = {
-//                        settingViewModel.changeThemeStyle(appThemeType = com.kuriotetsuya.data.AppThemeType.DARK)
+                        settingViewModel.changeThemeStyle(appThemeType = AppThemeType.DARK)
                     }
                 )
                 ThemeRadioButton(
                     label = "🤖\t ${stringResource(id = R.string.system)}",
-                    selected = appTheme.value == com.kuriotetsuya.data.AppThemeType.SYSTEM,
+                    selected = appTheme.value == AppThemeType.SYSTEM,
                     onClick = {
-//                        settingViewModel.changeThemeStyle(appThemeType = com.kuriotetsuya.data.AppThemeType.SYSTEM)
+                        settingViewModel.changeThemeStyle(appThemeType = AppThemeType.SYSTEM)
                     }
                 )
             }
@@ -160,7 +161,7 @@ fun SettingScreen(
                 LocaleHelper.changeLocale(context = context,
                     LanguageType.en.name,
                     onClick = {
-//                        settingViewModel.changeLocale(languageType = LanguageType.en)
+                        settingViewModel.changeLocale(languageType = LanguageType.en)
                     })
             }
         )
@@ -171,7 +172,7 @@ fun SettingScreen(
                 LocaleHelper.changeLocale(context = context,
                     LanguageType.my.name,
                     onClick = {
-//                        settingViewModel.changeLocale(languageType = LanguageType.my)
+                        settingViewModel.changeLocale(languageType = LanguageType.my)
                     })
             }
         )

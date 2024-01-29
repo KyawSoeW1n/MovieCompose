@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 import com.kuriotetsuya.data.cache.DatabaseConstants
 
 @Entity(tableName = DatabaseConstants.MOVIE_TABLE)
-data class CacheMovie(
+data class MovieTable(
     @PrimaryKey
     @ColumnInfo(name = "id")
     val id: Int,

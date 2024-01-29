@@ -1,5 +1,6 @@
 package com.kurio.tetsuya.movie.compose.di
 
+import com.kurio.tetsuya.movie.compose.AuthInterceptor
 import com.kurio.tetsuya.movie.compose.BuildConfig
 import com.kurio.tetsuya.movie.compose.network.ApiService
 import com.squareup.moshi.Moshi

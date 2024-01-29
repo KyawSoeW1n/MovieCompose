@@ -7,11 +7,14 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.TextStyle
 
 @Composable
-fun PartialLoadingView() {
+fun PartialLoadingView(
+    modifier: Modifier = Modifier.wrapContentSize(),
+) {
     Box(
-        modifier = Modifier.wrapContentSize(),
+        modifier = modifier,
         contentAlignment = Alignment.Center
     ) {
         CircularProgressIndicator(

@@ -1,6 +1,4 @@
-package com.kuriotetsuya.data.model
-import com.kuriotetsuya.domain.AppThemeType
-import com.kuriotetsuya.domain.LanguageType
+package com.kuriotetsuya.domain
 
 data class AppConfiguration(
     val useDynamicColors: Boolean,

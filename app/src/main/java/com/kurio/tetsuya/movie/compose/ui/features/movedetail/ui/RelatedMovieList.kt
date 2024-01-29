@@ -1,5 +1,6 @@
 package com.kurio.tetsuya.movie.compose.ui.features.movedetail.ui
 
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -13,7 +14,6 @@ import com.kurio.tetsuya.movie.compose.ui.common.PartialLoadingView
 import com.kurio.tetsuya.movie.compose.ui.common.PrimaryTextView
 import com.kurio.tetsuya.movie.compose.ui.features.destinations.MovieDetailScreenDestination
 import com.kurio.tetsuya.movie.compose.ui.features.movedetail.viewmodel.MovieDetailViewModel
-import com.kuriotetsuya.domain.model.MovieItemVO
 import com.kuriotetsuya.domain.model.RelatedMovieVO
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
@@ -23,44 +23,22 @@ fun RelatedMovieList(
     movieDetailViewModel: MovieDetailViewModel = hiltViewModel(),
     navigator: DestinationsNavigator
 ) {
-    val relatedMovie = listOf(
-        RelatedMovieVO(id = 1, name = "testing", image = "erwr", rating = "0.3")
-    )
 
-    LazyRow(modifier = modifier.padding(horizontal = 16.dp)) {
-        items(
-            relatedMovie,
-            key = { item -> item.id }
-        ) { item ->
-            RelateMovie(
-                item = item,
-                clickItem = {
-//                    navigator.navigate(
-//                        MovieDetailScreenDestination(
-//                            movieId = item.id,
-//                            moviePoster = item.image,
-//                            movieTitle = item.image,
-//                            isUpcoming = false,
-//                        )
-//                    )
-                }
-            )
+    val relatedMovie = movieDetailViewModel.relatedMovieStateFlow.collectAsStateWithLifecycle()
+    when (relatedMovie.value) {
+        is ViewState.Loading -> {
+            PartialLoadingView(modifier = modifier.fillMaxWidth())
         }
-//    val relatedMovie = movieDetailViewModel.relatedMovieStateFlow.collectAsStateWithLifecycle()
-//    when (relatedMovie.value) {
-//        is ViewState.Loading -> {
-//            PartialLoadingView()
-//        }
-//
-//        is ViewState.Success -> {
-//            LazyRow(modifier = modifier.padding(horizontal = 16.dp)) {
-//                items(
-//                    (relatedMovie.value as ViewState.Success<List<RelatedMovieVO>>).successData,
-//                    key = { item -> item.id }
-//                ) { item ->
-//                    RelateMovie(
-//                        item = item,
-//                        clickItem = {
+
+        is ViewState.Success -> {
+            LazyRow(modifier = modifier.padding(horizontal = 16.dp)) {
+                items(
+                    (relatedMovie.value as ViewState.Success<List<RelatedMovieVO>>).successData,
+                    key = { item -> item.id }
+                ) { item ->
+                    RelateMovie(
+                        item = item,
+                        clickItem = {
 //                            navigator.navigate(
 //                                MovieDetailScreenDestination(
 //                                    movieId = item.id,
@@ -69,20 +47,19 @@ fun RelatedMovieList(
 //                                    isUpcoming = false,
 //                                )
 //                            )
-//                        }
-//                    )
-//                }
-//            }
-//
-//        }
-//
-//        is ViewState.Error -> {
-//            PrimaryTextView(text = "Error")
-//        }
-//
-//        else -> {
-//            PrimaryTextView(text = "Error")
-//        }
-//    }
+                        }
+                    )
+                }
+            }
+
+        }
+
+        is ViewState.Error -> {
+            PrimaryTextView(text = "Error")
+        }
+
+        else -> {
+            PrimaryTextView(text = "Error")
+        }
     }
 }

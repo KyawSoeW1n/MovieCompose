@@ -196,6 +196,7 @@ dependencies {
 
     //DataStore
     implementation(libs.datastore.preferences)
+
     //Coil
     implementation(libs.coil)
 

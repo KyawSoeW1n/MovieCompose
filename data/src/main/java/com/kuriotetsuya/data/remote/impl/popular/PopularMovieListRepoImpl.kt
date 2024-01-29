@@ -1,33 +1,35 @@
-package com.kuriotetsuya.data.remote.impl.upcoming
+package com.kuriotetsuya.data.remote.impl.popular
 
-import com.kuriotetsuya.domain.fetch_upcoming.FetchUpcomingMovieRepo
+import com.kurio.tetsuya.movie.compose.core.com.kuriotetsuya.data.cache.datasource.movie.MovieCacheDataSourceImpl
+import com.kurio.tetsuya.movie.compose.core.com.kuriotetsuya.data.cache.entity.PopularMovie
 import com.kurio.tetsuya.movie.compose.presentation.com.example.domain.ViewState
-import com.kuriotetsuya.data.cache.entity.CacheMovie
+import com.kuriotetsuya.data.cache.entity.MovieTable
 import com.kuriotetsuya.data.network.safeApiCall
-import com.kuriotetsuya.data.remote.datasource.MovieDataSourceImpl
-import com.kuriotetsuya.data.remote.mapper.UpcomingMapper
-import com.kuriotetsuya.domain.model.UpcomingMovieListVO
+import com.kuriotetsuya.data.remote.datasource.MovieRemoteDataSourceImpl
+import com.kuriotetsuya.data.remote.mapper.PopularMapper
+import com.kuriotetsuya.domain.fetch_popular.FetchPopularMovieRepo
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class UpcomingListMovieRepoImpl @Inject constructor(
-    private val movieDataSourceImpl: MovieDataSourceImpl,
-    private val upcomingMapper: UpcomingMapper,
-) : FetchUpcomingMovieRepo {
-    override fun fetchUpcomingList() =
+class PopularMovieListRepoImpl @Inject constructor(
+    private val movieRemoteDataSourceImpl: MovieRemoteDataSourceImpl,
+    private val movieCacheDataSourceImpl: MovieCacheDataSourceImpl,
+    private val popularMapper: PopularMapper
+) : FetchPopularMovieRepo {
+    override fun fetchPopularList() =
         flow {
             emit(ViewState.Loading)
             val response = safeApiCall {
-                movieDataSourceImpl.fetchUpcomingList()
+                movieRemoteDataSourceImpl.fetchPopularList()
             }
             when (response) {
                 is ViewState.Success -> {
                     response.successData?.let { data ->
                         if (data.results.isNotEmpty()) {
                             data.results.map {
-                                val mapResponse = upcomingMapper.mapFromResponse(data)
+                                val mapResponse = popularMapper.mapFromResponse(data)
                                 val list = mapResponse.movieList.map {
-                                    CacheMovie(
+                                    MovieTable(
                                         id = it.id,
                                         title = it.title,
                                         image = it.image,
@@ -35,7 +37,11 @@ class UpcomingListMovieRepoImpl @Inject constructor(
                                         isFavourite = it.isFavourite
                                     )
                                 }
-                                movieDataSourceImpl.insertUpcomingList(list)
+                                val popularMovieList = mapResponse.movieList.map {
+                                    PopularMovie(it.id)
+                                }
+                                movieCacheDataSourceImpl.insertMovieList(list)
+                                movieCacheDataSourceImpl.insertPopularMovieList(popularMovieList)
                             }
                         }
                     } ?: run {

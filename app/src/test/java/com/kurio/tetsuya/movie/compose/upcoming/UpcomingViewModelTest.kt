@@ -1,12 +1,12 @@
 package com.kurio.tetsuya.movie.compose.upcoming
 
 import com.kurio.tetsuya.movie.compose.TestDispatcherProvider
-import com.kuriotetsuya.domain.upcoming.GetCacheUpcomingListUseCase
-import com.kuriotetsuya.domain.fetch_upcoming.FetchUpcomingMovieUseCase
 import com.kurio.tetsuya.movie.compose.ui.features.upcoming.viewmodel.UpcomingEvent
 import com.kurio.tetsuya.movie.compose.ui.features.upcoming.viewmodel.UpcomingViewModel
 import com.kurio.tetsuya.movie.compose.util.CoroutinesDispatchers
+import com.kuriotetsuya.domain.fetch_upcoming.FetchUpcomingMovieUseCase
 import com.kuriotetsuya.domain.model.MovieItemVO
+import com.kuriotetsuya.domain.upcoming.GetCacheUpcomingListUseCase
 import io.mockk.clearAllMocks
 import io.mockk.coVerify
 import io.mockk.every

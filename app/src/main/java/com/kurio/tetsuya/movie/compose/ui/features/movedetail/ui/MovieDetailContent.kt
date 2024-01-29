@@ -41,14 +41,13 @@ fun MovieDetailsContent(
     onNamePosition: (Float) -> Unit,
     contentAlpha: () -> Float,
     navigator: DestinationsNavigator,
-    isUpcoming: Boolean,
     movieDetailViewModel: MovieDetailViewModel = hiltViewModel(),
 ) {
-    val isFavourite = false
-//        movieDetailViewModel.getMovieDetailStatus(movieDetailVO.id, isUpcoming)
-//            .collectAsStateWithLifecycle(
-//                initialValue = false
-//            ).value
+    val isFavourite =
+        movieDetailViewModel.getMovieDetailFromCache(movieDetailVO.id)
+            .collectAsStateWithLifecycle(
+                initialValue = false
+            ).value
     Column(
         Modifier
             .verticalScroll(scrollState)
@@ -80,17 +79,10 @@ fun MovieDetailsContent(
                     modifier = Modifier.weight(1f)
                 )
                 IconButton(onClick = {
-                    if (isUpcoming) {
-                        movieDetailViewModel.changeFavouriteUpcomingStatus(
-                            movieDetailVO.id,
-                            !isFavourite
-                        )
-                    } else {
-                        movieDetailViewModel.changeFavouritePopularStatus(
-                            movieDetailVO.id,
-                            !isFavourite
-                        )
-                    }
+                    movieDetailViewModel.changeFavouriteStatus(
+                        movieDetailVO.id,
+                        !isFavourite
+                    )
                 }) {
                     if (isFavourite) Icon(
                         imageVector = Icons.Filled.Favorite,
@@ -116,6 +108,8 @@ fun MovieDetailsContent(
             RelatedMovieList(
                 modifier = Modifier.constrainAs(relatedMovie) {
                     top.linkTo(info.bottom)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
                 },
                 navigator = navigator
             )

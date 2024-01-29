@@ -2,6 +2,7 @@ package com.kurio.tetsuya.movie.compose.di
 
 import android.content.Context
 import androidx.room.Room
+import com.kuriotetsuya.data.cache.DatabaseConstants
 import com.kuriotetsuya.data.cache.MovieDatabase
 import dagger.Module
 import dagger.Provides
@@ -20,7 +21,7 @@ object DatabaseModule {
     ) = Room.databaseBuilder(
         app,
         MovieDatabase::class.java,
-        com.kuriotetsuya.data.cache.DatabaseConstants.DB_NAME
+        DatabaseConstants.DB_NAME
     ).build()
 
 

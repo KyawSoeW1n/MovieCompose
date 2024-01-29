@@ -2,7 +2,7 @@ package com.kuriotetsuya.data.remote.impl.movie_detail
 
 import com.kurio.tetsuya.movie.compose.presentation.com.example.domain.ViewState
 import com.kuriotetsuya.data.network.safeApiCall
-import com.kuriotetsuya.data.remote.datasource.MovieDataSourceImpl
+import com.kuriotetsuya.data.remote.datasource.MovieRemoteDataSourceImpl
 import com.kuriotetsuya.domain.model.MovieDetailVO
 import com.kuriotetsuya.domain.moviedetail.MovieDetailRepo
 import kotlinx.coroutines.flow.flow
@@ -10,13 +10,13 @@ import java.text.DecimalFormat
 import javax.inject.Inject
 
 class MovieDetailRepoImpl @Inject constructor(
-    private val movieDataSourceImpl: MovieDataSourceImpl,
+    private val movieRemoteDataSourceImpl: MovieRemoteDataSourceImpl,
 ) : MovieDetailRepo {
     override fun getMovieDetail(movieId: Int) =
         flow {
             emit(ViewState.Loading)
             val response = safeApiCall {
-                movieDataSourceImpl.fetchMovieDetail(movieId = movieId)
+                movieRemoteDataSourceImpl.fetchMovieDetail(movieId = movieId)
             }
             when (response) {
                 is ViewState.Success -> {

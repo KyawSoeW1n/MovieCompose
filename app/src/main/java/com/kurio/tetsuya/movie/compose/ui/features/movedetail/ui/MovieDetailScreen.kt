@@ -51,10 +51,13 @@ fun MovieDetailScreen(
     movieDetailViewModel: MovieDetailViewModel = hiltViewModel(),
 ) {
 
-    val isFetched = rememberSaveable { true }
+//    val isFetched = rememberSaveable { true }
     val movieDetail = movieDetailViewModel.movieDetailStateFlow.collectAsStateWithLifecycle()
 
-    LaunchedEffect(key1 = isFetched) {
+//    LaunchedEffect(key1 = isFetched) {
+//        movieDetailViewModel.changeMovieId(movieId = movieId)
+//    }
+    LaunchedEffect(true) {
         movieDetailViewModel.changeMovieId(movieId = movieId)
     }
 
@@ -143,7 +146,6 @@ fun MovieDetailState(
                     },
                     contentAlpha = { contentAlpha.value },
                     navigator = navigator,
-                    isUpcoming = isUpcoming
                 )
                 MovieToolbar(
                     toolbarState, movieTitle,

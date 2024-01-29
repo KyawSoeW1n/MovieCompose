@@ -1,9 +1,9 @@
 package com.kuriotetsuya.data.remote.mapper
 
-import com.kuriotetsuya.domain.model.MovieItemVO
-import com.kuriotetsuya.domain.model.UpcomingMovieListVO
 import com.kurio.tetsuya.movie.compose.network.response.upcoming.UpcomingResponse
 import com.kuriotetsuya.data.convertNetworkString
+import com.kuriotetsuya.domain.model.MovieItemVO
+import com.kuriotetsuya.domain.model.UpcomingMovieListVO
 
 class UpcomingMapper {
     fun mapFromResponse(
