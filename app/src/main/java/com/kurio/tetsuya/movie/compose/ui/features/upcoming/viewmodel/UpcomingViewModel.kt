@@ -45,8 +45,8 @@ class UpcomingViewModel @Inject constructor(
         _upcomingEventState.value = event
     }
 
-    fun getCacheUpcomingList() =
-        getUpcomingMovieUseCase.getUpcomingList().flowOn(coroutinesDispatchers.io)
+    fun getCacheUpcomingList(keyword: String) =
+        getUpcomingMovieUseCase.getUpcomingList(keyword).flowOn(coroutinesDispatchers.io)
             .distinctUntilChanged()
 
     init {

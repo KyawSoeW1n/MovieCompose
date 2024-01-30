@@ -59,7 +59,7 @@ class UpcomingViewModelTest {
                 overview = "Overview",
             )
         )
-        upcomingViewModel.getCacheUpcomingList().collectLatest {
+        upcomingViewModel.getCacheUpcomingList("").collectLatest {
             assertEquals(movieList, it)
         }
     }

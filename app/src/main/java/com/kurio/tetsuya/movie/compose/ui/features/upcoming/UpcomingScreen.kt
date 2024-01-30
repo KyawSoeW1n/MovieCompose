@@ -46,7 +46,7 @@ fun UpcomingScreen(
         rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) }
 
     val movieList =
-        upcomingViewModel.getCacheUpcomingList()
+        upcomingViewModel.getCacheUpcomingList(textFieldValue.value.text)
             .collectAsStateWithLifecycle(initialValue = persistentListOf()).value
 
     val isRefresh = upcomingViewModel.isRefreshing.collectAsStateWithLifecycle().value

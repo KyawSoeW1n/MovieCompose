@@ -61,7 +61,6 @@ class AppConfigurationDataSourceImpl @Inject constructor(
     }
 
     override suspend fun changeAppTheme(appThemeType: AppThemeType) = tryIt {
-        showLog("FUCKING SHIT $appThemeType")
         dataStorePreferences.edit { preferences ->
             preferences[PreferencesKeys.themeStyle] = appThemeType.name
         }
