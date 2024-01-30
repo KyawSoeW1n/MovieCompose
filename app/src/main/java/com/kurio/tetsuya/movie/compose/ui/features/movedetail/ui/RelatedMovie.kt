@@ -16,9 +16,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
-import com.kurio.tetsuya.movie.compose.data.remote.model.movie.RelatedMovieVO
 import com.kurio.tetsuya.movie.compose.ui.common.AppImageView
 import com.kurio.tetsuya.movie.compose.ui.common.PrimaryTextView
+import com.kuriotetsuya.domain.model.RelatedMovieVO
 
 @Composable
 fun RelateMovie(

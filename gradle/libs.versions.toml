@@ -111,6 +111,9 @@ turbine = "1.0.0"
 appcompact = "1.6.1"
 
 immutableList = "0.3.6"
+org-jetbrains-kotlin-jvm = "1.9.10"
+roomCommon = "2.6.1"
+material = "1.11.0"
 
 [libraries]
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompact" }
@@ -153,6 +156,8 @@ accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-
 
 composeDestination = { module = "io.github.raamcosta.compose-destinations:core", version.ref = "composeDestination" }
 composeDestinationKsp = { module = "io.github.raamcosta.compose-destinations:ksp", version.ref = "composeDestination" }
+
+javax-inject = { module = "javax.inject:javax.inject", version = "1" }
 
 coil = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 
@@ -202,6 +207,8 @@ detekt-plugin = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", v
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 androidJunit5-core = { group = "de.mannodermaus.junit5", name = "android-test-core", version.ref = "android-junit5" }
 androidJunit5-runner = { group = "de.mannodermaus.junit5", name = "android-test-runner", version.ref = "android-junit5" }
+androidx-room-common = { group = "androidx.room", name = "room-common", version.ref = "roomCommon" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 
 [plugins]

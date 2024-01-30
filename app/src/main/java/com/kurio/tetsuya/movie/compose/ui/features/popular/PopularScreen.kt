@@ -33,7 +33,6 @@ fun PopularScreen(
     popularViewModel: PopularViewModel = hiltViewModel(),
     navigator: DestinationsNavigator
 ) {
-    val bool = rememberSaveable { true }
     val movieList =
         popularViewModel.getCachePopularList()
             .collectAsStateWithLifecycle(initialValue = persistentListOf()).value
@@ -42,9 +41,6 @@ fun PopularScreen(
     val pullRefreshState =
         rememberPullRefreshState(isRefresh, { popularViewModel.refresh() })
 
-    LaunchedEffect(key1 = bool){
-        popularViewModel.fetchPopularList();
-    }
     Box(
         modifier = Modifier
             .pullRefresh(pullRefreshState)

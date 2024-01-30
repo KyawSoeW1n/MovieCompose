@@ -16,7 +16,6 @@ import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
@@ -32,6 +31,7 @@ import com.kurio.tetsuya.movie.compose.ui.features.MovieItem
 import com.kurio.tetsuya.movie.compose.ui.features.destinations.MovieDetailScreenDestination
 import com.kurio.tetsuya.movie.compose.ui.features.upcoming.viewmodel.UpcomingEvent
 import com.kurio.tetsuya.movie.compose.ui.features.upcoming.viewmodel.UpcomingViewModel
+import com.kuriotetsuya.domain.model.MovieItemVO
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.collections.immutable.persistentListOf
 
@@ -41,12 +41,12 @@ fun UpcomingScreen(
     upcomingViewModel: UpcomingViewModel = hiltViewModel(),
     navigator: DestinationsNavigator
 ) {
-    val movieList =
-        upcomingViewModel.getCacheUpcomingList()
-            .collectAsStateWithLifecycle(initialValue = persistentListOf()).value
 
-    val filterMovieList =
-        upcomingViewModel.getCacheUpcomingListByKeyword()
+    val textFieldValue =
+        rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) }
+
+    val movieList =
+        upcomingViewModel.getCacheUpcomingList(textFieldValue.value.text)
             .collectAsStateWithLifecycle(initialValue = persistentListOf()).value
 
     val isRefresh = upcomingViewModel.isRefreshing.collectAsStateWithLifecycle().value
@@ -55,8 +55,7 @@ fun UpcomingScreen(
     val pullRefreshState =
         rememberPullRefreshState(isRefresh, { upcomingViewModel.refresh() })
 
-    val textFieldValue =
-        rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) }
+
     Box(
         modifier = Modifier
             .pullRefresh(pullRefreshState)
@@ -92,7 +91,8 @@ fun UpcomingScreen(
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 items(
-                    items = if (upcomingScreenEvent == UpcomingEvent.ResetEvent) movieList else filterMovieList,
+//                    items = if (upcomingScreenEvent == UpcomingEvent.ResetEvent) movieList else filterMovieList,
+                    items = movieList,
                     key = { item -> item.id },
                 ) { item ->
                     MovieItem(

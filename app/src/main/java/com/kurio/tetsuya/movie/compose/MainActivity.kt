@@ -14,10 +14,10 @@ import androidx.navigation.compose.rememberNavController
 import com.kurio.tetsuya.movie.compose.core.color.colors
 import com.kurio.tetsuya.movie.compose.core.navigation.AppNavigation
 import com.kurio.tetsuya.movie.compose.core.style.Typography
-import com.kurio.tetsuya.movie.compose.core.theme.AppThemeType
 import com.kurio.tetsuya.movie.compose.core.theme.DarkColorScheme
 import com.kurio.tetsuya.movie.compose.core.theme.LightColorScheme
-import com.kurio.tetsuya.movie.compose.domain.model.toLightColor
+import com.kuriotetsuya.data.model.toLightColor
+import com.kuriotetsuya.domain.AppThemeType
 import com.ramcosta.composedestinations.annotation.RootNavGraph
 import dagger.hilt.android.AndroidEntryPoint
 

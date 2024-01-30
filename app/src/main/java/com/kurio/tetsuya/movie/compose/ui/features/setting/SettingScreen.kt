@@ -30,12 +30,12 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.kurio.tetsuya.movie.compose.R
 import com.kurio.tetsuya.movie.compose.core.color.colors
-import com.kurio.tetsuya.movie.compose.core.locale.LanguageType
 import com.kurio.tetsuya.movie.compose.core.locale.LocaleHelper
-import com.kurio.tetsuya.movie.compose.core.theme.AppThemeType
 import com.kurio.tetsuya.movie.compose.ui.common.CommonAppBar
 import com.kurio.tetsuya.movie.compose.ui.common.PrimaryTextView
 import com.kurio.tetsuya.movie.compose.ui.common.SpacerX
+import com.kuriotetsuya.domain.AppThemeType
+import com.kuriotetsuya.domain.LanguageType
 import com.ramcosta.composedestinations.annotation.Destination
 
 @Composable
@@ -71,9 +71,9 @@ fun SettingScreen(
                     checked = isDynamicColor.value,
                     onCheckedChange = {
                         if (it) {
-                            settingViewModel.changeThemeStyle(appThemeType = AppThemeType.DYNAMIC)
+                            settingViewModel.changeThemeStyle(appThemeType = com.kuriotetsuya.domain.AppThemeType.DYNAMIC)
                         } else {
-                            settingViewModel.changeThemeStyle(appThemeType = AppThemeType.SYSTEM)
+                            settingViewModel.changeThemeStyle(appThemeType = com.kuriotetsuya.domain.AppThemeType.SYSTEM)
                         }
 
                         settingViewModel.toggleDynamicColor()

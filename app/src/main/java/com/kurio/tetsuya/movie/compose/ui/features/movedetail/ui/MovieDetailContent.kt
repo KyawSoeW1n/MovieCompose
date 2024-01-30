@@ -24,11 +24,11 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.kurio.tetsuya.movie.compose.data.remote.model.movie.MovieDetailVO
 import com.kurio.tetsuya.movie.compose.ui.common.AppImageView
 import com.kurio.tetsuya.movie.compose.ui.common.PrimaryTextView
 import com.kurio.tetsuya.movie.compose.ui.common.ToolbarState
 import com.kurio.tetsuya.movie.compose.ui.features.movedetail.viewmodel.MovieDetailViewModel
+import com.kuriotetsuya.domain.model.MovieDetailVO
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Composable
@@ -41,11 +41,10 @@ fun MovieDetailsContent(
     onNamePosition: (Float) -> Unit,
     contentAlpha: () -> Float,
     navigator: DestinationsNavigator,
-    isUpcoming: Boolean,
     movieDetailViewModel: MovieDetailViewModel = hiltViewModel(),
 ) {
     val isFavourite =
-        movieDetailViewModel.getMovieDetailStatus(movieDetailVO.id, isUpcoming)
+        movieDetailViewModel.getMovieDetailFromCache(movieDetailVO.id)
             .collectAsStateWithLifecycle(
                 initialValue = false
             ).value
@@ -80,17 +79,10 @@ fun MovieDetailsContent(
                     modifier = Modifier.weight(1f)
                 )
                 IconButton(onClick = {
-                    if (isUpcoming) {
-                        movieDetailViewModel.changeFavouriteUpcomingStatus(
-                            movieDetailVO.id,
-                            !isFavourite
-                        )
-                    } else {
-                        movieDetailViewModel.changeFavouritePopularStatus(
-                            movieDetailVO.id,
-                            !isFavourite
-                        )
-                    }
+                    movieDetailViewModel.changeFavouriteStatus(
+                        movieDetailVO.id,
+                        !isFavourite
+                    )
                 }) {
                     if (isFavourite) Icon(
                         imageVector = Icons.Filled.Favorite,
@@ -116,6 +108,8 @@ fun MovieDetailsContent(
             RelatedMovieList(
                 modifier = Modifier.constrainAs(relatedMovie) {
                     top.linkTo(info.bottom)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
                 },
                 navigator = navigator
             )

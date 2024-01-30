@@ -2,8 +2,8 @@ package com.kurio.tetsuya.movie.compose.di
 
 import android.content.Context
 import androidx.room.Room
-import com.kurio.tetsuya.movie.compose.data.cache.DatabaseConstants
-import com.kurio.tetsuya.movie.compose.data.cache.MovieDatabase
+import com.kuriotetsuya.data.cache.DatabaseConstants
+import com.kuriotetsuya.data.cache.MovieDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,12 +24,9 @@ object DatabaseModule {
         DatabaseConstants.DB_NAME
     ).build()
 
-    @Singleton
-    @Provides
-    fun providePopularDao(db: MovieDatabase) = db.popularDao()
 
     @Singleton
     @Provides
-    fun provideUpcomingDao(db: MovieDatabase) = db.upcomingDao()
+    fun provideMovieDao(db: MovieDatabase) = db.provideMovieDao()
 }
 
