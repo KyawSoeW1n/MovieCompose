@@ -17,8 +17,6 @@ buildscript {
         classpath(libs.kotlin.gradle.plugin)
         classpath(libs.hilt.android.gradle.plugin)
         classpath(libs.detekt.plugin)
-
-//        classpath("io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.23.4")
     }
 }
 
@@ -29,6 +27,7 @@ plugins {
     alias(libs.plugins.kotlin.ksp) apply false
     alias(libs.plugins.dagger.hilt) apply false
     alias(libs.plugins.detekt.plugin) apply false
+    alias(libs.plugins.com.android.test) apply false
 //    id("io.gitlab.arturbosch.detekt") version "1.23.4" apply false
 }
 
