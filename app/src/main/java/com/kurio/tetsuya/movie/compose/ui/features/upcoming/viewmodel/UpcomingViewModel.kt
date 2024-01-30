@@ -48,10 +48,6 @@ class UpcomingViewModel @Inject constructor(
     fun getCacheUpcomingList() =
         getUpcomingMovieUseCase.getUpcomingList().flowOn(coroutinesDispatchers.io)
             .distinctUntilChanged()
-//
-//    fun getCacheUpcomingListByKeyword() =
-//        getCacheUpcomingListUseCase.getUpcomingList(keyword.value).flowOn(Dispatchers.IO)
-//            .distinctUntilChanged()
 
     init {
         fetchUpcomingList()

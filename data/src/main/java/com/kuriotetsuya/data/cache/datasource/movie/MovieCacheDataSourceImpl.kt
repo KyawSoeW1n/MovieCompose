@@ -11,7 +11,8 @@ class MovieCacheDataSourceImpl @Inject constructor(
     private val movieDao: MovieDao
 ) : MovieCacheDataSource {
 
-    override fun getUpcomingMovieList() = movieDao.getUpcomingMovieList()
+    override fun getUpcomingMovieList() =
+        movieDao.getUpcomingMovieList()
 
     override fun getPopularMovieList() = movieDao.getPopularMovieList()
 

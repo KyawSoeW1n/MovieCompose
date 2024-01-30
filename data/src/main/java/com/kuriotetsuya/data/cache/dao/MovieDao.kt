@@ -31,6 +31,9 @@ interface MovieDao {
     @Query("SELECT isFavourite FROM ${DatabaseConstants.MOVIE_TABLE} WHERE id=:movieId")
     fun getMovieDetail(movieId: Int): Flow<Boolean>
 
+    //    @Query("SELECT * FROM ${DatabaseConstants.MOVIE_TABLE} ,${DatabaseConstants.UPCOMING_TABLE}  WHERE id=${UpcomingTableConstants.id}")
+//    fun getUpcomingMovieList(): Flow<List<MovieTable>>
+//    @Query("SELECT * FROM ${DatabaseConstants.MOVIE_TABLE} ,${DatabaseConstants.UPCOMING_TABLE} WHERE :keyword = '' OR title LIKE '%' || :keyword || '%' AND id=${UpcomingTableConstants.id}" )
     @Query("SELECT * FROM ${DatabaseConstants.MOVIE_TABLE} ,${DatabaseConstants.UPCOMING_TABLE}  WHERE id=${UpcomingTableConstants.id}")
     fun getUpcomingMovieList(): Flow<List<MovieTable>>
 

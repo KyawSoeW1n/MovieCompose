@@ -10,9 +10,10 @@ import com.kurio.tetsuya.movie.compose.ui.features.movedetail.viewmodel.MovieDet
 import com.kurio.tetsuya.movie.compose.util.CoroutinesDispatchers
 import com.kuriotetsuya.domain.model.MovieDetailVO
 import com.kuriotetsuya.domain.model.RelatedMovieVO
+import com.kuriotetsuya.domain.moviedetail.GetCacheMovieDetailUseCase
 import com.kuriotetsuya.domain.moviedetail.MovieDetailUseCase
 import com.kuriotetsuya.domain.related_movie.RelatedMovieUseCase
-import com.kuriotetsuya.domain.upcoming.GetCacheUpcomingMovieDetailUseCase
+import com.kuriotetsuya.domain.update_favourite_status.UpdateFavouriteStatusUseCase
 import io.mockk.clearAllMocks
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -31,34 +32,27 @@ class MovieDetailViewModelTest {
 
     private lateinit var movieDetailViewModel: MovieDetailViewModel
     private lateinit var movieDetailUseCase: MovieDetailUseCase
-    private lateinit var movieDetailRepo: MovieDetailRepo
+    private lateinit var getCacheMovieDetailUseCase: GetCacheMovieDetailUseCase
+    private lateinit var updateFavouriteStatusUseCase: UpdateFavouriteStatusUseCase
     private lateinit var relatedMovieUseCase: RelatedMovieUseCase
-    private lateinit var updateMovieRepo: UpdateMovieRepo
-    private lateinit var updateCachePopularMovieRepo: UpdateCachePopularMovieRepo
-    private lateinit var getCachePopularMovieDetailUseCase: GetCachePopularMovieDetailUseCase
-    private lateinit var getCacheUpcomingMovieDetailUseCase: GetCacheUpcomingMovieDetailUseCase
     private lateinit var coroutinesDispatchers: CoroutinesDispatchers
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @BeforeEach
     fun setUp() {
         coroutinesDispatchers = TestDispatcherProvider()
-        movieDetailRepo = mockk(relaxed = true)
         movieDetailViewModel = mockk(relaxed = true)
         movieDetailUseCase = mockk(relaxed = true)
         relatedMovieUseCase = mockk(relaxed = true)
-        updateMovieRepo = mockk(relaxed = true)
-        updateCachePopularMovieRepo = mockk(relaxed = true)
-        getCachePopularMovieDetailUseCase = mockk(relaxed = true)
-        getCacheUpcomingMovieDetailUseCase = mockk(relaxed = true)
+        getCacheMovieDetailUseCase = mockk(relaxed = true)
+        updateFavouriteStatusUseCase = mockk(relaxed = true)
         movieDetailViewModel = MovieDetailViewModel(
             relatedMovieUseCase = relatedMovieUseCase,
             movieDetailUseCase = movieDetailUseCase,
-            getCachePopularMovieDetailUseCase = getCachePopularMovieDetailUseCase,
-            getCacheUpcomingMovieDetailUseCase = getCacheUpcomingMovieDetailUseCase,
-            updateCachePopularMovieRepo = updateCachePopularMovieRepo,
-            updateCacheUpcomingMovieRepo = updateMovieRepo,
             coroutinesDispatchers = coroutinesDispatchers,
+            getCacheMovieDetailUseCase = getCacheMovieDetailUseCase,
+            updateFavouriteStatusUseCase = updateFavouriteStatusUseCase
+
         )
     }
 

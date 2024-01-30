@@ -41,13 +41,13 @@ fun UpcomingScreen(
     upcomingViewModel: UpcomingViewModel = hiltViewModel(),
     navigator: DestinationsNavigator
 ) {
+
+    val textFieldValue =
+        rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) }
+
     val movieList =
         upcomingViewModel.getCacheUpcomingList()
             .collectAsStateWithLifecycle(initialValue = persistentListOf()).value
-
-    val filterMovieList = listOf<MovieItemVO>()
-//        upcomingViewModel.getCacheUpcomingListByKeyword()
-//            .collectAsStateWithLifecycle(initialValue = persistentListOf()).value
 
     val isRefresh = upcomingViewModel.isRefreshing.collectAsStateWithLifecycle().value
     val upcomingScreenEvent =
@@ -55,8 +55,7 @@ fun UpcomingScreen(
     val pullRefreshState =
         rememberPullRefreshState(isRefresh, { upcomingViewModel.refresh() })
 
-    val textFieldValue =
-        rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) }
+
     Box(
         modifier = Modifier
             .pullRefresh(pullRefreshState)
@@ -92,7 +91,8 @@ fun UpcomingScreen(
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 items(
-                    items = if (upcomingScreenEvent == UpcomingEvent.ResetEvent) movieList else filterMovieList,
+//                    items = if (upcomingScreenEvent == UpcomingEvent.ResetEvent) movieList else filterMovieList,
+                    items = movieList,
                     key = { item -> item.id },
                 ) { item ->
                     MovieItem(
