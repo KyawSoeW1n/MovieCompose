@@ -50,8 +50,6 @@ fun UpcomingScreen(
             .collectAsStateWithLifecycle(initialValue = persistentListOf()).value
 
     val isRefresh = upcomingViewModel.isRefreshing.collectAsStateWithLifecycle().value
-    val upcomingScreenEvent =
-        upcomingViewModel.upcomingEventState.collectAsStateWithLifecycle().value
     val pullRefreshState =
         rememberPullRefreshState(isRefresh, { upcomingViewModel.refresh() })
 
@@ -91,7 +89,6 @@ fun UpcomingScreen(
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 items(
-//                    items = if (upcomingScreenEvent == UpcomingEvent.ResetEvent) movieList else filterMovieList,
                     items = movieList,
                     key = { item -> item.id },
                 ) { item ->
@@ -106,7 +103,6 @@ fun UpcomingScreen(
                                     movieId = it.id,
                                     moviePoster = it.image,
                                     movieTitle = it.title,
-                                    isUpcoming = true,
                                 )
                             )
                         }

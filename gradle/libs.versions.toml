@@ -24,7 +24,7 @@ kspVersion = "1.9.22-1.0.17"
 #Compose
 material3 = "1.2.0-rc01"
 pagingCompose = "3.2.1"
-compose-compiler = "1.5.3"
+compose-compiler = "1.5.8"
 constraintLayoutCompose = "1.0.1"
 composeLatest = "1.6.0"
 composeBom = "2024.01.00"

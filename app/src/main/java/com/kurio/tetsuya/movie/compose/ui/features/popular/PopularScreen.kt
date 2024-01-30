@@ -13,8 +13,6 @@ import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -68,7 +66,6 @@ fun PopularScreen(
                                 movieId = it.id,
                                 moviePoster = it.image,
                                 movieTitle = it.title,
-                                isUpcoming = false,
                             )
                         )
                     }
