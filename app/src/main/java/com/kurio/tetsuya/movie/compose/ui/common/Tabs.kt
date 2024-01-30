@@ -5,14 +5,13 @@ import androidx.compose.foundation.pager.PagerState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
-import androidx.compose.material3.TabRowDefaults
+import androidx.compose.material3.TabRowDefaults.SecondaryIndicator
 import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.kurio.tetsuya.movie.compose.ui.theme.Purple80
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -27,10 +26,10 @@ fun Tabs(pagerState: PagerState) {
         selectedTabIndex = pagerState.currentPage,
         containerColor = MaterialTheme.colorScheme.onBackground,
         indicator = { tabPositions ->
-            TabRowDefaults.Indicator(
+            SecondaryIndicator(
                 Modifier.tabIndicatorOffset(tabPositions[pagerState.currentPage]),
                 height = 2.dp,
-                color = MaterialTheme.colorScheme.primary,
+                color = MaterialTheme.colorScheme.primary
             )
         }
     ) {

@@ -1,17 +1,18 @@
 package com.kurio.tetsuya.movie.compose.di
 
-import com.kurio.tetsuya.movie.compose.data.cache.app.AppPreferencesDataStore
-import com.kurio.tetsuya.movie.compose.data.cache.app.AppPreferencesDataStoreDataStoreImpl
+import com.kurio.tetsuya.movie.compose.core.com.kuriotetsuya.data.cache.impl.app_configuration.AppConfigurationImpl
+import com.kuriotetsuya.domain.theme.AppConfigurationRepo
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
+import dagger.hilt.android.scopes.ViewModelScoped
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-interface  AppModule {
+interface AppModule {
     @Binds
     @Singleton
-    fun bindAppPreferences(impl: AppPreferencesDataStoreDataStoreImpl): AppPreferencesDataStore
+    fun bindChangeThemeUseCaseImpl(appConfigurationImpl: AppConfigurationImpl): AppConfigurationRepo
 }

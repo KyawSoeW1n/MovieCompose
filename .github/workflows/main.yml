@@ -21,10 +21,7 @@ jobs:
           java-version: '17'
 
       - name: Gradle Build Action
-        uses: gradle/gradle-build-action@v2.8.0
-
-      - name: Set up Gradle
-        uses: gradle/gradle-build-action@v2
+        uses: gradle/gradle-build-action@v2.9.0
 
       - name: Run Tests
         run: ./gradlew test
@@ -43,3 +40,4 @@ jobs:
 
       - name: Generate app APK.
         run: ./gradlew assembleRelease --stacktrace
+

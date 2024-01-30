@@ -2,17 +2,23 @@ package com.kurio.tetsuya.movie.compose.movie_detail
 
 import app.cash.turbine.test
 import com.kurio.tetsuya.movie.compose.TestDispatcherProvider
-import com.kurio.tetsuya.movie.compose.data.remote.model.movie.MovieDetailVO
-import com.kurio.tetsuya.movie.compose.data.remote.model.movie.RelatedMovieVO
-import com.kurio.tetsuya.movie.compose.domain.remote.moviedetail.MovieDetailUseCaseImpl
-import com.kurio.tetsuya.movie.compose.domain.remote.related_movie.RelatedMovieUseCaseImpl
-import com.kurio.tetsuya.movie.compose.presentation.ViewState
+import com.kurio.tetsuya.movie.compose.core.UseCaseState
+import com.kurio.tetsuya.movie.compose.network.response.movie_detail.Genre
+import com.kurio.tetsuya.movie.compose.network.response.movie_detail.MovieDetailResponse
+import com.kurio.tetsuya.movie.compose.presentation.com.example.domain.ViewState
 import com.kurio.tetsuya.movie.compose.ui.features.movedetail.viewmodel.MovieDetailViewModel
 import com.kurio.tetsuya.movie.compose.util.CoroutinesDispatchers
+import com.kuriotetsuya.domain.model.MovieDetailVO
+import com.kuriotetsuya.domain.model.RelatedMovieVO
+import com.kuriotetsuya.domain.moviedetail.GetCacheMovieDetailUseCase
+import com.kuriotetsuya.domain.moviedetail.MovieDetailUseCase
+import com.kuriotetsuya.domain.related_movie.RelatedMovieUseCase
+import com.kuriotetsuya.domain.update_favourite_status.UpdateFavouriteStatusUseCase
 import io.mockk.clearAllMocks
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.runTest
@@ -20,12 +26,15 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import java.text.DecimalFormat
 
 class MovieDetailViewModelTest {
 
     private lateinit var movieDetailViewModel: MovieDetailViewModel
-    private lateinit var movieDetailUseCaseImpl: MovieDetailUseCaseImpl
-    private lateinit var relatedMovieUseCaseImpl: RelatedMovieUseCaseImpl
+    private lateinit var movieDetailUseCase: MovieDetailUseCase
+    private lateinit var getCacheMovieDetailUseCase: GetCacheMovieDetailUseCase
+    private lateinit var updateFavouriteStatusUseCase: UpdateFavouriteStatusUseCase
+    private lateinit var relatedMovieUseCase: RelatedMovieUseCase
     private lateinit var coroutinesDispatchers: CoroutinesDispatchers
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -33,27 +42,52 @@ class MovieDetailViewModelTest {
     fun setUp() {
         coroutinesDispatchers = TestDispatcherProvider()
         movieDetailViewModel = mockk(relaxed = true)
-        movieDetailUseCaseImpl = mockk(relaxed = true)
-        relatedMovieUseCaseImpl = mockk(relaxed = true)
+        movieDetailUseCase = mockk(relaxed = true)
+        relatedMovieUseCase = mockk(relaxed = true)
+        getCacheMovieDetailUseCase = mockk(relaxed = true)
+        updateFavouriteStatusUseCase = mockk(relaxed = true)
         movieDetailViewModel = MovieDetailViewModel(
-            relatedMovieUseCaseImpl = relatedMovieUseCaseImpl,
-            movieDetailUseCaseImpl = movieDetailUseCaseImpl,
-            coroutinesDispatchers = coroutinesDispatchers
+            relatedMovieUseCase = relatedMovieUseCase,
+            movieDetailUseCase = movieDetailUseCase,
+            coroutinesDispatchers = coroutinesDispatchers,
+            getCacheMovieDetailUseCase = getCacheMovieDetailUseCase,
+            updateFavouriteStatusUseCase = updateFavouriteStatusUseCase
+
         )
     }
 
     @Test
     fun get_movie_detail_by_id_success() = runTest {
-        val movieDetailVO = ViewState.Success(
-            MovieDetailVO(
-                name = "Movie Detail Test",
-                overview = "Detail Overview",
-                genres = "Drama",
-                rating = "8.5",
+
+        val response = UseCaseState.Success(
+            MovieDetailResponse(
+                title = "Movie Detail Test",
+                overview = "Movie Detail Overview",
+                genres = persistentListOf(
+                    Genre(
+                        id = 1,
+                        name = "Comedy",
+                    )
+                ),
+                voteAverage = 7.0,
             )
         )
+        val decimalFormat = DecimalFormat("#.00")
+        val movieDetailVO =
+            ViewState.Success(
+                response.successData.let { data ->
+                    MovieDetailVO(
+                        id = data.id ?: -1,
+                        name = data.title ?: "",
+                        overview = data.overview ?: "",
+                        genres = data.genres?.joinToString { it.name } ?: "",
+                        rating = decimalFormat.format(data.voteAverage)
+                    )
+                }
+            )
 
-        coEvery { movieDetailUseCaseImpl.getMovieDetail(movieId = 1) } returns flow {
+
+        coEvery { movieDetailUseCase.getMovieDetail(movieId = 1) } returns flow {
             emit(movieDetailVO)
         }
 
@@ -61,7 +95,7 @@ class MovieDetailViewModelTest {
         movieDetailViewModel.changeMovieId(movieId = 1)
 
         coVerify(exactly = 1) {
-            movieDetailUseCaseImpl.getMovieDetail(movieId = 1)
+            movieDetailUseCase.getMovieDetail(movieId = 1)
         }
 
         movieDetailViewModel.movieDetailStateFlow.test {
@@ -89,16 +123,18 @@ class MovieDetailViewModelTest {
             )
         )
 
-        val relatedMovieList =
-            coEvery { relatedMovieUseCaseImpl.getRelatedMovieList(movieId = 1) } returns flow {
-                emit(relatedMovieVO)
-            }
+        coEvery { relatedMovieUseCase.getRelatedMovieList(movieId = 1) } returns flow {
+            emit(relatedMovieVO)
+        }
 
         assertEquals(ViewState.Loading, movieDetailViewModel.relatedMovieStateFlow.value)
         movieDetailViewModel.changeMovieId(movieId = 1)
 
         coVerify(exactly = 1) {
-            relatedMovieUseCaseImpl.getRelatedMovieList(movieId = 1)
+            relatedMovieUseCase.getRelatedMovieList(movieId = 1)
+        }
+        coVerify(exactly = 1) {
+            movieDetailUseCase.getMovieDetail(movieId = 1)
         }
 
         movieDetailViewModel.relatedMovieStateFlow.test {
@@ -110,7 +146,7 @@ class MovieDetailViewModelTest {
     @Test
     fun get_movie_detail_by_id_error() = runTest {
         val movieDetailVO = ViewState.Error("Error")
-        coEvery { movieDetailUseCaseImpl.getMovieDetail(movieId = 1) } returns flow {
+        coEvery { movieDetailUseCase.getMovieDetail(movieId = 1) } returns flow {
             emit(movieDetailVO)
         }
 
@@ -118,7 +154,7 @@ class MovieDetailViewModelTest {
         movieDetailViewModel.changeMovieId(movieId = 1)
 
         coVerify {
-            movieDetailUseCaseImpl.getMovieDetail(movieId = 1)
+            movieDetailUseCase.getMovieDetail(movieId = 1)
         }
 
         movieDetailViewModel.movieDetailStateFlow.test {
@@ -131,7 +167,7 @@ class MovieDetailViewModelTest {
     @Test
     fun get_related_movie_by_id_error() = runTest {
         val movieDetailVO = ViewState.Error("Error")
-        coEvery { relatedMovieUseCaseImpl.getRelatedMovieList(movieId = 1) } returns flow {
+        coEvery { relatedMovieUseCase.getRelatedMovieList(movieId = 1) } returns flow {
             emit(movieDetailVO)
         }
 
@@ -139,7 +175,7 @@ class MovieDetailViewModelTest {
         movieDetailViewModel.changeMovieId(movieId = 1)
 
         coVerify {
-            relatedMovieUseCaseImpl.getRelatedMovieList(movieId = 1)
+            relatedMovieUseCase.getRelatedMovieList(movieId = 1)
         }
 
         movieDetailViewModel.relatedMovieStateFlow.test {

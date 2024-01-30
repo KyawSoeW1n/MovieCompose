@@ -20,9 +20,9 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.kurio.tetsuya.movie.compose.data.remote.model.movie.MovieItemVO
 import com.kurio.tetsuya.movie.compose.ui.common.AppImageView
 import com.kurio.tetsuya.movie.compose.ui.common.PrimaryTextView
+import com.kuriotetsuya.domain.model.MovieItemVO
 
 @Composable
 fun MovieItem(
@@ -32,7 +32,6 @@ fun MovieItem(
 ) {
     val gradientColors = listOf(Color.Transparent, Color.Black)
     Box(modifier = Modifier
-        .padding(8.dp)
         .clickable {
             clickItem(item)
         }) {

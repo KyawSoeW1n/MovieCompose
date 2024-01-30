@@ -3,13 +3,13 @@ package com.kurio.tetsuya.movie.compose.core.theme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.ui.graphics.Color
-import com.kurio.tetsuya.movie.compose.ui.theme.GreyLight
-import com.kurio.tetsuya.movie.compose.ui.theme.Pink40
-import com.kurio.tetsuya.movie.compose.ui.theme.Pink80
-import com.kurio.tetsuya.movie.compose.ui.theme.Purple40
-import com.kurio.tetsuya.movie.compose.ui.theme.Purple80
-import com.kurio.tetsuya.movie.compose.ui.theme.PurpleGrey40
-import com.kurio.tetsuya.movie.compose.ui.theme.PurpleGrey80
+import com.kurio.tetsuya.movie.compose.core.color.GreyLight
+import com.kurio.tetsuya.movie.compose.core.color.Pink40
+import com.kurio.tetsuya.movie.compose.core.color.Pink80
+import com.kurio.tetsuya.movie.compose.core.color.Purple40
+import com.kurio.tetsuya.movie.compose.core.color.Purple80
+import com.kurio.tetsuya.movie.compose.core.color.PurpleGrey40
+import com.kurio.tetsuya.movie.compose.core.color.PurpleGrey80
 
 
 val DarkColorScheme = darkColorScheme(

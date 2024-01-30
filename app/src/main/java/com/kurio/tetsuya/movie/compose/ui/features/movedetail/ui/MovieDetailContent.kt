@@ -3,11 +3,18 @@ package com.kurio.tetsuya.movie.compose.ui.features.movedetail.ui
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.outlined.FavoriteBorder
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
@@ -15,10 +22,13 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
-import com.kurio.tetsuya.movie.compose.data.remote.model.movie.MovieDetailVO
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.kurio.tetsuya.movie.compose.ui.common.AppImageView
 import com.kurio.tetsuya.movie.compose.ui.common.PrimaryTextView
 import com.kurio.tetsuya.movie.compose.ui.common.ToolbarState
+import com.kurio.tetsuya.movie.compose.ui.features.movedetail.viewmodel.MovieDetailViewModel
+import com.kuriotetsuya.domain.model.MovieDetailVO
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Composable
@@ -30,8 +40,14 @@ fun MovieDetailsContent(
     imageHeight: Dp,
     onNamePosition: (Float) -> Unit,
     contentAlpha: () -> Float,
-    navigator: DestinationsNavigator
+    navigator: DestinationsNavigator,
+    movieDetailViewModel: MovieDetailViewModel = hiltViewModel(),
 ) {
+    val isFavourite =
+        movieDetailViewModel.getMovieDetailFromCache(movieDetailVO.id)
+            .collectAsStateWithLifecycle(
+                initialValue = false
+            ).value
     Column(
         Modifier
             .verticalScroll(scrollState)
@@ -47,16 +63,40 @@ fun MovieDetailsContent(
                     .alpha(contentAlpha()),
                 contentScale = ContentScale.FillBounds
             )
-            PrimaryTextView(
-                text = movieDetailVO.name,
-                textColor = Color.White,
-                textStyle = MaterialTheme.typography.titleLarge,
+            Row(
                 modifier = Modifier
                     .padding(start = 16.dp, bottom = 16.dp)
                     .constrainAs(name) {
                         start.linkTo(image.start)
                         bottom.linkTo(image.bottom)
-                    })
+                    },
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                PrimaryTextView(
+                    text = movieDetailVO.name,
+                    textColor = Color.White,
+                    textStyle = MaterialTheme.typography.titleLarge,
+                    modifier = Modifier.weight(1f)
+                )
+                IconButton(onClick = {
+                    movieDetailViewModel.changeFavouriteStatus(
+                        movieDetailVO.id,
+                        !isFavourite
+                    )
+                }) {
+                    if (isFavourite) Icon(
+                        imageVector = Icons.Filled.Favorite,
+                        contentDescription = null,
+                        tint = Color.Red
+                    ) else
+                        Icon(
+                            imageVector = Icons.Outlined.FavoriteBorder,
+                            contentDescription = null,
+                            tint = Color.Red
+                        )
+                }
+            }
+
             MovieInformation(
                 movieDetailVO = movieDetailVO,
                 onNamePosition = { onNamePosition(it) },
@@ -68,6 +108,8 @@ fun MovieDetailsContent(
             RelatedMovieList(
                 modifier = Modifier.constrainAs(relatedMovie) {
                     top.linkTo(info.bottom)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
                 },
                 navigator = navigator
             )

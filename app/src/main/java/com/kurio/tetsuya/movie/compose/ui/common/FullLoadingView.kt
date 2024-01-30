@@ -6,11 +6,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Stable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.kurio.tetsuya.movie.compose.ui.theme.Purple40
 
 @Composable
+@Stable
 fun FullLoadingView() {
     Box(
         modifier = Modifier
@@ -19,7 +20,7 @@ fun FullLoadingView() {
         contentAlignment = Alignment.Center
     ) {
         CircularProgressIndicator(
-            color = Purple40,
+            color =  MaterialTheme.colorScheme.primary,
         )
     }
 }

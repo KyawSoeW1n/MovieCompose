@@ -3,19 +3,22 @@ package com.kurio.tetsuya.movie.compose.ui.common
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.kurio.tetsuya.movie.compose.ui.theme.Purple40
+import androidx.compose.ui.text.TextStyle
 
 @Composable
-fun PartialLoadingView() {
+fun PartialLoadingView(
+    modifier: Modifier = Modifier.wrapContentSize(),
+) {
     Box(
-        modifier = Modifier.wrapContentSize(),
+        modifier = modifier,
         contentAlignment = Alignment.Center
     ) {
         CircularProgressIndicator(
-            color = Purple40,
+            color = MaterialTheme.colorScheme.primary,
         )
     }
 }

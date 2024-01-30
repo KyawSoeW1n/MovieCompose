@@ -1,8 +1,8 @@
 package com.kurio.tetsuya.movie.compose.di
 
+import com.kurio.tetsuya.movie.compose.AuthInterceptor
 import com.kurio.tetsuya.movie.compose.BuildConfig
 import com.kurio.tetsuya.movie.compose.network.ApiService
-import com.kurio.tetsuya.movie.compose.network.CustomInterceptor
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
@@ -36,8 +36,8 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun providerCustomInterceptor(): CustomInterceptor {
-        return CustomInterceptor();
+    fun providerCustomInterceptor(): AuthInterceptor {
+        return AuthInterceptor();
     }
 
     @Singleton

@@ -2,7 +2,6 @@ package com.kurio.tetsuya.movie.compose.di
 
 import android.content.Context
 import androidx.room.Room
-import com.kurio.tetsuya.movie.compose.data.cache.DatabaseConstants
 import com.kurio.tetsuya.movie.compose.data.cache.MovieDatabase
 import dagger.Module
 import dagger.Provides
@@ -12,7 +11,7 @@ import dagger.hilt.testing.TestInstallIn
 import javax.inject.Singleton
 
 @Module
-@TestInstallIn(components = [SingletonComponent::class], replaces = [CacheModule::class])
+@TestInstallIn(components = [SingletonComponent::class], replaces = [DatabaseModule::class])
 class TestDatabaseModule {
     @Singleton
     @Provides
@@ -21,7 +20,7 @@ class TestDatabaseModule {
     ) = Room.databaseBuilder(
         app,
         MovieDatabase::class.java,
-        DatabaseConstants.DB_NAME
+        com.kuriotetsuya.data.cache.DatabaseConstants.DB_NAME
     ).build()
 
     @Singleton

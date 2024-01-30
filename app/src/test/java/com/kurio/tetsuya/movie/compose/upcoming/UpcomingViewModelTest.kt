@@ -1,16 +1,18 @@
 package com.kurio.tetsuya.movie.compose.upcoming
 
 import com.kurio.tetsuya.movie.compose.TestDispatcherProvider
-import com.kurio.tetsuya.movie.compose.data.remote.model.movie.MovieItemVO
-import com.kurio.tetsuya.movie.compose.domain.cache.upcoming.GetCacheUpcomingListUseCaseImpl
-import com.kurio.tetsuya.movie.compose.domain.cache.upcoming.UpdateCacheUpcomingMovieUseCaseImpl
-import com.kurio.tetsuya.movie.compose.domain.remote.fetch_upcoming.UpcomingListUseCaseImpl
+import com.kurio.tetsuya.movie.compose.ui.features.upcoming.viewmodel.UpcomingEvent
 import com.kurio.tetsuya.movie.compose.ui.features.upcoming.viewmodel.UpcomingViewModel
 import com.kurio.tetsuya.movie.compose.util.CoroutinesDispatchers
+import com.kuriotetsuya.domain.fetch_upcoming.FetchUpcomingMovieUseCase
+import com.kuriotetsuya.domain.get_upcoming.GetUpcomingMovieUseCase
+import com.kuriotetsuya.domain.model.MovieItemVO
+import com.kuriotetsuya.domain.update_favourite_status.UpdateFavouriteStatusUseCase
 import io.mockk.clearAllMocks
 import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.mockk
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flow
@@ -22,29 +24,33 @@ import org.junit.jupiter.api.Test
 
 class UpcomingViewModelTest {
     private lateinit var upcomingViewModel: UpcomingViewModel
-    private lateinit var upcomingListUseCaseImpl: UpcomingListUseCaseImpl
-    private lateinit var getCacheUpcomingListUseCaseImpl: GetCacheUpcomingListUseCaseImpl
-    private lateinit var updateCacheUpcomingMovieUseCaseImpl: UpdateCacheUpcomingMovieUseCaseImpl
+    private lateinit var fetchUpcomingMovieUseCase: FetchUpcomingMovieUseCase
+    private lateinit var getUpcomingMovieUseCase: GetUpcomingMovieUseCase
+    private lateinit var updateFavouriteStatusUseCase: UpdateFavouriteStatusUseCase
     private lateinit var coroutinesDispatchers: CoroutinesDispatchers
+
     @OptIn(ExperimentalCoroutinesApi::class)
     @BeforeEach
     fun setUp() {
         coroutinesDispatchers = TestDispatcherProvider()
-        upcomingListUseCaseImpl = mockk(relaxed = true)
-        getCacheUpcomingListUseCaseImpl = mockk(relaxed = true)
-        updateCacheUpcomingMovieUseCaseImpl = mockk(relaxed = true)
+        fetchUpcomingMovieUseCase = mockk(relaxed = true)
+        getUpcomingMovieUseCase = mockk(relaxed = true)
+        updateFavouriteStatusUseCase = mockk(relaxed = true)
         upcomingViewModel = UpcomingViewModel(
-            upcomingListUseCaseImpl = upcomingListUseCaseImpl,
-            getCacheUpcomingListUseCaseImpl = getCacheUpcomingListUseCaseImpl,
-            updateCacheUpcomingMovieRepoImpl = updateCacheUpcomingMovieUseCaseImpl,
-            coroutinesDispatchers = coroutinesDispatchers
+            fetchUpcomingMovieUseCase = fetchUpcomingMovieUseCase,
+            coroutinesDispatchers = coroutinesDispatchers,
+            getUpcomingMovieUseCase = getUpcomingMovieUseCase,
+            updateFavouriteStatusUseCase = updateFavouriteStatusUseCase,
         )
     }
 
     @Test
     fun getUpcoming_movieList_from_database() = runTest {
+        upcomingViewModel.changeUpcomingScreenEvent(UpcomingEvent.ResetEvent)
+
+        assertEquals(upcomingViewModel.upcomingEventState.value, UpcomingEvent.ResetEvent)
         //given
-        val movieList = listOf(
+        val movieList = persistentListOf(
             MovieItemVO(
                 id = 1,
                 title = "Testing Title",
@@ -53,22 +59,18 @@ class UpcomingViewModelTest {
                 overview = "Overview",
             )
         )
-        //when
-        every { getCacheUpcomingListUseCaseImpl.getUpcomingList() } returns flow {
-            movieList
-        }
-
-        upcomingViewModel.getCacheUpcomingList().collectLatest {
+        upcomingViewModel.getCacheUpcomingList("").collectLatest {
             assertEquals(movieList, it)
         }
     }
+
 
     @Test
     fun update_favourite_status() = runTest {
         upcomingViewModel.changeFavouriteStatus(id = 1, flag = false)
 
         coVerify(exactly = 1) {
-            updateCacheUpcomingMovieUseCaseImpl.updateCacheUpcomingMovie(id = 1, flag = false)
+            updateFavouriteStatusUseCase.updateFavouriteStatus(movieId = 1, flag = false)
         }
 
     }
