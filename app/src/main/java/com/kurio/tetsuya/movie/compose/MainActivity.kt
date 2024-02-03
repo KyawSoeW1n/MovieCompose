@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -30,13 +31,14 @@ class MainActivity : AppCompatActivity() {
 
         setContent {
             val mainViewModel: MainViewModel = hiltViewModel()
-            val themeMode by mainViewModel.themeMode.collectAsStateWithLifecycle()
-            val isDynamicColor by mainViewModel.isDynamicColor.collectAsStateWithLifecycle()
-            val dynamicColorCode by mainViewModel.dynamicColorName.collectAsStateWithLifecycle()
+            val vmState by mainViewModel.mainVM.collectAsStateWithLifecycle()
+            LaunchedEffect(key1 = true) {
+                mainViewModel.watchAppConfigurationStream()
+            }
             MovieAppTheme(
-                themeType = themeMode,
-                dynamicColor = isDynamicColor,
-                dynamicColorName = dynamicColorCode
+                themeType = vmState.themeMode,
+                dynamicColor = vmState.isDynamicColor,
+                dynamicColorName = vmState.dynamicColorName,
             ) {
                 val navController = rememberNavController()
                 AppNavigation(navController = navController)

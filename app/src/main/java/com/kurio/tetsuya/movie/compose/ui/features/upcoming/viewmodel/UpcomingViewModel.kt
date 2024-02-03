@@ -27,11 +27,13 @@ class UpcomingViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     private val _upcomingEventState = MutableStateFlow<UpcomingEvent>(UpcomingEvent.ResetEvent)
-    private val _keyword = MutableStateFlow("")
-    private val keyword: StateFlow<String>
-        get() = _keyword.asStateFlow()
-    val upcomingEventState: StateFlow<UpcomingEvent>
+    val upcomingEventState
         get() = _upcomingEventState.asStateFlow()
+
+    private val _keyword = MutableStateFlow("")
+    private val keyword
+        get() = _keyword.asStateFlow()
+
 
     private val _isRefreshing = MutableStateFlow(false)
     val isRefreshing: StateFlow<Boolean>
