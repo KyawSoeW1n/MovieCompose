@@ -2,7 +2,7 @@ package com.kurio.tetsuya.movie.compose.di
 
 import android.content.Context
 import androidx.room.Room
-import com.kurio.tetsuya.movie.compose.data.cache.MovieDatabase
+import com.kuriotetsuya.data.cache.MovieDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -25,9 +25,5 @@ class TestDatabaseModule {
 
     @Singleton
     @Provides
-    fun provideUpcomingDao(db: MovieDatabase) = db.upcomingDao()
-
-    @Singleton
-    @Provides
-    fun providePopularDao(db: MovieDatabase) = db.popularDao()
+    fun provideMovieDao(db: MovieDatabase) = db.provideMovieDao()
 }

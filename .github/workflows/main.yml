@@ -46,8 +46,10 @@ jobs:
           path: app/build/reports/tests/testDebugUnitTest/
 
   static-code-analysis:
+
     needs: [ unit-test ]
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout the code
         uses: actions/checkout@v2
