@@ -2,7 +2,6 @@ package com.kurio.tetsuya.movie.compose
 
 import androidx.lifecycle.viewModelScope
 import com.kurio.tetsuya.movie.compose.presentation.BaseViewModel
-import com.kurio.tetsuya.movie.compose.util.CoroutinesDispatchers
 import com.kuriotetsuya.domain.AppThemeType
 import com.kuriotetsuya.domain.theme.AppConfigurationUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel

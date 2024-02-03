@@ -8,6 +8,7 @@ import com.kuriotetsuya.domain.LanguageType
 import com.kuriotetsuya.domain.theme.AppConfigurationUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -20,9 +21,13 @@ class SettingViewModel @Inject constructor(
 //    private val getThemeUseCase: GetThemeUseCase,
     private val coroutinesDispatchers: CoroutinesDispatchers,
 ) : BaseViewModel() {
-    val themeMode = MutableStateFlow(value = AppThemeType.LIGHT)
-    val languageType = MutableStateFlow(value = LanguageType.en)
-    val isDynamicColor = MutableStateFlow(value = false)
+    private val _themeMode = MutableStateFlow(value = AppThemeType.LIGHT)
+    val themeMode = _themeMode.asStateFlow()
+    private val _isDynamicColor = MutableStateFlow(value = false)
+    val isDynamicColor = _isDynamicColor.asStateFlow()
+
+    private val _languageType = MutableStateFlow(value = LanguageType.en)
+    val languageType = _languageType.asStateFlow()
 
     init {
         watchAppConfigurationStream()
@@ -31,9 +36,9 @@ class SettingViewModel @Inject constructor(
     private fun watchAppConfigurationStream() {
         viewModelScope.launch(coroutinesDispatchers.io) {
             appConfigurationUseCase.getAppConfiguration().collectLatest { appConfiguration ->
-                isDynamicColor.value = appConfiguration.useDynamicColors
-                themeMode.value = appConfiguration.themeStyle
-                languageType.value = appConfiguration.languageType
+                _isDynamicColor.value = appConfiguration.useDynamicColors
+                _themeMode.value = appConfiguration.themeStyle
+                _languageType.value = appConfiguration.languageType
             }
         }
     }
@@ -46,20 +51,21 @@ class SettingViewModel @Inject constructor(
 
 
     fun toggleDynamicColor() {
-        viewModelScope.launch(coroutinesDispatchers.io) {
+        viewModelScope.launch {
             appConfigurationUseCase.toggleMode()
         }
     }
 
     fun setDynamicColorCode(dynamicColorName: String) {
-        viewModelScope.launch(coroutinesDispatchers.io) {
+        viewModelScope.launch {
             appConfigurationUseCase.setDynamicColorCode(dynamicColorName = dynamicColorName)
         }
     }
+
     fun changeLocale(languageType: LanguageType) {
-        viewModelScope.launch(coroutinesDispatchers.io) {
+        viewModelScope.launch {
             appConfigurationUseCase.changeLanguage(languageType = languageType)
-            this@SettingViewModel.languageType.value = languageType
+            _languageType.value = languageType
         }
     }
 }
