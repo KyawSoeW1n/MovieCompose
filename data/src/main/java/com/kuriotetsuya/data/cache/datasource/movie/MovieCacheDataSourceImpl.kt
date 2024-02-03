@@ -4,7 +4,6 @@ import com.kurio.tetsuya.movie.compose.core.com.kuriotetsuya.data.cache.entity.M
 import com.kurio.tetsuya.movie.compose.core.com.kuriotetsuya.data.cache.entity.PopularMovie
 import com.kurio.tetsuya.movie.compose.core.com.kuriotetsuya.data.cache.entity.UpcomingMovie
 import com.kuriotetsuya.data.cache.dao.MovieDao
-import com.kuriotetsuya.data.cache.entity.MovieTable
 import javax.inject.Inject
 
 class MovieCacheDataSourceImpl @Inject constructor(
