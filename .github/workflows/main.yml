@@ -64,7 +64,10 @@ jobs:
     #    needs: [ static-code-analysis ]
     name: Generate APK
     runs-on: ubuntu-latest
+
     steps:
+      - run:
+          working-directory: ./outputs
       - name: Checkout the code
         uses: actions/checkout@v4.1.1
 
