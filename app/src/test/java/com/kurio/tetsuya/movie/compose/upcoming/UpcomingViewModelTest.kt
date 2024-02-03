@@ -7,6 +7,7 @@ import com.kurio.tetsuya.movie.compose.util.CoroutinesDispatchers
 import com.kuriotetsuya.domain.fetch_upcoming.FetchUpcomingMovieUseCase
 import com.kuriotetsuya.domain.get_upcoming.GetUpcomingMovieUseCase
 import com.kuriotetsuya.domain.model.MovieItemVO
+import com.kuriotetsuya.domain.theme.AppConfigurationUseCase
 import com.kuriotetsuya.domain.update_favourite_status.UpdateFavouriteStatusUseCase
 import io.mockk.clearAllMocks
 import io.mockk.coVerify
@@ -27,6 +28,7 @@ class UpcomingViewModelTest {
     private lateinit var fetchUpcomingMovieUseCase: FetchUpcomingMovieUseCase
     private lateinit var getUpcomingMovieUseCase: GetUpcomingMovieUseCase
     private lateinit var updateFavouriteStatusUseCase: UpdateFavouriteStatusUseCase
+
     private lateinit var coroutinesDispatchers: CoroutinesDispatchers
 
     @OptIn(ExperimentalCoroutinesApi::class)

@@ -8,6 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -15,24 +16,33 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     private val appConfigurationUseCase: AppConfigurationUseCase,
 ) : BaseViewModel() {
-    private val _themeMode = MutableStateFlow(value = AppThemeType.LIGHT)
-    val themeMode = _themeMode.asStateFlow()
-    private val _isDynamicColor = MutableStateFlow(value = false)
-    val isDynamicColor = _isDynamicColor.asStateFlow()
-    private val _dynamicColorName = MutableStateFlow(value = "")
-    val dynamicColorName = _dynamicColorName.asStateFlow()
 
-    init {
-        watchAppConfigurationStream()
-    }
+    private val _mainVM = MutableStateFlow(
+        value = MainVM(
+            themeMode = AppThemeType.LIGHT,
+            isDynamicColor = false,
+            dynamicColorName = ""
+        )
+    )
+    val mainVM = _mainVM.asStateFlow()
 
-    private fun watchAppConfigurationStream() {
+    fun watchAppConfigurationStream() {
         viewModelScope.launch {
             appConfigurationUseCase.getAppConfiguration().collectLatest {
-                _dynamicColorName.value = it.dynamicColorCode
-                _isDynamicColor.value = it.useDynamicColors
-                _themeMode.value = it.themeStyle
+                _mainVM.update { vm ->
+                    vm.copy(
+                        themeMode = it.themeStyle,
+                        dynamicColorName = it.dynamicColorCode,
+                        isDynamicColor = it.useDynamicColors,
+                    )
+                }
             }
         }
     }
 }
+
+data class MainVM(
+    val themeMode: AppThemeType,
+    val isDynamicColor: Boolean,
+    val dynamicColorName: String,
+)

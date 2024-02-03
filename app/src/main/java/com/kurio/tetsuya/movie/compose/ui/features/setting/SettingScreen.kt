@@ -16,6 +16,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -43,10 +44,13 @@ import com.ramcosta.composedestinations.annotation.Destination
 fun SettingScreen(
     settingViewModel: SettingViewModel = hiltViewModel()
 ) {
-    val appTheme = settingViewModel.themeMode.collectAsStateWithLifecycle()
-    val languageType = settingViewModel.languageType.collectAsStateWithLifecycle()
-    val isDynamicColor = settingViewModel.isDynamicColor.collectAsStateWithLifecycle()
+    val settingVM = settingViewModel.settingUIState.collectAsStateWithLifecycle()
     val context = LocalContext.current
+
+    LaunchedEffect(key1 = true) {
+        settingViewModel.watchAppConfigurationStream()
+    }
+
     Column(
         modifier = Modifier
             .background(color = MaterialTheme.colorScheme.onBackground)
@@ -68,7 +72,7 @@ fun SettingScreen(
                 )
                 Switch(
                     modifier = Modifier.padding(end = 8.dp),
-                    checked = isDynamicColor.value,
+                    checked = settingVM.value.isDynamicColor,
                     onCheckedChange = {
                         if (it) {
                             settingViewModel.changeThemeStyle(appThemeType = com.kuriotetsuya.domain.AppThemeType.DYNAMIC)
@@ -86,7 +90,7 @@ fun SettingScreen(
                 )
 
             }
-        if (isDynamicColor.value) {
+        if (settingVM.value.isDynamicColor) {
             LazyVerticalGrid(
                 modifier = Modifier.padding(horizontal = 8.dp),
                 columns = GridCells.Fixed(2),
@@ -126,21 +130,21 @@ fun SettingScreen(
                 )
                 ThemeRadioButton(
                     label = "☀️\t ${stringResource(id = R.string.light)}",
-                    selected = appTheme.value == AppThemeType.LIGHT,
+                    selected = settingVM.value.themeMode == AppThemeType.LIGHT,
                     onClick = {
                         settingViewModel.changeThemeStyle(appThemeType = AppThemeType.LIGHT)
                     }
                 )
                 ThemeRadioButton(
                     label = "🌘\t ${stringResource(id = R.string.dark)}",
-                    selected = appTheme.value == AppThemeType.DARK,
+                    selected = settingVM.value.themeMode == AppThemeType.DARK,
                     onClick = {
                         settingViewModel.changeThemeStyle(appThemeType = AppThemeType.DARK)
                     }
                 )
                 ThemeRadioButton(
                     label = "🤖\t ${stringResource(id = R.string.system)}",
-                    selected = appTheme.value == AppThemeType.SYSTEM,
+                    selected = settingVM.value.themeMode == AppThemeType.SYSTEM,
                     onClick = {
                         settingViewModel.changeThemeStyle(appThemeType = AppThemeType.SYSTEM)
                     }
@@ -156,7 +160,7 @@ fun SettingScreen(
         )
         ThemeRadioButton(
             label = "English",
-            selected = languageType.value == LanguageType.en,
+            selected = settingVM.value.languateType == LanguageType.en,
             onClick = {
                 LocaleHelper.changeLocale(context = context,
                     LanguageType.en.name,
@@ -167,7 +171,7 @@ fun SettingScreen(
         )
         ThemeRadioButton(
             label = "Burmese",
-            selected = languageType.value == LanguageType.my,
+            selected = settingVM.value.languateType == LanguageType.my,
             onClick = {
                 LocaleHelper.changeLocale(context = context,
                     LanguageType.my.name,

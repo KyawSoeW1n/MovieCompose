@@ -10,35 +10,36 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SettingViewModel @Inject constructor(
     private val appConfigurationUseCase: AppConfigurationUseCase,
-//    private val changeDynamicColorUseCase: ChangeDynamicColorUseCase,
-//    private val changeLocaleUseCase: ChangeLocaleUseCase,
-//    private val getThemeUseCase: GetThemeUseCase,
     private val coroutinesDispatchers: CoroutinesDispatchers,
-) : BaseViewModel() {
-    private val _themeMode = MutableStateFlow(value = AppThemeType.LIGHT)
-    val themeMode = _themeMode.asStateFlow()
-    private val _isDynamicColor = MutableStateFlow(value = false)
-    val isDynamicColor = _isDynamicColor.asStateFlow()
 
-    private val _languageType = MutableStateFlow(value = LanguageType.en)
-    val languageType = _languageType.asStateFlow()
+    ) : BaseViewModel() {
+    private val _settingVM = MutableStateFlow(
+        value = SettingVM(
+            themeMode = AppThemeType.LIGHT,
+            isDynamicColor = false,
+            dynamicColorName = "",
+            languateType = LanguageType.en
+        )
+    )
+    val settingUIState = _settingVM.asStateFlow()
 
-    init {
-        watchAppConfigurationStream()
-    }
-
-    private fun watchAppConfigurationStream() {
+    fun watchAppConfigurationStream() {
         viewModelScope.launch(coroutinesDispatchers.io) {
             appConfigurationUseCase.getAppConfiguration().collectLatest { appConfiguration ->
-                _isDynamicColor.value = appConfiguration.useDynamicColors
-                _themeMode.value = appConfiguration.themeStyle
-                _languageType.value = appConfiguration.languageType
+                _settingVM.update {
+                    it.copy(
+                        themeMode = appConfiguration.themeStyle,
+                        isDynamicColor = appConfiguration.useDynamicColors,
+                        dynamicColorName = appConfiguration.dynamicColorCode
+                    )
+                }
             }
         }
     }
@@ -51,21 +52,32 @@ class SettingViewModel @Inject constructor(
 
 
     fun toggleDynamicColor() {
-        viewModelScope.launch {
+        viewModelScope.launch(coroutinesDispatchers.io) {
             appConfigurationUseCase.toggleMode()
         }
     }
 
     fun setDynamicColorCode(dynamicColorName: String) {
-        viewModelScope.launch {
+        viewModelScope.launch(coroutinesDispatchers.io) {
             appConfigurationUseCase.setDynamicColorCode(dynamicColorName = dynamicColorName)
         }
     }
 
     fun changeLocale(languageType: LanguageType) {
-        viewModelScope.launch {
+        viewModelScope.launch(coroutinesDispatchers.io) {
             appConfigurationUseCase.changeLanguage(languageType = languageType)
-            _languageType.value = languageType
+            _settingVM.update {
+                it.copy(
+                    languateType = languageType
+                )
+            }
         }
     }
 }
+
+data class SettingVM(
+    val themeMode: AppThemeType,
+    val isDynamicColor: Boolean,
+    val dynamicColorName: String,
+    val languateType: LanguageType,
+)
