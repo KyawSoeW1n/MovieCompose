@@ -1,7 +1,6 @@
 package com.kurio.tetsuya.movie.compose.ui.features.movedetail.viewmodel
 
 import androidx.lifecycle.viewModelScope
-import com.kurio.tetsuya.movie.compose.core.com.kuriotetsuya.data.showLog
 import com.kurio.tetsuya.movie.compose.presentation.BaseViewModel
 import com.kurio.tetsuya.movie.compose.presentation.com.example.domain.ViewState
 import com.kurio.tetsuya.movie.compose.util.CoroutinesDispatchers

@@ -53,7 +53,7 @@ class PopularViewModel @Inject constructor(
     }
 
     fun refresh() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(coroutinesDispatchers.io) {
             _isRefreshing.emit(true)
             delay(1500)
             fetchPopularList()
