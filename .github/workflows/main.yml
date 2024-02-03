@@ -78,14 +78,7 @@ jobs:
       - name: Build debug APK
         run: ./gradlew assembleDebug --stacktrace
 
-#      - name: Upload APK
-#        uses: actions/upload-artifact@v4.3.0
-#        with:
-#          name: movie_debug.apk
-#          path: path/to/app-debug.apk
-#          if-no-files-found: error
       - run: mkdir -p path/to/artifact
-      - run: echo hello > path/to/artifact/movie_debug.apk
       - uses: actions/upload-artifact@v4
         with:
           name: movie_debug.apk
