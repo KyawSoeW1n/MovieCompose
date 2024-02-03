@@ -4,11 +4,7 @@ import com.kurio.tetsuya.movie.compose.core.com.kuriotetsuya.data.cache.datasour
 import com.kuriotetsuya.domain.get_upcoming.GetUpcomingMovieRepo
 import com.kuriotetsuya.domain.model.MovieItemVO
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.mapLatest
-import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 class GetUpcomingMovieImpl @Inject constructor(

@@ -4,7 +4,6 @@ import com.kurio.tetsuya.movie.compose.core.com.kuriotetsuya.data.cache.datasour
 import com.kurio.tetsuya.movie.compose.core.com.kuriotetsuya.data.cache.entity.MovieTableUpdate
 import com.kurio.tetsuya.movie.compose.core.com.kuriotetsuya.data.cache.entity.PopularMovie
 import com.kurio.tetsuya.movie.compose.presentation.com.example.domain.ViewState
-import com.kuriotetsuya.data.cache.entity.MovieTable
 import com.kuriotetsuya.data.network.safeApiCall
 import com.kuriotetsuya.data.remote.datasource.MovieRemoteDataSourceImpl
 import com.kuriotetsuya.data.remote.mapper.PopularMapper
