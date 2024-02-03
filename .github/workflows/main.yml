@@ -66,8 +66,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - run:
-          working-directory: ./outputs
+      - run: mkdir -p outputs/apk/debug
       - name: Checkout the code
         uses: actions/checkout@v4.1.1
 
@@ -84,5 +83,5 @@ jobs:
         uses: actions/upload-artifact@v4.3.0
         with:
           name: movie_debug.apk
-          path: app/outputs/apk/debug/app-debug.apk
+          path: outputs/apk/debug/app-debug.apk
 
