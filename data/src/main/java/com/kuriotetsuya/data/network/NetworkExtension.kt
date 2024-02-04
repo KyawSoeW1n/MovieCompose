@@ -4,7 +4,7 @@ import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.gson.JsonSyntaxException
 import com.kurio.tetsuya.movie.compose.network.NetworkException
-import com.kurio.tetsuya.movie.compose.presentation.com.example.domain.ViewState
+import com.kuriotetsuya.domain.ViewState
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -68,6 +68,7 @@ suspend fun <T> safeApiCall(
 
 fun <T> Call<T>.executeOrThrow(): T {
     val response = this.execute()
+    println("------ ${response.code()}")
     if (response.isSuccessful.not()) {
         if (response.code() == 401) {
             val data = response.errorBody()?.string()

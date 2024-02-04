@@ -1,6 +1,6 @@
 package com.kuriotetsuya.data.remote.impl.related_movie
 
-import com.kurio.tetsuya.movie.compose.presentation.com.example.domain.ViewState
+import com.kuriotetsuya.domain.ViewState
 import com.kuriotetsuya.data.convertNetworkString
 import com.kuriotetsuya.data.network.safeApiCall
 import com.kuriotetsuya.data.remote.datasource.MovieRemoteDataSourceImpl

@@ -1,4 +1,4 @@
-package com.kurio.tetsuya.movie.compose.presentation.com.example.domain
+package com.kuriotetsuya.domain
 
 sealed class ViewState<out T> {
 

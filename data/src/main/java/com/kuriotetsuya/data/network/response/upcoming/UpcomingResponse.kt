@@ -1,4 +1,4 @@
-package com.kurio.tetsuya.movie.compose.network.response.upcoming
+package com.kurio.tetsuya.movie.compose.core.com.kuriotetsuya.data.network.response.upcoming
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
@@ -22,26 +22,26 @@ data class Dates(
 
 @JsonClass(generateAdapter = true)
 data class Result(
-    val adult: Boolean?,
+    val adult: Boolean? = false,
     @Json(name = "backdrop_path")
-    val backdropPath: String?,
+    val backdropPath: String? = "",
     @Json(name = "genre_ids")
-    val genreIds: List<Int>,
+    val genreIds: List<Int>? = mutableListOf(),
     val id: Int,
     @Json(name = "original_language")
-    val originalLanguage: String,
+    val originalLanguage: String? = "",
     @Json(name = "original_title")
-    val originalTitle: String,
-    val overview: String,
-    val popularity: Double,
+    val originalTitle: String? = "",
+    val overview: String? = "",
+    val popularity: Double? = 0.0,
     @Json(name = "poster_path")
-    val posterPath: String,
+    val posterPath: String? = "",
     @Json(name = "release_date")
-    val releaseDate: String,
-    val title: String,
-    val video: Boolean,
+    val releaseDate: String? = "",
+    val title: String? = "",
+    val video: Boolean? = false,
     @Json(name = "vote_average")
-    val voteAverage: Double,
+    val voteAverage: Double? = 0.0,
     @Json(name = "vote_count")
-    val voteCount: Int
+    val voteCount: Int? = 0
 )

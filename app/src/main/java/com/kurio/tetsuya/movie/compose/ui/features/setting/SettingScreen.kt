@@ -44,6 +44,7 @@ import com.ramcosta.composedestinations.annotation.Destination
 fun SettingScreen(
     settingViewModel: SettingViewModel = hiltViewModel()
 ) {
+
     val settingVM = settingViewModel.settingUIState.collectAsStateWithLifecycle()
     val context = LocalContext.current
 

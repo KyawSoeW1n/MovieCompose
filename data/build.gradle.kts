@@ -78,4 +78,14 @@ dependencies {
     implementation(libs.datastore.preferences)
 
     implementation(libs.timber)
+
+    testImplementation(libs.mockk)
+    testImplementation(libs.mockk.agentJvm)
+    androidTestImplementation(libs.mockk.android)
+
+    testImplementation(libs.kotlinx.coroutines.test)
+    androidTestImplementation(libs.kotlinx.coroutines.test)
+
+    testImplementation(libs.unit.truth)
+    testImplementation(libs.unit.mockito)
 }

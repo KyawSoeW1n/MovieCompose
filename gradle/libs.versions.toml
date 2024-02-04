@@ -93,7 +93,7 @@ composeDestination = "1.9.52"
 #DataStore
 dataStore = "1.0.0"
 #Coil
-coil = "2.4.0"
+coil = "2.5.0"
 
 #Testing
 espresso = "3.5.1"
@@ -112,6 +112,10 @@ appcompact = "1.6.1"
 immutableList = "0.3.6"
 roomCommon = "2.6.1"
 material = "1.11.0"
+
+truth = "1.1.5"
+mockito = "5.3.1"
+
 
 [libraries]
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompact" }
@@ -207,6 +211,8 @@ androidJunit5-runner = { group = "de.mannodermaus.junit5", name = "android-test-
 androidx-room-common = { group = "androidx.room", name = "room-common", version.ref = "roomCommon" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
+unit-truth = { group = "com.google.truth", name = "truth", version.ref = "truth"}
+unit-mockito = { group = "org.mockito", name = "mockito-core", version.ref = "mockito"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "android-plugin" }

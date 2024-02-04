@@ -3,7 +3,7 @@ package com.kuriotetsuya.data.remote.impl.upcoming
 import com.kurio.tetsuya.movie.compose.core.com.kuriotetsuya.data.cache.datasource.movie.MovieCacheDataSourceImpl
 import com.kurio.tetsuya.movie.compose.core.com.kuriotetsuya.data.cache.entity.MovieTableUpdate
 import com.kurio.tetsuya.movie.compose.core.com.kuriotetsuya.data.cache.entity.UpcomingMovie
-import com.kurio.tetsuya.movie.compose.presentation.com.example.domain.ViewState
+import com.kuriotetsuya.domain.ViewState
 import com.kuriotetsuya.data.network.safeApiCall
 import com.kuriotetsuya.data.remote.datasource.MovieRemoteDataSourceImpl
 import com.kuriotetsuya.data.remote.mapper.UpcomingMapper
