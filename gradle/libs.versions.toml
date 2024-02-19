@@ -211,8 +211,8 @@ androidJunit5-runner = { group = "de.mannodermaus.junit5", name = "android-test-
 androidx-room-common = { group = "androidx.room", name = "room-common", version.ref = "roomCommon" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
-unit-truth = { group = "com.google.truth", name = "truth", version.ref = "truth"}
-unit-mockito = { group = "org.mockito", name = "mockito-core", version.ref = "mockito"}
+unit-truth = { group = "com.google.truth", name = "truth", version.ref = "truth" }
+unit-mockito = { group = "org.mockito", name = "mockito-core", version.ref = "mockito" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "android-plugin" }

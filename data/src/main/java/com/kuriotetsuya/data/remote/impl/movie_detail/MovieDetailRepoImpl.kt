@@ -1,8 +1,8 @@
 package com.kuriotetsuya.data.remote.impl.movie_detail
 
-import com.kuriotetsuya.domain.ViewState
 import com.kuriotetsuya.data.network.safeApiCall
 import com.kuriotetsuya.data.remote.datasource.MovieRemoteDataSourceImpl
+import com.kuriotetsuya.domain.ViewState
 import com.kuriotetsuya.domain.model.MovieDetailVO
 import com.kuriotetsuya.domain.moviedetail.MovieDetailRepo
 import kotlinx.coroutines.flow.flow

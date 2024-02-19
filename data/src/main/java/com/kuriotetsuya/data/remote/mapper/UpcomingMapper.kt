@@ -11,7 +11,7 @@ class UpcomingMapper {
     ): UpcomingMovieListVO {
         val list = response.results.map {
             MovieItemVO(
-                id = it.id ?: 0,
+                id = it.id,
                 image = it.posterPath?.convertNetworkString() ?: "",
                 title = it.title ?: "",
                 overview = it.overview ?: ""

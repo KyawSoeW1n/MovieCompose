@@ -5,5 +5,5 @@ import kotlinx.coroutines.flow.Flow
 
 
 interface GetUpcomingMovieRepo {
-    fun getUpcomingList(keyword :String): Flow<List<MovieItemVO>>
+    fun getUpcomingList(keyword: String): Flow<List<MovieItemVO>>
 }

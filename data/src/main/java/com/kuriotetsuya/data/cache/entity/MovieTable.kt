@@ -14,5 +14,5 @@ data class MovieTable(
     val image: String,
     val description: String,
     @ColumnInfo(name = "isFavourite")
-    val isFavourite : Boolean? = false
+    val isFavourite: Boolean? = false
 )

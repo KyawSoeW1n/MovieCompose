@@ -255,4 +255,6 @@ dependencies {
     implementation(libs.retrofit.moshi)
     implementation(libs.moshi)
     ksp(libs.moshiCodeGen)
+
+    testImplementation(libs.unit.truth)
 }

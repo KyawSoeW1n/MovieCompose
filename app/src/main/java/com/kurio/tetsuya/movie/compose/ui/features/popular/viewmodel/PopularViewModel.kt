@@ -1,14 +1,12 @@
 package com.kurio.tetsuya.movie.compose.ui.features.popular.viewmodel
 
 import androidx.lifecycle.viewModelScope
-import com.kurio.tetsuya.movie.compose.core.com.kuriotetsuya.data.showLog
 import com.kurio.tetsuya.movie.compose.presentation.BaseViewModel
 import com.kurio.tetsuya.movie.compose.util.CoroutinesDispatchers
 import com.kuriotetsuya.domain.fetch_popular.FetchPopularMovieUseCase
 import com.kuriotetsuya.domain.get_popular.GetPopularMovieUseCase
 import com.kuriotetsuya.domain.update_favourite_status.UpdateFavouriteStatusUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

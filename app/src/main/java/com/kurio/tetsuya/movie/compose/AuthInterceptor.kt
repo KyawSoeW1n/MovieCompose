@@ -7,6 +7,7 @@ import java.io.IOException
 
 class AuthInterceptor : Interceptor {
     private val token = BuildConfig.API_KEY
+
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
         var request = chain.request()

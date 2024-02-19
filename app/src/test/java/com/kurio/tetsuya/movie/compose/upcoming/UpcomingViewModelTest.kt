@@ -1,5 +1,6 @@
 package com.kurio.tetsuya.movie.compose.upcoming
 
+import app.cash.turbine.test
 import com.kurio.tetsuya.movie.compose.TestDispatcherProvider
 import com.kurio.tetsuya.movie.compose.ui.features.upcoming.viewmodel.UpcomingEvent
 import com.kurio.tetsuya.movie.compose.ui.features.upcoming.viewmodel.UpcomingViewModel
@@ -7,15 +8,13 @@ import com.kurio.tetsuya.movie.compose.util.CoroutinesDispatchers
 import com.kuriotetsuya.domain.fetch_upcoming.FetchUpcomingMovieUseCase
 import com.kuriotetsuya.domain.get_upcoming.GetUpcomingMovieUseCase
 import com.kuriotetsuya.domain.model.MovieItemVO
-import com.kuriotetsuya.domain.theme.AppConfigurationUseCase
 import com.kuriotetsuya.domain.update_favourite_status.UpdateFavouriteStatusUseCase
 import io.mockk.clearAllMocks
+import io.mockk.coEvery
 import io.mockk.coVerify
-import io.mockk.every
 import io.mockk.mockk
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.AfterEach
@@ -61,8 +60,13 @@ class UpcomingViewModelTest {
                 overview = "Overview",
             )
         )
-        upcomingViewModel.getCacheUpcomingList("").collectLatest {
-            assertEquals(movieList, it)
+
+        coEvery { getUpcomingMovieUseCase.getUpcomingList(keyword = "") } returns flow {
+            emit(movieList)
+        }
+        upcomingViewModel.getCacheUpcomingList("").test {
+            assertEquals(movieList, awaitItem())
+            cancelAndIgnoreRemainingEvents()
         }
     }
 

@@ -43,10 +43,12 @@ suspend fun <T> safeApiCall(
                         HttpURLConnection.HTTP_UNAUTHORIZED, HttpURLConnection.HTTP_FORBIDDEN -> ViewState.Unauthorized(
                             message
                         )
+
                         HttpURLConnection.HTTP_NOT_FOUND -> ViewState.ResourceNotFound
                         else -> ViewState.NetworkError
                     }
                 }
+
                 is HttpException -> {
                     when (throwable.code()) {
                         HttpURLConnection.HTTP_BAD_REQUEST -> ViewState.Error("Bad Request")
@@ -55,6 +57,7 @@ suspend fun <T> safeApiCall(
                         else -> ViewState.NetworkError
                     }
                 }
+
                 is IllegalArgumentException -> ViewState.Error("Format Exception")
                 is ProtocolException -> ViewState.ServerError
                 is JsonSyntaxException -> ViewState.Error("Format Exception")
