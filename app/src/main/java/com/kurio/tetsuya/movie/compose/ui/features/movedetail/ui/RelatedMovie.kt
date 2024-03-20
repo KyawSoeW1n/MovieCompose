@@ -30,7 +30,8 @@ fun RelateMovie(
         modifier = Modifier
             .clickable {
                 clickItem(item)
-            }.padding(4.dp)
+            }
+            .padding(4.dp)
     ) {
         val (image, title) = createRefs()
         AppImageView(

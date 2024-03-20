@@ -5,9 +5,9 @@ import com.kurio.tetsuya.movie.compose.TestDispatcherProvider
 import com.kurio.tetsuya.movie.compose.core.UseCaseState
 import com.kurio.tetsuya.movie.compose.network.response.movie_detail.Genre
 import com.kurio.tetsuya.movie.compose.network.response.movie_detail.MovieDetailResponse
-import com.kurio.tetsuya.movie.compose.presentation.com.example.domain.ViewState
 import com.kurio.tetsuya.movie.compose.ui.features.movedetail.viewmodel.MovieDetailViewModel
 import com.kurio.tetsuya.movie.compose.util.CoroutinesDispatchers
+import com.kuriotetsuya.domain.ViewState
 import com.kuriotetsuya.domain.model.MovieDetailVO
 import com.kuriotetsuya.domain.model.RelatedMovieVO
 import com.kuriotetsuya.domain.moviedetail.GetCacheMovieDetailUseCase
@@ -58,7 +58,6 @@ class MovieDetailViewModelTest {
 
     @Test
     fun get_movie_detail_by_id_success() = runTest {
-
         val response = UseCaseState.Success(
             MovieDetailResponse(
                 title = "Movie Detail Test",
@@ -72,6 +71,7 @@ class MovieDetailViewModelTest {
                 voteAverage = 7.0,
             )
         )
+
         val decimalFormat = DecimalFormat("#.00")
         val movieDetailVO =
             ViewState.Success(
@@ -161,7 +161,6 @@ class MovieDetailViewModelTest {
             assertEquals(movieDetailVO, awaitItem())
             cancelAndIgnoreRemainingEvents()
         }
-
     }
 
     @Test
@@ -182,7 +181,6 @@ class MovieDetailViewModelTest {
             assertEquals(movieDetailVO, awaitItem())
             cancelAndIgnoreRemainingEvents()
         }
-
     }
 
     @AfterEach

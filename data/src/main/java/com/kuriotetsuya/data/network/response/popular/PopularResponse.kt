@@ -12,6 +12,7 @@ data class PopularResponse(
     @Json(name = "total_results")
     val totalResults: Int
 )
+
 @JsonClass(generateAdapter = true)
 data class Result(
     val adult: Boolean?,

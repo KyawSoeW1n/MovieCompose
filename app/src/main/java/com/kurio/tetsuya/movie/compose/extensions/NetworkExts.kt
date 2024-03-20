@@ -18,6 +18,7 @@ fun Context.isOnline(): Boolean {
             activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
                     activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) ||
                     activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+
             else -> false
         }
     } else {

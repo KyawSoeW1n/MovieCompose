@@ -1,6 +1,6 @@
 package com.kuriotetsuya.data.remote.datasource
 
-import com.kurio.tetsuya.movie.compose.network.ApiService
+import com.kurio.tetsuya.movie.compose.core.com.kuriotetsuya.data.network.ApiService
 import com.kuriotetsuya.data.network.executeOrThrow
 import javax.inject.Inject
 

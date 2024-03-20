@@ -9,11 +9,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.kurio.tetsuya.movie.compose.presentation.com.example.domain.ViewState
 import com.kurio.tetsuya.movie.compose.ui.common.PartialLoadingView
 import com.kurio.tetsuya.movie.compose.ui.common.PrimaryTextView
-import com.kurio.tetsuya.movie.compose.ui.features.destinations.MovieDetailScreenDestination
 import com.kurio.tetsuya.movie.compose.ui.features.movedetail.viewmodel.MovieDetailViewModel
+import com.kuriotetsuya.domain.ViewState
 import com.kuriotetsuya.domain.model.RelatedMovieVO
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 

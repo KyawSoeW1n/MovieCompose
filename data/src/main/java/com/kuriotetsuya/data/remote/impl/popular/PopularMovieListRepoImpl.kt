@@ -3,10 +3,10 @@ package com.kuriotetsuya.data.remote.impl.popular
 import com.kurio.tetsuya.movie.compose.core.com.kuriotetsuya.data.cache.datasource.movie.MovieCacheDataSourceImpl
 import com.kurio.tetsuya.movie.compose.core.com.kuriotetsuya.data.cache.entity.MovieTableUpdate
 import com.kurio.tetsuya.movie.compose.core.com.kuriotetsuya.data.cache.entity.PopularMovie
-import com.kurio.tetsuya.movie.compose.presentation.com.example.domain.ViewState
 import com.kuriotetsuya.data.network.safeApiCall
 import com.kuriotetsuya.data.remote.datasource.MovieRemoteDataSourceImpl
 import com.kuriotetsuya.data.remote.mapper.PopularMapper
+import com.kuriotetsuya.domain.ViewState
 import com.kuriotetsuya.domain.fetch_popular.FetchPopularMovieRepo
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject

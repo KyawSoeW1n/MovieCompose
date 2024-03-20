@@ -4,7 +4,7 @@ import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.gson.JsonSyntaxException
 import com.kurio.tetsuya.movie.compose.network.NetworkException
-import com.kurio.tetsuya.movie.compose.presentation.com.example.domain.ViewState
+import com.kuriotetsuya.domain.ViewState
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -43,10 +43,12 @@ suspend fun <T> safeApiCall(
                         HttpURLConnection.HTTP_UNAUTHORIZED, HttpURLConnection.HTTP_FORBIDDEN -> ViewState.Unauthorized(
                             message
                         )
+
                         HttpURLConnection.HTTP_NOT_FOUND -> ViewState.ResourceNotFound
                         else -> ViewState.NetworkError
                     }
                 }
+
                 is HttpException -> {
                     when (throwable.code()) {
                         HttpURLConnection.HTTP_BAD_REQUEST -> ViewState.Error("Bad Request")
@@ -55,6 +57,7 @@ suspend fun <T> safeApiCall(
                         else -> ViewState.NetworkError
                     }
                 }
+
                 is IllegalArgumentException -> ViewState.Error("Format Exception")
                 is ProtocolException -> ViewState.ServerError
                 is JsonSyntaxException -> ViewState.Error("Format Exception")
@@ -68,6 +71,7 @@ suspend fun <T> safeApiCall(
 
 fun <T> Call<T>.executeOrThrow(): T {
     val response = this.execute()
+    println("------ ${response.code()}")
     if (response.isSuccessful.not()) {
         if (response.code() == 401) {
             val data = response.errorBody()?.string()

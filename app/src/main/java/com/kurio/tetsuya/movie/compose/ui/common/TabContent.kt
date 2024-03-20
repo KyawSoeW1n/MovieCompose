@@ -13,7 +13,7 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun TabsContent(pagerState: PagerState, navigator: DestinationsNavigator) {
-    HorizontalPager(state = pagerState,modifier = Modifier.testTag("tab_bar")) { page ->
+    HorizontalPager(state = pagerState, modifier = Modifier.testTag("tab_bar")) { page ->
         when (page) {
             0 -> UpcomingScreen(navigator = navigator)
             1 -> PopularScreen(navigator = navigator)

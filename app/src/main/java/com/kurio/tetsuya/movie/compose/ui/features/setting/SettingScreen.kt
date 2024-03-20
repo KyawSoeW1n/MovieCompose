@@ -1,6 +1,7 @@
 package com.kurio.tetsuya.movie.compose.ui.features.setting
 
 import android.os.Build
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -27,6 +28,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.os.LocaleListCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.kurio.tetsuya.movie.compose.R
@@ -44,6 +46,7 @@ import com.ramcosta.composedestinations.annotation.Destination
 fun SettingScreen(
     settingViewModel: SettingViewModel = hiltViewModel()
 ) {
+
     val settingVM = settingViewModel.settingUIState.collectAsStateWithLifecycle()
     val context = LocalContext.current
 
@@ -162,28 +165,34 @@ fun SettingScreen(
             label = "English",
             selected = settingVM.value.languateType == LanguageType.en,
             onClick = {
-                LocaleHelper.changeLocale(context = context,
-                    LanguageType.en.name,
-                    onClick = {
-                        settingViewModel.changeLocale(languageType = LanguageType.en)
-                    })
+                changeLanguage(LanguageType.en.name)
+                settingViewModel.changeLocale(languageType = LanguageType.en)
+//                LocaleHelper.changeLocale(context = context,
+//                    LanguageType.en.name,
+//                    onClick = {
+//                        settingViewModel.changeLocale(languageType = LanguageType.en)
+//                    })
             }
         )
         ThemeRadioButton(
             label = "Burmese",
             selected = settingVM.value.languateType == LanguageType.my,
             onClick = {
-                LocaleHelper.changeLocale(context = context,
-                    LanguageType.my.name,
-                    onClick = {
-                        settingViewModel.changeLocale(languageType = LanguageType.my)
-                    })
+                changeLanguage(LanguageType.my.name)
+                settingViewModel.changeLocale(languageType = LanguageType.my)
             }
         )
     }
 }
 
 
+private fun changeLanguage(value: String) {
+    AppCompatDelegate.setApplicationLocales(
+        LocaleListCompat.forLanguageTags(
+            value
+        )
+    )
+}
 @Preview(name = "SettingPreview")
 @Composable
 fun PreviewSetting() {
