@@ -82,4 +82,4 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: movie_debug.apk
-          path: path/to/artifact/movie_debug.apk
+          path: app/build/outputs/apk/debug/app-dev-debug.apk
