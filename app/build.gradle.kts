@@ -54,6 +54,24 @@ android {
         }
     }
 
+    signingConfigs {
+        create("release") {
+            val tmpFilePath = System.getProperty("user.home") + "/work/_temp/keystore/"
+            val allFilesFromDir = File(tmpFilePath).listFiles()
+
+            if (allFilesFromDir != null) {
+                val keystoreFile = allFilesFromDir.firstOrNull()
+                keystoreFile?.renameTo(File("keystore/your_keystore.jks"))
+            }
+
+            storeFile = file("keystore/your_keystore.jks")
+            storePassword = System.getenv("SIGNING_STORE_PASSWORD")
+            keyAlias = System.getenv("SIGNING_KEY_ALIAS")
+            keyPassword = System.getenv("SIGNING_KEY_PASSWORD")
+        }
+    }
+
+
     productFlavors {
         flavorDimensions.add("appModule")
 
@@ -76,12 +94,12 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_18
+        targetCompatibility = JavaVersion.VERSION_18
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.toString()
+        jvmTarget = JavaVersion.VERSION_18.toString()
     }
 
     buildFeatures {
