@@ -22,13 +22,33 @@ jobs:
         uses: actions/setup-java@v4.0.0
         with:
           distribution: 'temurin'
-          java-version: '17'
+          java-version: '18'
 
       - name: Make gradlew executable
         run: chmod +x ./gradlew
-      - name: build prod
+      - name: build prod aab
         run: ./gradlew app:bundleRelease
         env:
           SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
           SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
           SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
+
+      - name: Upload Bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: movie_release.aab
+          path: app/build/outputs/bundle/prodRelease/app-prod-release.aab
+
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+      - name: build prod APK
+        run: ./gradlew app:bundleRelease
+        env:
+          SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
+          SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
+          SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: movie_release.apk
+          path: app/build/outputs/apk/prod/release/app-prod-release-unsigned.apk
